@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DDApp Store — Aplicații mobile românești</title>
+  <meta name="description" content="Aplicații mobile de calitate, dezvoltate în România. NutriRO — tracker nutrițional inteligent."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg:        #060810;
+      --card:      #090d1a;
+      --green:     #2ecc71;
+      --green-dim: rgba(46,204,113,0.12);
+      --green-mid: rgba(46,204,113,0.35);
+      --white:     #ffffff;
+      --gray:      #8899aa;
+      --gray2:     #556677;
+      --border:    rgba(46,204,113,0.18);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Syne', sans-serif;
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 18px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(6,8,16,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--green);
+      letter-spacing: 2px;
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--white); }
+
+    nav a.nav-link {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: color 0.2s;
+    }
+
+    nav a.nav-link:hover { color: var(--green); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 120px 24px 80px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    /* Glow radial fundal */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 20%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(46,204,113,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content { position: relative; z-index: 1; max-width: 780px; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--green-dim);
+      border: 1px solid var(--green-mid);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-family: 'Space Mono', monospace;
+      color: var(--green);
+      letter-spacing: 2px;
+      margin-bottom: 32px;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
+    }
+
+    h1 {
+      font-size: clamp(48px, 8vw, 88px);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -2px;
+      margin-bottom: 24px;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: var(--green);
+    }
+
+    .hero-sub {
+      font-size: 18px;
+      color: var(--gray);
+      line-height: 1.7;
+      max-width: 520px;
+      margin: 0 auto 48px;
+      font-weight: 400;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: transparent;
+      border: 1.5px solid var(--green);
+      color: var(--green);
+      padding: 14px 32px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: 'Space Mono', monospace;
+      letter-spacing: 1px;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .hero-cta:hover {
+      background: var(--green);
+      color: #000;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── STATS BAR ── */
+    .stats {
+      display: flex; justify-content: center; gap: 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--card);
+      position: relative; z-index: 1;
+    }
+
+    .stat {
+      flex: 1; max-width: 240px;
+      padding: 32px 24px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--green);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--gray);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* ── APPS SECTION ── */
+    .section {
+      padding: 100px 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative; z-index: 1;
+    }
+
+    .section-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--green);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 64px;
+    }
+
+    /* ── APP CARD ── */
+    .app-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 40px;
+      transition: border-color 0.3s;
+    }
+
+    .app-card:hover { border-color: var(--green-mid); }
+
+    .app-info {
+      padding: 56px 48px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+
+    .app-icon {
+      font-size: 56px;
+      margin-bottom: 24px;
+      display: block;
+    }
+
+    .app-name {
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+    }
+
+    .app-tagline {
+      font-size: 14px;
+      color: var(--green);
+      font-family: 'Space Mono', monospace;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+
+    .app-desc {
+      font-size: 16px;
+      color: var(--gray);
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    .app-features {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-bottom: 36px;
+    }
+
+    .feature-chip {
+      background: var(--green-dim);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 5px 14px;
+      font-size: 12px;
+      color: var(--green);
+      font-weight: 600;
+    }
+
+    .app-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--green);
+      color: #000;
+      padding: 14px 28px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: 'Space Mono', monospace;
+      text-decoration: none;
+      width: fit-content;
+      transition: opacity 0.2s;
+    }
+
+    .app-btn:hover { opacity: 0.85; }
+
+    .app-btn.coming {
+      background: transparent;
+      border: 1.5px solid var(--gray2);
+      color: var(--gray);
+      cursor: default;
+    }
+
+    .app-visual {
+      background: linear-gradient(135deg, #090d1a 0%, #0a1a10 100%);
+      display: flex; align-items: center; justify-content: center;
+      padding: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .app-visual::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at 60% 40%, rgba(46,204,113,0.06) 0%, transparent 70%);
+    }
+
+    .phone-mockup {
+      width: 200px;
+      background: #0d1a0d;
+      border-radius: 32px;
+      border: 2px solid rgba(46,204,113,0.3);
+      padding: 16px;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 40px rgba(46,204,113,0.05);
+    }
+
+    .phone-screen {
+      background: #080a0f;
+      border-radius: 20px;
+      padding: 16px 12px;
+      min-height: 360px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+
+    .mock-circle {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      border: 3px solid rgba(46,204,113,0.4);
+      margin: 0 auto 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px;
+    }
+
+    .mock-bar {
+      height: 8px; border-radius: 4px;
+      background: rgba(46,204,113,0.15);
+      margin-bottom: 4px;
+    }
+
+    .mock-bar.green { background: rgba(46,204,113,0.5); }
+    .mock-bar.w60 { width: 60%; }
+    .mock-bar.w80 { width: 80%; }
+    .mock-bar.w45 { width: 45%; }
+
+    .mock-text {
+      height: 10px; border-radius: 3px;
+      background: rgba(136,153,170,0.2);
+      margin-bottom: 6px;
+    }
+
+    .mock-text.w70 { width: 70%; }
+    .mock-text.w50 { width: 50%; }
+    .mock-text.w85 { width: 85%; }
+
+    .mock-card {
+      background: #09111f;
+      border-radius: 10px;
+      padding: 10px;
+      border: 1px solid rgba(46,204,113,0.15);
+      margin-top: 4px;
+    }
+
+    .mock-tabs {
+      display: flex; gap: 4px; margin-top: auto;
+    }
+
+    .mock-tab {
+      flex: 1; height: 28px; border-radius: 6px;
+      background: rgba(136,153,170,0.1);
+    }
+
+    .mock-tab.active { background: rgba(46,204,113,0.2); }
+
+    /* ── PRIVACY ── */
+    .privacy-section {
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 80px 24px;
+      position: relative; z-index: 1;
+    }
+
+    .privacy-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .privacy-inner h2 {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .privacy-inner .section-tag { margin-bottom: 12px; }
+
+    .privacy-body {
+      margin-top: 40px;
+      display: flex; flex-direction: column; gap: 28px;
+    }
+
+    .privacy-item h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 8px;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .privacy-item p {
+      font-size: 15px;
+      color: var(--gray);
+      line-height: 1.7;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 48px 24px;
+      text-align: center;
+      position: relative; z-index: 1;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 20px;
+      color: var(--green);
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+
+    footer p {
+      font-size: 13px;
+      color: var(--gray2);
+      line-height: 1.8;
+    }
+
+    footer a {
+      color: var(--gray);
+      text-decoration: none;
+    }
+
+    footer a:hover { color: var(--green); }
+
+    .footer-flag { font-size: 18px; vertical-align: middle; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .app-card { grid-template-columns: 1fr; }
+      .app-visual { display: none; }
+      .app-info { padding: 36px 28px; }
+      .stats { flex-wrap: wrap; }
+      .stat { flex: 1 1 50%; border-right: none; border-bottom: 1px solid var(--border); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">DD<span>App</span>.store</a>
+    <a href="#apps" class="nav-link">APLICAȚII</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">DEZVOLTAT ÎN ROMÂNIA 🇷🇴</div>
+      <h1>Aplicații mobile<br/><em>cu suflet</em></h1>
+      <p class="hero-sub">Unelte simple și eficiente pentru viața de zi cu zi. Fiecare aplicație construită cu atenție la detalii și respect față de utilizator.</p>
+      <a href="#apps" class="hero-cta">↓ VEZI APLICAȚIILE</a>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat">
+      <span class="stat-num">3.200+</span>
+      <span class="stat-label">Ingrediente românești</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">1.150+</span>
+      <span class="stat-label">Rețete în baza de date</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">100%</span>
+      <span class="stat-label">Gratuit la lansare</span>
+    </div>
+  </div>
+
+  <!-- APPS -->
+  <section class="section" id="apps">
+    <p class="section-tag">// APLICAȚII</p>
+    <h2 class="section-title">Ce am construit</h2>
+
+    <!-- NutriRO -->
+    <div class="app-card">
+      <div class="app-info">
+        <span class="app-icon">🥗</span>
+        <h2 class="app-name">NutriRO</h2>
+        <p class="app-tagline">// TRACKER NUTRIȚIONAL INTELIGENT</p>
+        <p class="app-desc">Monitorizează alimentația zilnică cu o bază de date de ingrediente românești. Generează meniuri săptămânale, urmărește progresul și primești analiză AI personalizată.</p>
+        <div class="app-features">
+          <span class="feature-chip">🍽 Jurnal alimentar</span>
+          <span class="feature-chip">🤖 AI Asistent</span>
+          <span class="feature-chip">📊 Rapoarte PDF</span>
+          <span class="feature-chip">⏱ IF Tracker</span>
+          <span class="feature-chip">🏃 Activitate fizică</span>
+          <span class="feature-chip">🏆 Medalii & XP</span>
+        </div>
+        <a href="#" class="app-btn coming">⏳ CURÂND PE GOOGLE PLAY</a>
+      </div>
+      <div class="app-visual">
+        <div class="phone-mockup">
+          <div class="phone-screen">
+            <div class="mock-circle">🥗</div>
+            <div class="mock-text w70"></div>
+            <div class="mock-text w50"></div>
+            <div class="mock-card">
+              <div class="mock-bar green w80"></div>
+              <div style="height:6px"></div>
+              <div class="mock-bar w60"></div>
+              <div style="height:6px"></div>
+              <div class="mock-bar w45"></div>
+            </div>
+            <div class="mock-card">
+              <div class="mock-text w85"></div>
+              <div style="height:4px"></div>
+              <div class="mock-text w50"></div>
+            </div>
+            <div class="mock-tabs">
+              <div class="mock-tab active"></div>
+              <div class="mock-tab"></div>
+              <div class="mock-tab"></div>
+              <div class="mock-tab"></div>
+              <div class="mock-tab"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRIVACY POLICY -->
+  <section class="privacy-section" id="privacy">
+    <div class="privacy-inner">
+      <p class="section-tag">// LEGAL</p>
+      <h2>Politică de Confidențialitate</h2>
+      <p style="color:var(--gray);font-size:14px;margin-top:8px">Ultima actualizare: Iunie 2026 · Aplicabilă pentru NutriRO</p>
+
+      <div class="privacy-body">
+        <div class="privacy-item">
+          <h3>01. DATE COLECTATE</h3>
+          <p>NutriRO colectează adresa de email la înregistrare, datele nutriționale introduse de utilizator (alimente, calorii, greutate, apă), și date de profil (vârstă, sex, înălțime, greutate, obiectiv caloric). Nu colectăm date de localizare, contacte sau alte date sensibile ale dispozitivului.</p>
+        </div>
+
+        <div class="privacy-item">
+          <h3>02. UTILIZAREA DATELOR</h3>
+          <p>Datele sunt folosite exclusiv pentru furnizarea funcționalităților aplicației: calculul necesarului caloric, generarea meniurilor, afișarea progresului și generarea rapoartelor nutriționale. Nu vindem, nu închirim și nu partajăm datele cu terțe părți în scop comercial.</p>
+        </div>
+
+        <div class="privacy-item">
+          <h3>03. STOCAREA DATELOR</h3>
+          <p>Datele sunt stocate în Firebase (Google Cloud) pe servere situate în Europa (region: eur3). Aplicăm măsuri tehnice de securitate incluzând autentificare Firebase, reguli Firestore stricte și izolarea datelor per utilizator.</p>
+        </div>
+
+        <div class="privacy-item">
+          <h3>04. INTELIGENȚĂ ARTIFICIALĂ</h3>
+          <p>Funcționalitatea AI Asistent procesează date nutriționale agregate (medii, procente) prin API-ul Anthropic Claude pentru generarea de recomandări personalizate. Nu sunt transmise date de identificare personală (nume, email) către serviciul AI. Răspunsurile AI nu constituie sfat medical.</p>
+        </div>
+
+        <div class="privacy-item">
+          <h3>05. DREPTURILE UTILIZATORULUI</h3>
+          <p>Ai dreptul de acces, rectificare și ștergere a datelor tale. Pentru orice solicitare, contactează-ne la nutriro2026@gmail.com. Ștergerea contului implică ștergerea ireversibilă a tuturor datelor asociate în termen de 30 de zile.</p>
+        </div>
+
+        <div class="privacy-item">
+          <h3>06. CONTACT</h3>
+          <p>Pentru întrebări legate de confidențialitate: <a href="mailto:nutriro2026@gmail.com" style="color:var(--green)">nutriro2026@gmail.com</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">DDApp.store</div>
+    <p>Dezvoltat cu <span class="footer-flag">❤️</span> în România <span class="footer-flag">🇷🇴</span></p>
+    <p style="margin-top:12px">
+      <a href="#privacy">Politică de confidențialitate</a>
+      &nbsp;·&nbsp;
+      <a href="mailto:nutriro2026@gmail.com">Contact</a>
+    </p>
+    <p style="margin-top:16px;font-size:12px">© 2026 DDApp.store · Toate drepturile rezervate</p>
+  </footer>
+
+</body>
+</html>
