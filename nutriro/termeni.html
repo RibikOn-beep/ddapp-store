@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Termeni și Condiții — NutriRO</title>
+  <meta name="description" content="Termenii și Condițiile de utilizare ale aplicației NutriRO."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="icon" type="image/png" href="../favicon.png"/>
+  <style>
+    :root {
+      --bg:         #060810;
+      --bg2:        #080c14;
+      --card:       #090d1a;
+      --card2:      #0c1220;
+      --green:      #2ecc71;
+      --green-dim:  rgba(46,204,113,0.10);
+      --green-mid:  rgba(46,204,113,0.25);
+      --green-glow: rgba(46,204,113,0.15);
+      --gold:       #FFD700;
+      --gold-dim:   rgba(255,215,0,0.12);
+      --white:      #ffffff;
+      --gray:       #8899aa;
+      --gray2:      #445566;
+      --border:     rgba(46,204,113,0.15);
+      --radius:     16px;
+      --radius-lg:  24px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0; opacity: 0.5;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(6,8,16,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem;
+      color: var(--white); text-decoration: none;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .nav-logo img { width: 32px; height: 32px; border-radius: 8px; }
+    .nav-logo span { color: var(--green); }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links a { color: var(--gray); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--green); color: #000; font-weight: 700;
+      font-size: 0.85rem; padding: 0.5rem 1.25rem; border-radius: 50px;
+      text-decoration: none; transition: all 0.2s; white-space: nowrap;
+    }
+    .nav-cta:hover { background: #27ae60; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(46,204,113,0.35); }
+
+    /* MAIN */
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 100px 5% 80px;
+      position: relative; z-index: 1;
+    }
+
+    /* HEADER */
+    .page-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .page-label {
+      display: inline-block;
+      background: var(--green-dim);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 6px 18px;
+      font-size: 0.8rem;
+      color: var(--green);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 1rem;
+    }
+    .page-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+    }
+    .page-meta {
+      color: var(--gray2);
+      font-size: 0.85rem;
+    }
+
+    /* DISCLAIMER BOX */
+    .disclaimer-box {
+      background: rgba(231,76,60,0.06);
+      border: 1px solid rgba(231,76,60,0.2);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2.5rem;
+      color: #e74c3c;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    /* ACCORDION */
+    .accordion { display: flex; flex-direction: column; gap: 0.75rem; }
+
+    .acc-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .acc-item:hover { border-color: rgba(46,204,113,0.3); }
+    .acc-item.open { border-color: rgba(46,204,113,0.4); }
+
+    .acc-header {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 1.1rem 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      text-align: left;
+      gap: 1rem;
+    }
+    .acc-title {
+      color: #ccd;
+      font-size: 0.95rem;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+    }
+    .acc-icon {
+      color: var(--green);
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      transition: transform 0.3s;
+    }
+    .acc-item.open .acc-icon { transform: rotate(90deg); }
+
+    .acc-body {
+      display: none;
+      padding: 0 1.4rem 1.4rem;
+      color: var(--gray);
+      font-size: 0.88rem;
+      line-height: 1.75;
+      white-space: pre-line;
+    }
+    .acc-item.open .acc-body { display: block; }
+
+    /* CONTACT BOX */
+    .contact-box {
+      background: var(--green-dim);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-top: 2.5rem;
+      text-align: center;
+    }
+    .contact-box p { color: var(--gray); font-size: 0.88rem; margin-bottom: 0.5rem; }
+    .contact-box a { color: var(--green); text-decoration: none; font-weight: 600; }
+    .contact-box a:hover { text-decoration: underline; }
+
+    /* FOOTER */
+    footer {
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      padding: 2rem 5%;
+      text-align: center;
+      position: relative; z-index: 1;
+    }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-links { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1rem; }
+    .footer-links a { color: var(--gray); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--green); }
+    .footer-copy { color: var(--gray2); font-size: 0.8rem; }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      main { padding: 90px 4% 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="../favicon.png" alt="NutriRO logo"/>
+    Nutri<span>RO</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html#features">Funcții</a>
+    <a href="index.html#premium">Premium</a>
+    <a href="confidentialitate.html">Confidențialitate</a>
+  </div>
+  <a href="index.html#download" class="nav-cta">📲 Descarcă</a>
+</nav>
+
+<main>
+
+  <div class="page-header">
+    <div class="page-label">📋 Legal</div>
+    <h1 class="page-title">Termeni și Condiții</h1>
+    <p class="page-meta">Versiune 1.0 · În vigoare din Iulie 2026 · <a href="mailto:nutriro2026@gmail.com" style="color:var(--green);text-decoration:none;">nutriro2026@gmail.com</a></p>
+  </div>
+
+  <div class="disclaimer-box">
+    ⚠️ <strong>NutriRO NU oferă sfaturi medicale.</strong> Informațiile au caracter exclusiv informativ și educațional. Consultați un specialist înainte de a lua decizii de sănătate.
+  </div>
+
+  <div class="accordion">
+
+    <div class="acc-item">
+      <button class="acc-header" onclick="toggle(this)">
+        <span class="acc-title">1. Acceptarea termenilor</span>
+        <span class="acc-icon">›</span>
+      </button>
+      <div class="acc-body">Prin descărcarea, instalarea sau utilizarea aplicației mobile NutriRO, confirmi că ai vârsta de minimum 18 ani, ai citit și acceptat în totalitate acești Termeni și Condiții și Politica de Confidențialitate NutriRO.
+
+Dacă nu ești de acord cu acești termeni, te rugăm să dezinstalezi aplicația și să nu o utilizezi.</div>
+    </div>
+
+    <div class="acc-item">
+      <button class="acc-header" onclick="toggle(this)">
+        <span class="acc-title">2. ⚠️ Disclaimer medical — IMPORTANT</span>
+        <span class="acc-icon">›</span>
+      </button>
+      <div class="acc-body">NutriRO NU este un dispozitiv medical și NU oferă sfaturi medicale.
+
+Informațiile, calculele și recomandările furnizate de NutriRO au exclusiv caracter informativ și educațional. Acestea nu înlocuiesc consultul medical, diagnosticul, tratamentul profesionist, sfatul unui nutriționist sau al unui antrenor certificat.
+
+Calculele calorice sunt estimări bazate pe formule general acceptate (Mifflin-St Jeor, TDEE). Valorile reale pot varia semnificativ în funcție de metabolismul individual, starea de sănătate și medicamentele administrate.
+
+Funcțiile AI pot conține erori. Nu lua decizii medicale bazate exclusiv pe recomandările AI.
+
+Dacă suferi de tulburări de alimentație, diabet, boli cardiovasculare sau alte afecțiuni cronice, consultă obligatoriu un medic înainte de a utiliza aplicația și nu modifica tratamentul sau dieta fără avizul medicului tău.</div>
+    </div>
+
+    <div class="acc-item">
+      <button class="acc-header" onclick="toggle(this)">
+        <span class="acc-title">3. Contul de utilizator</span>
+        <span class="acc-icon">›</span>
+      </button>
+      <div class="acc-body">• Trebuie să furnizezi o adresă de email validă și date reale
+• Trebuie să ai minimum 18 ani
+• Ești responsabil pentru securitatea credențialelor tale
+• Nu poți crea conturi multiple pentru același utilizator
+• Nu poți crea conturi în numele altor persoane fără acordul acestora
+• Contul poate fi suspendat dacă încalci acești termeni sau utilizezi aplicația în scopuri frauduloase
+
+Notifică-ne imediat la nutriro2026@gmail.com dacă suspectezi acces neautorizat al contului tău.</div>
+    </div>
+
+    <div class="acc-item">
+      <button class="acc-header" onclick="toggle(this)">
+        <span class="acc-title">4. Plan Gratuit și Premium</span>
+        <span class="acc-icon">›</span>
+      </button>
+      <div class="acc-body">Plan Gratuit: jurnal alimentar, bază de date alimente, scanare cod de bare, medalii, heatmap activitate, 2 generări meniu/lună, 1 raport PDF/lună/tip.
+
+Plan Premium (29 lei/lună prin Google Play): Antrenor AI personal, Recunoaștere AI alimente (5 analize/lună), Rapoarte PDF nelimitate, Generator meniu nelimitat, IF Tracker.
+
+Ne rezervăm dreptul de a modifica prețul abonamentului Premium cu notificarea utilizatorilor cu cel puțin 30 de zile în avans.
+
+Rambursările pentru abonamentele Premium achiziționate prin Google Play sunt guvernate de Politica de rambursare Google Play. Operatorul nu procesează direct rambursări.</div>
+    </div>
+
+    <div class="acc-item">
+      <button class="acc-header" onclick="toggle(this)">
+        <span class="acc-title">5. Proprietate intelectuală</span>
+        <span class="acc-icon">›</span>
+      </button>
+      <div class="acc-body">NutriRO, inclusiv codul sursă, designul, interfața, logo-ul, baza de date de alimente și rețete, textele și toate materialele asociate sunt proprietatea exclusivă a D.D. și sunt protejate de legislația privind drepturile de autor.
+
+Îți acordăm o licență limitată, neexclusivă, netransferabilă și revocabilă de a utiliza aplicația pe dispozitivul tău personal, exclusiv în scopuri personale și necomerciale.
+
+Nu ai dreptul să copiezi, modifici sau distribui codul sau conținutul aplicației, să realizezi inginerie inversă, să utilizezi aplicația în scopuri comerciale fără acordul scris al Operatorului sau să creezi lucrări derivate.</div>
+    </div>
+
+    <div class="acc-item">
+      <button class="acc-header" onclick="toggle(this)">
+        <span class="acc-title">6. Limitarea răspunderii</span>
+        <span class="acc-icon">›</span>
+      </button>
+      <div class="acc-body">Aplicația NutriRO este furnizată cu bună-credință. Operatorul nu garantează acuratețea absolută a calculelor nutriționale, disponibilitatea neîntreruptă a serviciului sau absența erorilor tehnice.
+
+În măsura permisă de legislația română și europeană, Operatorul nu este răspunzător pentru:
+• Decizii de sănătate luate exclusiv pe baza informațiilor din aplicație, fără consultarea unui specialist
+• Erori sau omisiuni ale funcțiilor AI, care au caracter estimativ
+• Pierderi de date cauzate de factori externi (defecțiuni server, atacuri cibernetice)
+• Întreruperi ale serviciului cauzate de terți (Firebase, Google Cloud, Google Play)
+• Daune indirecte sau consecințe neprevăzute rezultate din utilizarea aplicației
+
+ACEASTĂ LIMITARE NU SE APLICĂ pentru daune cauzate cu intenție sau din culpă gravă (Art. 1355 Cod Civil), vătămare corporală sau drepturi minime ale consumatorului garantate de lege.
+
+Utilizezi aplicația pe propria răspundere.</div>
+    </div>
+
+    <div class="acc-item">
+      <button class="acc-header" onclick="toggle(this)">
+        <span class="acc-title">7. Servicii terțe</span>
+        <span class="acc-icon">›</span>
+      </button>
+      <div class="acc-body">Aplicația integrează servicii terțe (Firebase, Anthropic, Google Play, Open Food Facts, Resend, Health Connect) ale căror termeni proprii se aplică independent.
+
+Operatorul nu este responsabil pentru disponibilitatea, acuratețea sau politicile acestor servicii terțe.</div>
+    </div>
+
+    <div class="acc-item">
+      <button class="acc-header" onclick="toggle(this)">
+        <span class="acc-title">8. Modificări și reziliere</span>
+        <span class="acc-icon">›</span>
+      </button>
+      <div class="acc-body">Ne rezervăm dreptul de a modifica aplicația sau acești termeni oricând, cu notificare de 14 zile pentru modificări semnificative.
+
+Poți șterge contul oricând din Setări → Șterge cont. Toate datele sunt șterse ireversibil în termen de 30 de zile, conform Art. 17 GDPR.
+
+Versiune: 1.0 · În vigoare din: Iulie 2026</div>
+    </div>
+
+    <div class="acc-item">
+      <button class="acc-header" onclick="toggle(this)">
+        <span class="acc-title">9. Legea aplicabilă</span>
+        <span class="acc-icon">›</span>
+      </button>
+      <div class="acc-body">Acești termeni sunt guvernați de legislația română, inclusiv Codul Civil, Legea nr. 365/2002 privind comerțul electronic și Regulamentul (UE) 2016/679 (GDPR).
+
+Orice dispută va fi soluționată pe cale amiabilă sau, în lipsă, prin instanțele competente din România.</div>
+    </div>
+
+  </div>
+
+  <div class="contact-box">
+    <p>Întrebări despre acești termeni?</p>
+    <a href="mailto:nutriro2026@gmail.com">nutriro2026@gmail.com</a>
+    <p style="margin-top:0.5rem; font-size:0.8rem; color:var(--gray2);">Răspundem în termen de 30 de zile calendaristice</p>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-links">
+      <a href="../">DDApp.store</a>
+      <a href="index.html">NutriRO</a>
+      <a href="termeni.html">Termeni și Condiții</a>
+      <a href="confidentialitate.html">Confidențialitate</a>
+      <a href="mailto:nutriro2026@gmail.com">Contact</a>
+    </div>
+    <p class="footer-copy">© 2026 NutriRO · D.D. · Toate drepturile rezervate · Făcut în România 🇷🇴</p>
+  </div>
+</footer>
+
+<script>
+  function toggle(btn) {
+    const item = btn.closest('.acc-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.acc-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+</script>
+
+</body>
+</html>
