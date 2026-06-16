@@ -24,7 +24,7 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 32px;
-      height: 60px;
+      height: 72px;
       background: rgba(10,12,18,0.75);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
@@ -36,13 +36,15 @@
       text-decoration: none; color: #fff;
     }
     .nav-logo img {
-      width: 32px; height: 32px;
+      width: 36px; height: 36px;
       border-radius: 8px;
       object-fit: cover;
     }
     .nav-logo span {
-      font-size: 15px; font-weight: 600; letter-spacing: -0.2px;
+      font-size: 16px; font-weight: 700; letter-spacing: -0.3px;
     }
+    .nav-logo .brand-dd  { color: #3b82f6; }
+    .nav-logo .brand-app { color: #4ade80; }
 
     .nav-links {
       display: flex; align-items: center; gap: 28px;
@@ -320,8 +322,10 @@
     .footer-brand {
       display: flex; align-items: center; gap: 8px;
       text-decoration: none; color: rgba(255,255,255,0.65);
-      font-size: 14px; font-weight: 500;
+      font-size: 14px; font-weight: 600;
     }
+    .footer-brand .brand-dd  { color: #3b82f6; }
+    .footer-brand .brand-app { color: #4ade80; }
     .footer-brand img {
       width: 24px; height: 24px;
       border-radius: 6px; object-fit: cover;
@@ -364,8 +368,8 @@
   <!-- NAV -->
   <nav>
     <a class="nav-logo" href="/">
-      <img src="logo.png" alt="DDApp.store logo"/>
-      <span>DDApp.store</span>
+      <img src="favicon.png" alt="DDApp.store logo"/>
+      <span><span class="brand-dd">DD</span><span class="brand-app">App</span>.store</span>
     </a>
     <div class="nav-links">
       <a href="#apps">Aplicații</a>
@@ -387,7 +391,7 @@
       <div class="hero-ring"></div>
       <div class="hero-ring"></div>
       <div class="hero-ring"></div>
-      <img class="hero-logo-img" src="logo.png" alt="DDApp.store"/>
+      <img class="hero-logo-img" src="favicon.png" alt="DDApp.store"/>
     </div>
   </section>
 
@@ -442,8 +446,8 @@
   <footer>
     <div class="footer-inner">
       <a class="footer-brand" href="/">
-        <img src="logo.png" alt="DDApp.store logo"/>
-        DDApp.store
+        <img src="favicon.png" alt="DDApp.store logo"/>
+        <span><span class="brand-dd">DD</span><span class="brand-app">App</span>.store</span>
       </a>
       <nav class="footer-links">
         <a href="nutriro/">NutriRO</a>
