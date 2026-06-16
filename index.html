@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DDApp.store — Aplicații mobile românești</title>
+  <meta name="description" content="Aplicații mobile simple, puternice și fără reclame. NutriRO și Sona — făcute în România."/>
+  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="apple-touch-icon" href="favicon.png"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: #0a0c12;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 32px;
+      height: 72px;
+      background: rgba(10,12,18,0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: #fff;
+    }
+    .nav-logo img {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+    .nav-logo .brand-dd  { color: #3b82f6 !important; font-weight: 700; font-size: 16px; }
+    .nav-logo .brand-app { color: #4ade80 !important; font-weight: 700; font-size: 16px; }
+    .nav-logo .brand-rest { color: #fff; font-weight: 700; font-size: 16px; }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 28px;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      font-size: 14px; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #fff; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 80px 32px 64px;
+      max-width: 1100px;
+      margin: 0 auto;
+      gap: 64px;
+    }
+
+    .hero-left { flex: 1; }
+
+    .hero-left h1 {
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -1px;
+      color: #fff;
+      margin-bottom: 18px;
+    }
+
+    .hero-left p {
+      font-size: 17px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.65;
+      max-width: 420px;
+      margin-bottom: 36px;
+    }
+
+    .hero-btns {
+      display: flex; gap: 12px; flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex; align-items: center;
+      padding: 12px 24px;
+      background: #fff;
+      color: #0a0c12;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 14px; font-weight: 600;
+      transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.88; }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center;
+      padding: 12px 24px;
+      background: transparent;
+      color: rgba(255,255,255,0.7);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 14px; font-weight: 500;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.28); color: #fff; }
+
+    /* HERO RIGHT */
+    .hero-right {
+      flex: 0 0 auto;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      width: 400px; height: 400px;
+    }
+
+    .hero-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(96,165,250,0.25);
+      animation: pulse-ring 2.4s ease-in-out infinite;
+    }
+    .hero-ring:nth-child(1) { width: 220px; height: 220px; animation-delay: 0s; }
+    .hero-ring:nth-child(2) { width: 300px; height: 300px; animation-delay: 0.8s; }
+    .hero-ring:nth-child(3) { width: 380px; height: 380px; animation-delay: 1.6s; }
+
+    .hero-logo-img {
+      width: 160px; height: 160px;
+      border-radius: 32px;
+      object-fit: cover;
+      position: relative; z-index: 2;
+      animation: float 4s ease-in-out infinite;
+      box-shadow: 0 16px 64px rgba(96,165,250,0.35), 0 4px 16px rgba(0,0,0,0.5);
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-6px); }
+    }
+
+    @keyframes pulse-ring {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50%       { opacity: 0.8; transform: scale(1.05); }
+    }
+
+    /* APPS SECTION */
+    .section {
+      padding: 96px 32px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-header { margin-bottom: 48px; }
+    .section-header h2 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 8px; }
+    .section-header p { color: rgba(255,255,255,0.45); font-size: 15px; }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: #111520;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 28px;
+      display: flex; flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+
+    .card-nutriro { border-color: rgba(34,197,94,0.15); }
+
+    .card-icon { width: 48px; height: 48px; border-radius: 12px; object-fit: cover; margin-bottom: 20px; }
+    .card-name { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+    .card-tagline { font-size: 13px; color: rgba(255,255,255,0.45); margin-bottom: 14px; }
+    .card-desc { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.6; margin-bottom: 20px; flex: 1; }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+
+    .tag { padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+    .tag-green { background: rgba(74,222,128,0.1); color: #4ade80; border: 1px solid rgba(74,222,128,0.2); }
+    .tag-violet { background: rgba(167,139,250,0.1); color: #a78bfa; border: 1px solid rgba(167,139,250,0.2); }
+
+    .card-link { display: inline-flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 600; text-decoration: none; transition: opacity 0.2s; }
+    .card-link:hover { opacity: 0.75; }
+    .card-link-green { color: #4ade80; }
+    .card-link-violet { color: #a78bfa; }
+
+    .card-sona { border-color: rgba(139,92,246,0.2); }
+
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; margin-bottom: 16px; background: rgba(139,92,246,0.15); color: #c4b5fd; border: 1px solid rgba(139,92,246,0.25); width: fit-content; }
+
+    .card-placeholder { background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.08); align-items: center; justify-content: center; text-align: center; min-height: 260px; }
+    .placeholder-plus { font-size: 36px; font-weight: 300; color: rgba(255,255,255,0.2); margin-bottom: 12px; line-height: 1; }
+    .placeholder-title { font-size: 15px; font-weight: 600; color: rgba(255,255,255,0.35); margin-bottom: 6px; }
+    .placeholder-sub { font-size: 13px; color: rgba(255,255,255,0.2); }
+
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    footer { border-top: 1px solid rgba(255,255,255,0.06); padding: 32px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+
+    .footer-brand { display: flex; align-items: center; gap: 8px; text-decoration: none; color: rgba(255,255,255,0.65); font-size: 14px; font-weight: 600; }
+    .footer-brand .brand-dd  { color: #3b82f6; }
+    .footer-brand .brand-app { color: #4ade80; }
+    .footer-brand img { width: 24px; height: 24px; border-radius: 6px; object-fit: cover; }
+
+    .footer-links { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .footer-links a { color: rgba(255,255,255,0.45); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+    .footer-links a:hover { color: rgba(255,255,255,0.8); }
+    .footer-copy { color: rgba(255,255,255,0.3); font-size: 13px; }
+
+    @media (max-width: 900px) { .cards-grid { grid-template-columns: 1fr 1fr; } .card-placeholder { display: none; } }
+    @media (max-width: 680px) {
+      .hero { flex-direction: column; text-align: center; gap: 48px; padding-top: 100px; }
+      .hero-btns { justify-content: center; }
+      .hero-left p { margin-left: auto; margin-right: auto; }
+      .cards-grid { grid-template-columns: 1fr; }
+      nav { padding: 0 20px; }
+      .section { padding: 64px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">
+      <img src="favicon.png" alt="DDApp logo"/>
+      <span class="brand-dd">DD</span><span class="brand-app">App</span><span class="brand-rest">.store</span>
+    </a>
+    <div class="nav-links">
+      <a href="#apps">Aplicații</a>
+      <a href="mailto:ddapstore2026@gmail.com">Contact</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-left reveal">
+      <h1>Aplicații mobile românești</h1>
+      <p>Simple, puternice și fără reclame. Construite pentru oameni care vor mai mult de la telefonul lor.</p>
+      <div class="hero-btns">
+        <a class="btn-primary" href="#apps">Vezi aplicațiile</a>
+        <a class="btn-ghost" href="mailto:ddapstore2026@gmail.com">Contact</a>
+      </div>
+    </div>
+    <div class="hero-right reveal">
+      <div class="hero-ring"></div>
+      <div class="hero-ring"></div>
+      <div class="hero-ring"></div>
+      <img class="hero-logo-img" src="favicon.png" alt="DDApp.store"/>
+    </div>
+  </section>
+
+  <section class="section" id="apps">
+    <div class="section-header reveal">
+      <h2>Aplicațiile noastre</h2>
+      <p>Fiecare aplicație rezolvă o problemă reală, fără complicații.</p>
+    </div>
+    <div class="cards-grid">
+
+      <div class="card card-nutriro reveal">
+        <img class="card-icon" src="logo.png" alt="NutriRO icon"/>
+        <div class="card-name">NutriRO</div>
+        <div class="card-tagline">Nutriție · Sănătate</div>
+        <p class="card-desc">Calculează calorii și macronutrienți cu alimente românești. Jurnal alimentar simplu, fără abonament.</p>
+        <div class="card-tags">
+          <span class="tag tag-green">Calorii</span>
+          <span class="tag tag-green">Nutriție</span>
+          <span class="tag tag-green">Română</span>
+        </div>
+        <a class="card-link card-link-green" href="nutriro/">Vezi aplicația →</a>
+      </div>
+
+      <div class="card card-sona reveal">
+        <div class="badge">În curând</div>
+        <img class="card-icon" src="sona-icon.png" alt="Sona icon"/>
+        <div class="card-name">Sona</div>
+        <div class="card-tagline">Somn & Relaxare</div>
+        <p class="card-desc">55 de sunete ambientale pentru somn, concentrare și relaxare. Povești sonore și alarmă graduală.</p>
+        <div class="card-tags">
+          <span class="tag tag-violet">Somn</span>
+          <span class="tag tag-violet">Ambient</span>
+          <span class="tag tag-violet">Română</span>
+        </div>
+        <a class="card-link card-link-violet" href="mailto:ddapstore2026@gmail.com">Notifică-mă →</a>
+      </div>
+
+      <div class="card card-placeholder reveal">
+        <div class="placeholder-plus">+</div>
+        <div class="placeholder-title">Urmează curând</div>
+        <div class="placeholder-sub">O nouă aplicație în dezvoltare</div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <a class="footer-brand" href="/">
+        <img src="favicon.png" alt="DDApp.store logo"/>
+        <span><span class="brand-dd">DD</span><span class="brand-app">App</span>.store</span>
+      </a>
+      <nav class="footer-links">
+        <a href="nutriro/">NutriRO</a>
+        <a href="nutriro/termeni.html">Termeni</a>
+        <a href="nutriro/confidentialitate.html">Confidențialitate</a>
+        <a href="mailto:ddapstore2026@gmail.com">Contact</a>
+      </nav>
+      <span class="footer-copy">© 2026 · Făcut în România 🇷🇴</span>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.12 }
+    );
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
