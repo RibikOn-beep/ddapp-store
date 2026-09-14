@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ștergere Cont — NutriRO</title>
+  <meta name="description" content="Cum soliciți ștergerea contului NutriRO și a datelor asociate."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="icon" type="image/png" href="../favicon.png"/>
+  <style>
+    :root {
+      --bg:         #060810;
+      --card:       #090d1a;
+      --green:      #2ecc71;
+      --green-dim:  rgba(46,204,113,0.10);
+      --white:      #ffffff;
+      --gray:       #8899aa;
+      --gray2:      #445566;
+      --border:     rgba(46,204,113,0.15);
+      --radius:     16px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(6,8,16,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem;
+      color: var(--white); text-decoration: none;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .nav-logo img { width: 32px; height: 32px; border-radius: 8px; }
+    .nav-logo span { color: var(--green); }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links a { color: var(--gray); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--white); }
+    main {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 100px 5% 80px;
+      position: relative; z-index: 1;
+    }
+    .page-header { text-align: center; margin-bottom: 3rem; }
+    .page-label {
+      display: inline-block;
+      background: var(--green-dim);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 6px 18px;
+      font-size: 0.8rem;
+      color: var(--green);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 1rem;
+    }
+    .page-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+    }
+    .page-meta { color: var(--gray2); font-size: 0.85rem; }
+    .info-box {
+      background: var(--green-dim);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2rem;
+      color: var(--gray);
+      font-size: 0.88rem;
+      line-height: 1.7;
+    }
+    .info-box strong { color: var(--white); }
+    .section { margin-bottom: 2.25rem; }
+    .section h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin-bottom: 0.9rem;
+      color: var(--white);
+    }
+    .steps { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .steps li {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.9rem 1.1rem;
+      color: var(--gray);
+      font-size: 0.9rem;
+      display: flex; gap: 0.75rem; align-items: flex-start;
+    }
+    .steps li b { color: var(--green); flex-shrink: 0; }
+    .legal-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+    }
+    .legal-table th {
+      background: rgba(46,204,113,0.08);
+      color: var(--green);
+      padding: 0.6rem 0.8rem;
+      text-align: left;
+      font-weight: 600;
+      border: 1px solid var(--border);
+    }
+    .legal-table td {
+      padding: 0.6rem 0.8rem;
+      color: var(--gray);
+      border: 1px solid rgba(46,204,113,0.08);
+      vertical-align: top;
+    }
+    .legal-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+    .contact-box {
+      background: var(--green-dim);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-top: 2.5rem;
+      text-align: center;
+    }
+    .contact-box p { color: var(--gray); font-size: 0.88rem; margin-bottom: 0.5rem; }
+    .contact-box a { color: var(--green); text-decoration: none; font-weight: 600; }
+    .contact-box a:hover { text-decoration: underline; }
+    footer {
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      padding: 2rem 5%;
+      text-align: center;
+      position: relative; z-index: 1;
+    }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-links { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1rem; }
+    .footer-links a { color: var(--gray); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--green); }
+    .footer-copy { color: var(--gray2); font-size: 0.8rem; }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      main { padding: 90px 4% 60px; }
+      .legal-table { font-size: 0.78rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="../favicon.png" alt="NutriRO logo"/>
+    Nutri<span>RO</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html#features">Funcții</a>
+    <a href="termeni.html">Termeni</a>
+    <a href="confidentialitate.html">Confidențialitate</a>
+  </div>
+  <a href="index.html#download" class="nav-cta" style="background:var(--green);color:#000;font-weight:700;font-size:0.85rem;padding:0.5rem 1.25rem;border-radius:50px;text-decoration:none;">📲 Descarcă</a>
+</nav>
+
+<main>
+
+  <div class="page-header">
+    <div class="page-label">🗑 Datele tale</div>
+    <h1 class="page-title">Ștergere Cont NutriRO</h1>
+    <p class="page-meta">Aplicația NutriRO, dezvoltată de D.D. (persoană fizică, România) · <a href="mailto:nutriro2026@gmail.com" style="color:var(--green);text-decoration:none;">nutriro2026@gmail.com</a></p>
+  </div>
+
+  <div class="info-box">
+    Poți solicita oricând ștergerea completă a contului tău NutriRO și a datelor asociate. Mai jos găsești pașii exacți și ce se întâmplă concret cu fiecare categorie de date.
+  </div>
+
+  <div class="section">
+    <h2>Cum ceri ștergerea</h2>
+    <ul class="steps">
+      <li><b>1.</b> Direct din aplicație (recomandat, instant): deschide <strong>NutriRO</strong> → tab <strong>Setări</strong> → derulează la secțiunea de cont → <strong>„Șterge cont"</strong> → confirmă. Ștergerea are loc imediat, fără intervenție manuală.</li>
+      <li><b>2.</b> Dacă ai dezinstalat deja aplicația sau nu te mai poți autentifica: trimite un email la <a href="mailto:nutriro2026@gmail.com" style="color:var(--green);">nutriro2026@gmail.com</a> de pe adresa asociată contului, cu subiectul „Ștergere cont NutriRO". Procesăm cererea manual, în maximum 30 de zile calendaristice.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Ce se șterge și ce se păstrează</h2>
+    <table class="legal-table">
+      <tr><th>Categorie de date</th><th>Ce se întâmplă</th></tr>
+      <tr><td>Cont (email, parolă, autentificare Google)</td><td>Șters definitiv, imediat</td></tr>
+      <tr><td>Profil (vârstă, sex, înălțime, greutate, obiectiv)</td><td>Șters definitiv, imediat</td></tr>
+      <tr><td>Jurnal alimentar, apă, greutate, activități, medalii, statistici zilnice</td><td>Șters definitiv, imediat</td></tr>
+      <tr><td>Poză de profil</td><td>Ștearsă definitiv din stocare, imediat</td></tr>
+      <tr><td>Mesaje cu antrenorul / notițele antrenorului despre tine</td><td>Șterse definitiv, imediat</td></tr>
+      <tr><td>Rețete/ingrediente propuse de tine, încă neaprobate</td><td>Șterse definitiv, imediat</td></tr>
+      <tr><td>Rețete/ingrediente propuse de tine, deja aprobate și folosite de alți utilizatori</td><td>Rețeta rămâne în catalogul public (o folosesc deja alți useri), dar e <strong>anonimizată</strong> — legătura cu identitatea ta e eliminată complet, nu mai apare nimic care să te identifice</td></tr>
+    </table>
+    <p style="color:var(--gray2); font-size:0.8rem; margin-top:0.75rem;">Nu păstrăm nicio copie de rezervă a datelor personale după ștergere. Nu există perioadă de grație sau reținere suplimentară.</p>
+  </div>
+
+  <div class="contact-box">
+    <p>Întrebări despre ștergerea contului sau despre datele tale?</p>
+    <a href="mailto:nutriro2026@gmail.com">nutriro2026@gmail.com</a>
+    <p style="margin-top:0.5rem; font-size:0.8rem; color:var(--gray2);">Răspundem în termen de 30 de zile calendaristice</p>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-links">
+      <a href="../">DDApp.store</a>
+      <a href="index.html">NutriRO</a>
+      <a href="termeni.html">Termeni și Condiții</a>
+      <a href="confidentialitate.html">Confidențialitate</a>
+      <a href="stergere-cont.html">Ștergere cont</a>
+      <a href="mailto:nutriro2026@gmail.com">Contact</a>
+    </div>
+    <p class="footer-copy">© 2026 NutriRO · D.D. · Toate drepturile rezervate · Făcut în România 🇷🇴</p>
+  </div>
+</footer>
+
+</body>
+</html>
