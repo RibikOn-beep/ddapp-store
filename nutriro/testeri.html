@@ -104,7 +104,26 @@
       cursor: default; pointer-events: none;
     }
     .btn-submit.pending .step-tag { background: rgba(255,255,255,0.06); color: var(--gray); }
-    .join-status { margin-top: 10px; font-size: 0.8rem; color: var(--gray2); text-align: center; }
+    .join-status { margin-top: 10px; font-size: 0.8rem; color: var(--gray2); text-align: center; min-height: 1.2em; }
+    .join-explain {
+      list-style: none; counter-reset: joinstep;
+      display: flex; flex-direction: column; gap: 10px;
+      margin-bottom: 20px; padding: 0;
+    }
+    .join-explain li {
+      counter-increment: joinstep;
+      position: relative; padding-left: 32px;
+      color: var(--gray); font-size: 0.88rem; line-height: 1.5;
+    }
+    .join-explain li::before {
+      content: counter(joinstep);
+      position: absolute; left: 0; top: 0;
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--green-dim); border: 1px solid var(--green-mid); color: var(--green);
+      font-size: 0.75rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .join-explain strong { color: var(--white); }
     .form-note { margin-top: 14px; color: var(--gray2); font-size: 0.75rem; line-height: 1.5; }
 
     .section { padding: 70px 5%; max-width: 1100px; margin: 0 auto; }
@@ -173,17 +192,21 @@
       </p>
       <div class="form-card" id="formCard">
         <h3>Vreau să testez</h3>
-        <p>Doi pași, fără email, fără așteptare după tine.</p>
+        <ol class="join-explain">
+          <li><strong>Funcționează doar pe telefon</strong> — aplicația oricum se instalează doar acolo.</li>
+          <li>Apasă <strong>butonul 1</strong> și te alături grupului oficial de testeri NutriRO.</li>
+          <li>Revii pe această pagină.</li>
+          <li>Prin click pe <strong>butonul 2</strong> va începe procedura de instalare a aplicației NutriRO.</li>
+        </ol>
         <div class="join-steps">
-          <a href="https://groups.google.com/g/nutriro_testing2" target="_blank" rel="noopener" class="btn-submit">
+          <a href="https://groups.google.com/g/nutriro_testing2" target="_blank" rel="noopener" class="btn-submit join-group-btn">
             <span class="step-tag">1</span> Alătură-te grupului de testeri
           </a>
-          <a href="#" target="_blank" rel="noopener" class="btn-submit pending" id="optInLink">
-            <span class="step-tag">2</span> Activează testarea (în curând)
+          <a href="#" target="_blank" rel="noopener" class="btn-submit pending optin-btn">
+            <span class="step-tag">2</span> Activează testarea
           </a>
         </div>
-        <p class="join-status" id="optInStatus">Pasul 2 se activează imediat ce Google aprobă versiunea — revino în câteva ore.</p>
-        <p class="form-note"><strong>Important:</strong> folosește pe telefon același cont Google cu care ești logat în Magazin Play (Google Play Store) — altfel testarea nu se activează corect.</p>
+        <p class="join-status optin-status"></p>
         <p class="form-note">Necesită Android 8.0 sau mai nou.</p>
         <p class="form-note">Odată instalată, păstreaz-o minimum 15 zile — e o cerință a programului de testare Google Play.</p>
       </div>
@@ -244,17 +267,21 @@
     <h2>Căutăm <span style="color:var(--green)">cât mai mulți</span> testeri.</h2>
     <div class="form-card">
       <h3>Vreau să testez</h3>
-      <p>Doi pași, fără email, fără așteptare după tine.</p>
+      <ol class="join-explain">
+        <li><strong>Funcționează doar pe telefon</strong> — aplicația oricum se instalează doar acolo.</li>
+        <li>Apasă <strong>butonul 1</strong> și te alături grupului oficial de testeri NutriRO.</li>
+        <li>Revii pe această pagină.</li>
+        <li>Prin click pe <strong>butonul 2</strong> va începe procedura de instalare a aplicației NutriRO.</li>
+      </ol>
       <div class="join-steps">
-        <a href="https://groups.google.com/g/nutriro_testing2" target="_blank" rel="noopener" class="btn-submit">
+        <a href="https://groups.google.com/g/nutriro_testing2" target="_blank" rel="noopener" class="btn-submit join-group-btn">
           <span class="step-tag">1</span> Alătură-te grupului de testeri
         </a>
-        <a href="#" target="_blank" rel="noopener" class="btn-submit pending optin-link-2">
-          <span class="step-tag">2</span> Activează testarea (în curând)
+        <a href="#" target="_blank" rel="noopener" class="btn-submit pending optin-btn">
+          <span class="step-tag">2</span> Activează testarea
         </a>
       </div>
-      <p class="join-status optin-status-2">Pasul 2 se activează imediat ce Google aprobă versiunea — revino în câteva ore.</p>
-      <p class="form-note"><strong>Important:</strong> folosește pe telefon același cont Google cu care ești logat în Magazin Play (Google Play Store) — altfel testarea nu se activează corect.</p>
+      <p class="join-status optin-status"></p>
       <p class="form-note">Necesită Android 8.0 sau mai nou.</p>
       <p class="form-note">Odată instalată, păstreaz-o minimum 15 zile — e o cerință a programului de testare Google Play.</p>
     </div>
@@ -264,6 +291,47 @@
     <a href="mailto:nutriro2026@gmail.com">Contact: nutriro2026@gmail.com</a>
   </footer>
 
+  <script>
+    // Linkul de opt-in devine disponibil abia după ce Google aprobă versiunea
+    // de pe canalul "Testare închisă - Testeri-Public". Până atunci rămâne gol.
+    var OPT_IN_URL = '';
+
+    (function () {
+      var joined = false;
+      try { joined = localStorage.getItem('nutriro_joined_group') === '1'; } catch (e) {}
+
+      function updateOptInButtons() {
+        document.querySelectorAll('.optin-btn').forEach(function (btn) {
+          if (OPT_IN_URL && joined) {
+            btn.href = OPT_IN_URL;
+            btn.classList.remove('pending');
+          } else {
+            btn.removeAttribute('href');
+            btn.classList.add('pending');
+          }
+        });
+        document.querySelectorAll('.optin-status').forEach(function (el) {
+          if (!OPT_IN_URL) {
+            el.textContent = 'Pasul 2 se activează imediat ce Google aprobă versiunea — revino în câteva ore.';
+          } else if (!joined) {
+            el.textContent = 'Apasă mai întâi butonul 1, ca să te alături grupului.';
+          } else {
+            el.textContent = '';
+          }
+        });
+      }
+
+      document.querySelectorAll('.join-group-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          joined = true;
+          try { localStorage.setItem('nutriro_joined_group', '1'); } catch (e) {}
+          updateOptInButtons();
+        });
+      });
+
+      updateOptInButtons();
+    })();
+  </script>
 
 </body>
 </html>
