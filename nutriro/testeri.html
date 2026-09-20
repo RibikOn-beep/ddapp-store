@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>NutriRO — Devino tester | DDApp.store</title>
-  <meta name="description" content="Devino tester NutriRO — testezi primul recunoașterea AI a alimentelor din poză, înainte de lansarea publică. Loc limitat, acces gratuit."/>
+  <meta name="description" content="Devino tester NutriRO — testezi primul recunoașterea AI a alimentelor din poză, înainte de lansarea publică. Înscrieri deschise, acces gratuit."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <link rel="icon" type="image/png" href="../favicon.png"/>
@@ -86,26 +86,25 @@
     }
     .form-card h3 { font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 700; margin-bottom: 6px; }
     .form-card p { color: var(--gray); font-size: 0.9rem; margin-bottom: 18px; }
-    .form-row { display: flex; gap: 10px; flex-wrap: wrap; }
-    .form-row input[type="email"] {
-      flex: 1; min-width: 0;
-      background: var(--card2); border: 1px solid var(--border);
-      color: var(--white); font-size: 0.95rem; font-family: inherit;
-      padding: 0.85rem 1.1rem; border-radius: 50px; outline: none;
-      transition: border-color 0.2s;
-    }
-    .form-row input[type="email"]::placeholder { color: var(--gray2); }
-    .form-row input[type="email"]:focus { border-color: var(--green-mid); }
+    .join-steps { display: flex; flex-direction: column; gap: 10px; }
     .btn-submit {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
       background: var(--green); color: #000; font-weight: 700; font-size: 0.95rem;
       padding: 0.85rem 1.6rem; border-radius: 50px; border: none; cursor: pointer;
-      white-space: nowrap; transition: all 0.2s;
+      white-space: nowrap; transition: all 0.2s; text-decoration: none;
     }
     .btn-submit:hover { background: #27ae60; transform: translateY(-1px); box-shadow: 0 8px 30px var(--green-glow); }
-    .btn-submit:disabled { opacity: 0.5; cursor: default; transform: none; box-shadow: none; }
-    .form-msg { margin-top: 12px; font-size: 0.85rem; min-height: 1.2em; }
-    .form-msg.ok { color: var(--green); }
-    .form-msg.err { color: var(--red); }
+    .btn-submit .step-tag {
+      background: rgba(0,0,0,0.2); border-radius: 50%;
+      width: 20px; height: 20px; font-size: 0.75rem;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .btn-submit.pending {
+      background: var(--card2); color: var(--gray); border: 1px solid var(--border);
+      cursor: default; pointer-events: none;
+    }
+    .btn-submit.pending .step-tag { background: rgba(255,255,255,0.06); color: var(--gray); }
+    .join-status { margin-top: 10px; font-size: 0.8rem; color: var(--gray2); text-align: center; }
     .form-note { margin-top: 14px; color: var(--gray2); font-size: 0.75rem; line-height: 1.5; }
 
     .section { padding: 70px 5%; max-width: 1100px; margin: 0 auto; }
@@ -174,17 +173,17 @@
       </p>
       <div class="form-card" id="formCard">
         <h3>Vreau să testez</h3>
-        <p>Lasă-ți adresa de email — te contactăm cu instrucțiunile de instalare.</p>
-        <form id="testeriForm">
-          <div class="form-row">
-            <input type="email" id="emailInput" placeholder="adresa@email.com" required autocomplete="email"/>
-            <button type="submit" class="btn-submit" id="submitBtn">Înscrie-mă</button>
-          </div>
-          <div class="form-msg" id="formMsg"></div>
-        </form>
-        <p class="form-note"><strong>Important:</strong> folosește adresa cu care ești logat în Magazin Play (Google Play Store) pe telefon în acest moment — altfel invitația de testare nu va funcționa.</p>
-        <p class="form-note">Emailul e folosit exclusiv pentru a te contacta despre testare — nu primești altceva, nu-l distribuim nicăieri.</p>
-        <p class="form-note">Invitația de testare se livrează pe acest email — verifică și folderul Spam/Junk dacă nu apare în câteva ore.</p>
+        <p>Doi pași, fără email, fără așteptare după tine.</p>
+        <div class="join-steps">
+          <a href="https://groups.google.com/g/nutriro_testing2" target="_blank" rel="noopener" class="btn-submit">
+            <span class="step-tag">1</span> Alătură-te grupului de testeri
+          </a>
+          <a href="#" target="_blank" rel="noopener" class="btn-submit pending" id="optInLink">
+            <span class="step-tag">2</span> Activează testarea (în curând)
+          </a>
+        </div>
+        <p class="join-status" id="optInStatus">Pasul 2 se activează imediat ce Google aprobă versiunea — revino în câteva ore.</p>
+        <p class="form-note"><strong>Important:</strong> folosește pe telefon același cont Google cu care ești logat în Magazin Play (Google Play Store) — altfel testarea nu se activează corect.</p>
         <p class="form-note">Necesită Android 8.0 sau mai nou.</p>
         <p class="form-note">Odată instalată, păstreaz-o minimum 15 zile — e o cerință a programului de testare Google Play.</p>
       </div>
@@ -220,18 +219,18 @@
     <div class="grid4">
       <div class="step-card">
         <div class="step-num">1</div>
-        <h4>Te înscrii</h4>
-        <p>Lași emailul mai sus. Durează 10 secunde.</p>
+        <h4>Te alături grupului</h4>
+        <p>Un click, cu propriul cont Google — devii membru instant, fără aprobare din partea noastră.</p>
       </div>
       <div class="step-card">
         <div class="step-num">2</div>
-        <h4>Te adăugăm ca tester</h4>
-        <p>Te includem în programul de testare Google Play și primești pe email linkul de opt-in — caută-l și în Spam/Junk dacă nu apare.</p>
+        <h4>Activezi testarea</h4>
+        <p>Al doilea link te recunoaște automat ca membru al grupului și îți activează accesul de tester Google Play.</p>
       </div>
       <div class="step-card">
         <div class="step-num">3</div>
         <h4>Instalezi din Play Store</h4>
-        <p>Accepți invitația și instalezi NutriRO normal, ca orice altă aplicație — fără APK, fără fișiere externe. Păstreaz-o instalată minimum 15 zile — e o cerință a programului de testare Google Play.</p>
+        <p>Instalezi NutriRO normal, ca orice altă aplicație — fără APK, fără fișiere externe. Păstreaz-o instalată minimum 15 zile — e o cerință a programului de testare Google Play.</p>
       </div>
       <div class="step-card">
         <div class="step-num">4</div>
@@ -245,17 +244,17 @@
     <h2>Căutăm <span style="color:var(--green)">cât mai mulți</span> testeri.</h2>
     <div class="form-card">
       <h3>Vreau să testez</h3>
-      <p>Lasă-ți adresa de email — te contactăm cu instrucțiunile de instalare.</p>
-      <form id="testeriForm2">
-        <div class="form-row">
-          <input type="email" id="emailInput2" placeholder="adresa@email.com" required autocomplete="email"/>
-          <button type="submit" class="btn-submit" id="submitBtn2">Înscrie-mă</button>
-        </div>
-        <div class="form-msg" id="formMsg2"></div>
-      </form>
-      <p class="form-note"><strong>Important:</strong> folosește adresa cu care ești logat în Magazin Play (Google Play Store) pe telefon în acest moment — altfel invitația de testare nu va funcționa.</p>
-      <p class="form-note">Emailul e folosit exclusiv pentru a te contacta despre testare — nu primești altceva, nu-l distribuim nicăieri.</p>
-      <p class="form-note">Invitația de testare se livrează pe acest email — verifică și folderul Spam/Junk dacă nu apare în câteva ore.</p>
+      <p>Doi pași, fără email, fără așteptare după tine.</p>
+      <div class="join-steps">
+        <a href="https://groups.google.com/g/nutriro_testing2" target="_blank" rel="noopener" class="btn-submit">
+          <span class="step-tag">1</span> Alătură-te grupului de testeri
+        </a>
+        <a href="#" target="_blank" rel="noopener" class="btn-submit pending optin-link-2">
+          <span class="step-tag">2</span> Activează testarea (în curând)
+        </a>
+      </div>
+      <p class="join-status optin-status-2">Pasul 2 se activează imediat ce Google aprobă versiunea — revino în câteva ore.</p>
+      <p class="form-note"><strong>Important:</strong> folosește pe telefon același cont Google cu care ești logat în Magazin Play (Google Play Store) — altfel testarea nu se activează corect.</p>
       <p class="form-note">Necesită Android 8.0 sau mai nou.</p>
       <p class="form-note">Odată instalată, păstreaz-o minimum 15 zile — e o cerință a programului de testare Google Play.</p>
     </div>
@@ -265,70 +264,6 @@
     <a href="mailto:nutriro2026@gmail.com">Contact: nutriro2026@gmail.com</a>
   </footer>
 
-  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyBicmepT2ASVxqNCvpgfcpwZv2yOF_V3eo",
-      authDomain: "nutriro-fe30c.firebaseapp.com",
-      projectId: "nutriro-fe30c",
-      storageBucket: "nutriro-fe30c.firebasestorage.app",
-      messagingSenderId: "808052991183",
-      appId: "1:808052991183:web:ab019ba37af9ef6db951a2"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-
-    const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-
-    async function inscrieTester(email, msgEl, btnEl) {
-      const emailTrim = email.trim();
-      if (!EMAIL_RE.test(emailTrim)) {
-        msgEl.textContent = 'Adresa de email nu pare validă.';
-        msgEl.className = 'form-msg err';
-        return;
-      }
-      const emailLower = emailTrim.toLowerCase();
-      btnEl.disabled = true;
-      msgEl.textContent = 'Se trimite...';
-      msgEl.className = 'form-msg';
-      try {
-        await db.collection('testeri_inscrieri').doc(emailLower).set({
-          email: emailTrim,
-          creatLa: firebase.firestore.FieldValue.serverTimestamp(),
-          sursa: 'site-testeri',
-          pagina: 'nutriro-testeri'
-        });
-        msgEl.textContent = '✓ Te-ai înscris! Te contactăm în curând.';
-        msgEl.className = 'form-msg ok';
-      } catch (e) {
-        if (e && e.code === 'permission-denied') {
-          msgEl.textContent = 'Ești deja înscris cu acest email — te contactăm în curând.';
-          msgEl.className = 'form-msg ok';
-        } else {
-          msgEl.textContent = 'Ceva n-a funcționat. Încearcă din nou, sau scrie-ne direct la nutriro2026@gmail.com.';
-          msgEl.className = 'form-msg err';
-        }
-      } finally {
-        btnEl.disabled = false;
-      }
-    }
-
-    function attachForm(formId, emailId, btnId, msgId) {
-      const form = document.getElementById(formId);
-      form.addEventListener('submit', (ev) => {
-        ev.preventDefault();
-        const emailEl = document.getElementById(emailId);
-        const btnEl = document.getElementById(btnId);
-        const msgEl = document.getElementById(msgId);
-        inscrieTester(emailEl.value, msgEl, btnEl).then(() => {
-          if (msgEl.className.includes('ok')) emailEl.value = '';
-        });
-      });
-    }
-    attachForm('testeriForm', 'emailInput', 'submitBtn', 'formMsg');
-    attachForm('testeriForm2', 'emailInput2', 'submitBtn2', 'formMsg2');
-  </script>
 
 </body>
 </html>
