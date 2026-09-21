@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>NutriRO — Devino tester | DDApp.store</title>
-  <meta name="description" content="Devino tester NutriRO — testezi primul recunoașterea AI a alimentelor din poză, înainte de lansarea publică. Înscrieri deschise, acces gratuit."/>
+  <title>NutriRO — Devino tester oficial | DDApp.store</title>
+  <meta name="description" content="Alătură-te grupului oficial de testeri NutriRO — ajuți la lansarea publică pe Google Play și primești Premium NutriRO gratuit pe viață."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <link rel="icon" type="image/png" href="../favicon.png"/>
@@ -17,6 +17,8 @@
       --green-dim:  rgba(46,204,113,0.10);
       --green-mid:  rgba(46,204,113,0.25);
       --green-glow: rgba(46,204,113,0.15);
+      --gold:       #FFD700;
+      --gold-dim:   rgba(255,215,0,0.12);
       --white:      #ffffff;
       --gray:       #8899aa;
       --gray2:      #445566;
@@ -46,6 +48,7 @@
     .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--white); text-decoration: none; display: flex; align-items: center; gap: 10px; }
     .nav-logo img { width: 32px; height: 32px; border-radius: 8px; }
     .nav-logo span { color: var(--green); }
+    .nav-links { display: flex; align-items: center; gap: 1.5rem; }
     .nav-back { color: var(--gray); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
     .nav-back:hover { color: var(--white); }
 
@@ -57,12 +60,12 @@
     }
     .hero-badge {
       display: inline-flex; align-items: center; gap: 8px;
-      background: var(--green-dim); border: 1px solid var(--green-mid);
+      background: var(--gold-dim); border: 1px solid rgba(255,215,0,0.3);
       border-radius: 50px; padding: 6px 16px;
-      font-size: 0.8rem; color: var(--green); font-weight: 600; letter-spacing: 0.5px;
+      font-size: 0.8rem; color: var(--gold); font-weight: 600; letter-spacing: 0.5px;
       margin-bottom: 1.5rem;
     }
-    .hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+    .hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: pulse 2s infinite; }
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
     .hero h1 {
       font-family: 'Syne', sans-serif;
@@ -87,20 +90,8 @@
     .form-card h3 { font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 700; margin-bottom: 6px; }
     .form-card p { color: var(--gray); font-size: 0.9rem; margin-bottom: 18px; }
 
-    .quick-form-row { display: flex; gap: 10px; flex-wrap: wrap; }
-    .quick-form-row input[type="email"] {
-      flex: 1; min-width: 0;
-      background: var(--card2); border: 1px solid var(--border);
-      color: var(--white); font-size: 0.95rem; font-family: inherit;
-      padding: 0.85rem 1.1rem; border-radius: 50px; outline: none;
-      transition: border-color 0.2s;
-    }
-    .quick-form-row input[type="email"]::placeholder { color: var(--gray2); }
-    .quick-form-row input[type="email"]:focus { border-color: var(--green-mid); }
-    .quick-form button.btn-submit:disabled { opacity: 0.5; cursor: default; transform: none; box-shadow: none; }
-    .quick-msg { margin-top: 10px; font-size: 0.85rem; min-height: 1.2em; text-align: center; }
-    .quick-msg.ok { color: var(--green); }
-    .quick-msg.err { color: var(--red); }
+    .join-steps { display: flex; flex-direction: column; gap: 10px; }
+    .optin-btn.hidden { display: none; }
     .btn-submit {
       display: flex; align-items: center; justify-content: center; gap: 10px;
       background: var(--green); color: #000; font-weight: 700; font-size: 0.95rem;
@@ -108,6 +99,8 @@
       white-space: nowrap; transition: all 0.2s; text-decoration: none;
     }
     .btn-submit:hover { background: #27ae60; transform: translateY(-1px); box-shadow: 0 8px 30px var(--green-glow); }
+    .join-status { margin-top: 10px; font-size: 0.85rem; color: var(--gray); text-align: center; min-height: 1.2em; line-height: 1.5; }
+    .join-status strong { color: var(--white); }
     .form-note { margin-top: 14px; color: var(--gray2); font-size: 0.75rem; line-height: 1.5; }
 
     .section { padding: 70px 5%; max-width: 1100px; margin: 0 auto; }
@@ -123,6 +116,7 @@
     .benefit-icon { font-size: 1.8rem; margin-bottom: 14px; }
     .benefit-card h4 { font-size: 1.02rem; font-weight: 700; margin-bottom: 8px; }
     .benefit-card p { color: var(--gray); font-size: 0.9rem; line-height: 1.6; }
+    .benefit-card.gold { border-color: rgba(255,215,0,0.3); }
 
     .step-card { text-align: center; position: relative; }
     .step-num {
@@ -146,7 +140,6 @@
       .hero { grid-template-columns: 1fr; padding-top: 110px; }
       .hero-shot img { max-height: 320px; width: auto; }
       .grid3, .grid4 { grid-template-columns: 1fr 1fr; }
-      .quick-form-row { flex-direction: column; }
       .btn-submit { width: 100%; }
     }
     @media (max-width: 480px) {
@@ -161,31 +154,31 @@
       <img src="../logo.png" alt="NutriRO logo"/>
       Nutri<span>RO</span>
     </a>
-    <a href="index.html" class="nav-back">← Înapoi la NutriRO</a>
+    <div class="nav-links">
+      <a href="testeri.html" class="nav-back">Vreau doar să încerc rapid →</a>
+      <a href="index.html" class="nav-back">← Înapoi la NutriRO</a>
+    </div>
   </nav>
 
   <section class="hero">
     <div>
-      <div class="hero-badge"><span class="hero-badge-dot"></span> Testare Google Play · Înscrieri deschise</div>
-      <h1>Fotografiezi farfuria.<br/><span class="accent">AI-ul</span> face restul.</h1>
+      <div class="hero-badge"><span class="hero-badge-dot"></span> Premium NutriRO pe viață · Testare oficială Google Play</div>
+      <h1>Devino tester oficial.<br/><span class="accent">Premium pe viață</span>, ca mulțumire.</h1>
       <p class="hero-sub">
-        NutriRO recunoaște automat alimentele dintr-o poză și calculează
-        caloriile și macronutrienții pe loc. Este în programul de testare
-        Google Play, înainte să ajungă public — și căutăm cât mai mulți
-        testeri care să-l încerce și să ne spună sincer ce nu funcționează.
+        NutriRO are nevoie de 12 testeri activi, opt-in continuu minim 14 zile,
+        înainte să poată ajunge public pe Google Play. Alătură-te grupului oficial
+        de testeri — durează 2 minute, funcționează direct de pe telefon, și
+        primești Premium NutriRO gratuit pe viață ca mulțumire.
       </p>
       <div class="form-card" id="formCard">
-        <h3>Vreau să testez</h3>
-        <p>Lasă adresa de email — te adaug ca tester și îți trimit linkul de instalare.</p>
-        <form class="quick-form" id="quickForm1">
-          <div class="quick-form-row">
-            <input type="email" id="quickEmail1" placeholder="adresa@email.com" required autocomplete="email"/>
-            <button type="submit" class="btn-submit" id="quickBtn1">Înscrie-mă</button>
-          </div>
-          <div class="quick-msg" id="quickMsg1"></div>
-        </form>
-        <p class="form-note"><strong>Important:</strong> folosește adresa cu care ești logat în Magazin Play pe telefon — altfel linkul nu va funcționa pentru tine.</p>
-        <p class="form-note">Necesită Android 8.0 sau mai nou.</p>
+        <h3>Devino tester oficial</h3>
+        <p class="join-status official-status">Pasul 1 din 2 — alătură-te grupului de testeri.</p>
+        <div class="join-steps">
+          <a href="https://groups.google.com/g/nutriro_testing2" target="_blank" rel="noopener" class="btn-submit join-group-btn">Alătură-te grupului de testeri</a>
+          <a href="#" target="_blank" rel="noopener" class="btn-submit optin-btn hidden">Activează testarea</a>
+        </div>
+        <p class="form-note"><strong>Fă totul de pe telefon</strong> — aplicația oricum se instalează doar acolo, cu contul Google din Magazin Play.</p>
+        <p class="form-note">Necesită Android 8.0 sau mai nou. Odată instalată, păstreaz-o minimum 14 zile.</p>
       </div>
     </div>
     <div class="hero-shot">
@@ -194,12 +187,12 @@
   </section>
 
   <section class="section">
-    <h2 class="section-title">De ce merită să <span class="accent">testezi primul</span></h2>
+    <h2 class="section-title">De ce merită să <span class="accent">devii tester oficial</span></h2>
     <div class="grid3">
-      <div class="benefit-card">
-        <div class="benefit-icon">🎁</div>
-        <h4>Acces gratuit pe durata testării</h4>
-        <p>Toate funcțiile — inclusiv cele Premium — deblocate cât ești în grupul de testare, fără niciun cost.</p>
+      <div class="benefit-card gold">
+        <div class="benefit-icon">👑</div>
+        <h4>Premium NutriRO gratuit pe viață</h4>
+        <p>Nu doar cât ești tester — pentru totdeauna, ca mulțumire că ai ajutat la lansare. Fără abonament, niciodată.</p>
       </div>
       <div class="benefit-card">
         <div class="benefit-icon">🗣️</div>
@@ -219,18 +212,18 @@
     <div class="grid4">
       <div class="step-card">
         <div class="step-num">1</div>
-        <h4>Lași emailul</h4>
-        <p>Cel cu care ești logat în Magazin Play pe telefon. Durează 10 secunde.</p>
+        <h4>Te alături grupului</h4>
+        <p>Un click, cu propriul cont Google — devii membru instant, fără aprobare din partea noastră.</p>
       </div>
       <div class="step-card">
         <div class="step-num">2</div>
-        <h4>Te adaug ca tester</h4>
-        <p>Te includem manual pe lista de testeri și îți trimitem linkul de instalare pe același email.</p>
+        <h4>Activezi testarea</h4>
+        <p>Al doilea link te recunoaște automat ca membru al grupului și îți activează accesul de tester Google Play.</p>
       </div>
       <div class="step-card">
         <div class="step-num">3</div>
         <h4>Instalezi din Play Store</h4>
-        <p>Instalezi NutriRO normal, ca orice altă aplicație — fără APK, fără fișiere externe.</p>
+        <p>Instalezi NutriRO normal, ca orice altă aplicație — fără APK, fără fișiere externe. Păstreaz-o instalată minimum 14 zile.</p>
       </div>
       <div class="step-card">
         <div class="step-num">4</div>
@@ -241,19 +234,16 @@
   </section>
 
   <section class="cta-bottom">
-    <h2>Căutăm <span style="color:var(--green)">cât mai mulți</span> testeri.</h2>
+    <h2>Caut <span style="color:var(--green)">12 testeri</span> — Premium pe viață ca mulțumire.</h2>
     <div class="form-card">
-      <h3>Vreau să testez</h3>
-      <p>Lasă adresa de email — te adaug ca tester și îți trimit linkul de instalare.</p>
-      <form class="quick-form" id="quickForm2">
-        <div class="quick-form-row">
-          <input type="email" id="quickEmail2" placeholder="adresa@email.com" required autocomplete="email"/>
-          <button type="submit" class="btn-submit" id="quickBtn2">Înscrie-mă</button>
-        </div>
-        <div class="quick-msg" id="quickMsg2"></div>
-      </form>
-      <p class="form-note"><strong>Important:</strong> folosește adresa cu care ești logat în Magazin Play pe telefon — altfel linkul nu va funcționa pentru tine.</p>
-      <p class="form-note">Necesită Android 8.0 sau mai nou.</p>
+      <h3>Devino tester oficial</h3>
+      <p class="join-status official-status">Pasul 1 din 2 — alătură-te grupului de testeri.</p>
+      <div class="join-steps">
+        <a href="https://groups.google.com/g/nutriro_testing2" target="_blank" rel="noopener" class="btn-submit join-group-btn">Alătură-te grupului de testeri</a>
+        <a href="#" target="_blank" rel="noopener" class="btn-submit optin-btn hidden">Activează testarea</a>
+      </div>
+      <p class="form-note"><strong>Fă totul de pe telefon</strong> — aplicația oricum se instalează doar acolo, cu contul Google din Magazin Play.</p>
+      <p class="form-note">Necesită Android 8.0 sau mai nou. Odată instalată, păstreaz-o minimum 14 zile.</p>
     </div>
   </section>
 
@@ -261,72 +251,44 @@
     <a href="mailto:nutriro2026@gmail.com">Contact: nutriro2026@gmail.com</a>
   </footer>
 
-  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
   <script>
-    // Formularul "Vreau doar să încerc" scrie emailul în Firestore —
-    // testerul e adăugat MANUAL de Dorel pe lista de testeri interni
-    // (spre deosebire de calea prin grup, care e complet self-service).
-    var firebaseConfig = {
-      apiKey: "AIzaSyBicmepT2ASVxqNCvpgfcpwZv2yOF_V3eo",
-      authDomain: "nutriro-fe30c.firebaseapp.com",
-      projectId: "nutriro-fe30c",
-      storageBucket: "nutriro-fe30c.firebasestorage.app",
-      messagingSenderId: "808052991183",
-      appId: "1:808052991183:web:ab019ba37af9ef6db951a2"
-    };
-    firebase.initializeApp(firebaseConfig);
-    var db = firebase.firestore();
+    // Link de opt-in pentru canalul "Testare închisă - Testeri-Public",
+    // aprobat de Google pe 20 sept. 2026.
+    var OPT_IN_URL = 'https://play.google.com/apps/testing/ro.calorii.calculator';
 
-    var EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+    (function () {
+      var joined = false;
+      try { joined = localStorage.getItem('nutriro_joined_group') === '1'; } catch (e) {}
 
-    function inscrieTesterRapid(email, msgEl, btnEl) {
-      var emailTrim = email.trim();
-      if (!EMAIL_RE.test(emailTrim)) {
-        msgEl.textContent = 'Adresa de email nu pare validă.';
-        msgEl.className = 'quick-msg err';
-        return Promise.resolve();
+      function updateOptInButtons() {
+        document.querySelectorAll('.optin-btn').forEach(function (btn) {
+          if (OPT_IN_URL && joined) {
+            btn.href = OPT_IN_URL;
+            btn.classList.remove('hidden');
+          } else {
+            btn.removeAttribute('href');
+            btn.classList.add('hidden');
+          }
+        });
+        document.querySelectorAll('.official-status').forEach(function (el) {
+          if (!joined) {
+            el.innerHTML = 'Pasul 1 din 2 — <strong>alătură-te grupului de testeri</strong>.';
+          } else {
+            el.innerHTML = 'Te-ai alăturat! Pasul 2 din 2 — <strong>activează testarea</strong> mai jos.';
+          }
+        });
       }
-      var emailLower = emailTrim.toLowerCase();
-      btnEl.disabled = true;
-      msgEl.textContent = 'Se trimite...';
-      msgEl.className = 'quick-msg';
-      return db.collection('testeri_inscrieri').doc(emailLower).set({
-        email: emailTrim,
-        creatLa: firebase.firestore.FieldValue.serverTimestamp(),
-        sursa: 'site-testeri-rapid',
-        pagina: 'nutriro-testeri'
-      }).then(function () {
-        msgEl.textContent = 'Te-ai înscris! Te adaug ca tester și primești linkul în curând.';
-        msgEl.className = 'quick-msg ok';
-      }).catch(function (e) {
-        if (e && e.code === 'permission-denied') {
-          msgEl.textContent = 'Ești deja înscris cu acest email — te contactăm în curând.';
-          msgEl.className = 'quick-msg ok';
-        } else {
-          msgEl.textContent = 'Ceva n-a funcționat. Scrie-ne direct la nutriro2026@gmail.com.';
-          msgEl.className = 'quick-msg err';
-        }
-      }).finally(function () {
-        btnEl.disabled = false;
-      });
-    }
 
-    function attachQuickForm(formId, emailId, btnId, msgId) {
-      var form = document.getElementById(formId);
-      if (!form) return;
-      form.addEventListener('submit', function (ev) {
-        ev.preventDefault();
-        var emailEl = document.getElementById(emailId);
-        var btnEl = document.getElementById(btnId);
-        var msgEl = document.getElementById(msgId);
-        inscrieTesterRapid(emailEl.value, msgEl, btnEl).then(function () {
-          if (msgEl.className.indexOf('ok') !== -1) emailEl.value = '';
+      document.querySelectorAll('.join-group-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          joined = true;
+          try { localStorage.setItem('nutriro_joined_group', '1'); } catch (e) {}
+          updateOptInButtons();
         });
       });
-    }
-    attachQuickForm('quickForm1', 'quickEmail1', 'quickBtn1', 'quickMsg1');
-    attachQuickForm('quickForm2', 'quickEmail2', 'quickBtn2', 'quickMsg2');
+
+      updateOptInButtons();
+    })();
   </script>
 
 </body>
