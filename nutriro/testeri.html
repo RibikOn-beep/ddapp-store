@@ -191,6 +191,7 @@
           <div class="quick-msg" id="quickMsg1"></div>
         </form>
         <p class="form-note"><strong>Important:</strong> folosește adresa cu care ești logat în Magazin Play pe telefon — altfel linkul nu va funcționa pentru tine.</p>
+        <p class="form-note">Linkul de instalare vine pe email în câteva ore — verifică și Spam/Junk dacă nu apare în Inbox.</p>
         <p class="form-note">Necesită Android 8.0 sau mai nou.</p>
       </div>
     </div>
@@ -259,6 +260,7 @@
         <div class="quick-msg" id="quickMsg2"></div>
       </form>
       <p class="form-note"><strong>Important:</strong> folosește adresa cu care ești logat în Magazin Play pe telefon — altfel linkul nu va funcționa pentru tine.</p>
+      <p class="form-note">Linkul de instalare vine pe email în câteva ore — verifică și Spam/Junk dacă nu apare în Inbox.</p>
       <p class="form-note">Necesită Android 8.0 sau mai nou.</p>
     </div>
   </section>
@@ -303,7 +305,7 @@
         sursa: 'site-testeri-rapid',
         pagina: 'nutriro-testeri'
       }).then(function () {
-        msgEl.textContent = 'Te-ai înscris! Te adaug ca tester și primești linkul în curând.';
+        msgEl.textContent = 'Te-ai înscris! Primești linkul de instalare pe email în câteva ore — verifică și folderul Spam/Junk dacă nu apare în Inbox.';
         msgEl.className = 'quick-msg ok';
       }).catch(function (e) {
         if (e && e.code === 'permission-denied') {
