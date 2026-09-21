@@ -279,12 +279,26 @@
         });
       }
 
+      // Deschide linkurile Google într-o singură fereastră/tab reutilizat(ă),
+      // ca pagina noastră să rămână vizibilă în fundal, nu să dispară.
+      var POPUP_NAME = 'nutriro_test_flow';
+      function openInSharedWindow(ev) {
+        var url = ev.currentTarget.getAttribute('href');
+        if (!url || url === '#') return;
+        ev.preventDefault();
+        window.open(url, POPUP_NAME, 'width=480,height=760,noopener');
+      }
+
       document.querySelectorAll('.join-group-btn').forEach(function (btn) {
-        btn.addEventListener('click', function () {
+        btn.addEventListener('click', function (ev) {
           joined = true;
           try { localStorage.setItem('nutriro_joined_group', '1'); } catch (e) {}
           updateOptInButtons();
+          openInSharedWindow(ev);
         });
+      });
+      document.querySelectorAll('.optin-btn').forEach(function (btn) {
+        btn.addEventListener('click', openInSharedWindow);
       });
 
       updateOptInButtons();
