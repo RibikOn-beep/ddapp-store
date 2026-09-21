@@ -107,6 +107,20 @@
 
     .join-steps { display: flex; flex-direction: column; gap: 10px; }
     .optin-btn.hidden { display: none; }
+    .quick-form-row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .quick-form-row input[type="email"] {
+      flex: 1; min-width: 0;
+      background: var(--card2); border: 1px solid var(--border);
+      color: var(--white); font-size: 0.95rem; font-family: inherit;
+      padding: 0.85rem 1.1rem; border-radius: 50px; outline: none;
+      transition: border-color 0.2s;
+    }
+    .quick-form-row input[type="email"]::placeholder { color: var(--gray2); }
+    .quick-form-row input[type="email"]:focus { border-color: var(--green-mid); }
+    .quick-form button.btn-submit:disabled { opacity: 0.5; cursor: default; transform: none; box-shadow: none; }
+    .quick-msg { margin-top: 10px; font-size: 0.85rem; min-height: 1.2em; text-align: center; }
+    .quick-msg.ok { color: var(--green); }
+    .quick-msg.err { color: var(--red); }
     .btn-submit {
       display: flex; align-items: center; justify-content: center; gap: 10px;
       background: var(--green); color: #000; font-weight: 700; font-size: 0.95rem;
@@ -189,11 +203,17 @@
       </p>
       <div class="form-card" id="formCard">
         <div class="option-block">
-          <span class="option-badge quick">Instant</span>
+          <span class="option-badge quick">Rapid</span>
           <h3>Vreau doar să încerc</h3>
-          <p>Un singur click, acces gratuit imediat cât timp testezi.</p>
-          <a href="https://play.google.com/apps/internaltest/4700849934133929908" target="_blank" rel="noopener" class="btn-submit">Instalează acum</a>
-          <p class="form-note">Funcționează doar pe telefon.</p>
+          <p>Lasă adresa de email — te adaug ca tester intern și îți trimit linkul de instalare.</p>
+          <form class="quick-form" id="quickForm1">
+            <div class="quick-form-row">
+              <input type="email" id="quickEmail1" placeholder="adresa@email.com" required autocomplete="email"/>
+              <button type="submit" class="btn-submit" id="quickBtn1">Înscrie-mă</button>
+            </div>
+            <div class="quick-msg" id="quickMsg1"></div>
+          </form>
+          <p class="form-note"><strong>Important:</strong> folosește adresa cu care ești logat în Magazin Play pe telefon — altfel linkul nu va funcționa pentru tine.</p>
         </div>
         <div class="option-divider">sau</div>
         <div class="option-block">
@@ -265,11 +285,17 @@
     <h2>Căutăm <span style="color:var(--green)">cât mai mulți</span> testeri.</h2>
     <div class="form-card">
       <div class="option-block">
-        <span class="option-badge quick">Instant</span>
+        <span class="option-badge quick">Rapid</span>
         <h3>Vreau doar să încerc</h3>
-        <p>Un singur click, acces gratuit imediat cât timp testezi.</p>
-        <a href="https://play.google.com/apps/internaltest/4700849934133929908" target="_blank" rel="noopener" class="btn-submit">Instalează acum</a>
-        <p class="form-note">Funcționează doar pe telefon.</p>
+        <p>Lasă adresa de email — te adaug ca tester intern și îți trimit linkul de instalare.</p>
+        <form class="quick-form" id="quickForm2">
+          <div class="quick-form-row">
+            <input type="email" id="quickEmail2" placeholder="adresa@email.com" required autocomplete="email"/>
+            <button type="submit" class="btn-submit" id="quickBtn2">Înscrie-mă</button>
+          </div>
+          <div class="quick-msg" id="quickMsg2"></div>
+        </form>
+        <p class="form-note"><strong>Important:</strong> folosește adresa cu care ești logat în Magazin Play pe telefon — altfel linkul nu va funcționa pentru tine.</p>
       </div>
       <div class="option-divider">sau</div>
       <div class="option-block">
@@ -289,6 +315,74 @@
   <footer>
     <a href="mailto:nutriro2026@gmail.com">Contact: nutriro2026@gmail.com</a>
   </footer>
+
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+  <script>
+    // Formularul "Vreau doar să încerc" scrie emailul în Firestore —
+    // testerul e adăugat MANUAL de Dorel pe lista de testeri interni
+    // (spre deosebire de calea prin grup, care e complet self-service).
+    var firebaseConfig = {
+      apiKey: "AIzaSyBicmepT2ASVxqNCvpgfcpwZv2yOF_V3eo",
+      authDomain: "nutriro-fe30c.firebaseapp.com",
+      projectId: "nutriro-fe30c",
+      storageBucket: "nutriro-fe30c.firebasestorage.app",
+      messagingSenderId: "808052991183",
+      appId: "1:808052991183:web:ab019ba37af9ef6db951a2"
+    };
+    firebase.initializeApp(firebaseConfig);
+    var db = firebase.firestore();
+
+    var EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+
+    function inscrieTesterRapid(email, msgEl, btnEl) {
+      var emailTrim = email.trim();
+      if (!EMAIL_RE.test(emailTrim)) {
+        msgEl.textContent = 'Adresa de email nu pare validă.';
+        msgEl.className = 'quick-msg err';
+        return Promise.resolve();
+      }
+      var emailLower = emailTrim.toLowerCase();
+      btnEl.disabled = true;
+      msgEl.textContent = 'Se trimite...';
+      msgEl.className = 'quick-msg';
+      return db.collection('testeri_inscrieri').doc(emailLower).set({
+        email: emailTrim,
+        creatLa: firebase.firestore.FieldValue.serverTimestamp(),
+        sursa: 'site-testeri-rapid',
+        pagina: 'nutriro-testeri'
+      }).then(function () {
+        msgEl.textContent = 'Te-ai înscris! Te adaug ca tester și primești linkul în curând.';
+        msgEl.className = 'quick-msg ok';
+      }).catch(function (e) {
+        if (e && e.code === 'permission-denied') {
+          msgEl.textContent = 'Ești deja înscris cu acest email — te contactăm în curând.';
+          msgEl.className = 'quick-msg ok';
+        } else {
+          msgEl.textContent = 'Ceva n-a funcționat. Scrie-ne direct la nutriro2026@gmail.com.';
+          msgEl.className = 'quick-msg err';
+        }
+      }).finally(function () {
+        btnEl.disabled = false;
+      });
+    }
+
+    function attachQuickForm(formId, emailId, btnId, msgId) {
+      var form = document.getElementById(formId);
+      if (!form) return;
+      form.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        var emailEl = document.getElementById(emailId);
+        var btnEl = document.getElementById(btnId);
+        var msgEl = document.getElementById(msgId);
+        inscrieTesterRapid(emailEl.value, msgEl, btnEl).then(function () {
+          if (msgEl.className.indexOf('ok') !== -1) emailEl.value = '';
+        });
+      });
+    }
+    attachQuickForm('quickForm1', 'quickEmail1', 'quickBtn1', 'quickMsg1');
+    attachQuickForm('quickForm2', 'quickEmail2', 'quickBtn2', 'quickMsg2');
+  </script>
 
   <script>
     // Link de opt-in pentru canalul "Testare închisă - Testeri-Public",
