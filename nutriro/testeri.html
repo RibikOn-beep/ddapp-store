@@ -6,7 +6,7 @@
   <title>NutriRO — Devino tester | DDApp.store</title>
   <meta name="description" content="Devino tester NutriRO — testezi primul recunoașterea AI a alimentelor din poză, înainte de lansarea publică. Înscrieri deschise, acces gratuit."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <link rel="icon" type="image/png" href="../favicon.png"/>
   <style>
     :root {
@@ -43,11 +43,14 @@
       display: flex; align-items: center; justify-content: space-between;
       height: 64px;
     }
-    .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--white); text-decoration: none; display: flex; align-items: center; gap: 10px; }
+    .nav-logo { font-family: 'Inter', sans-serif; letter-spacing: -0.02em; font-weight: 800; font-size: 1.1rem; color: var(--white); text-decoration: none; display: flex; align-items: center; gap: 10px; }
     .nav-logo img { width: 32px; height: 32px; border-radius: 8px; }
     .nav-logo span { color: var(--green); }
+    .nav-links { display: flex; align-items: center; gap: 1.5rem; }
     .nav-back { color: var(--gray); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
     .nav-back:hover { color: var(--white); }
+    .nav-discreet { font-size: 0.8rem; color: var(--gray2); }
+    .nav-discreet:hover { color: var(--gray); }
 
     .hero {
       padding: 130px 5% 60px;
@@ -65,7 +68,7 @@
     .hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
     .hero h1 {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Inter', sans-serif;
       font-size: clamp(2rem, 4.2vw, 3.2rem);
       font-weight: 900; line-height: 1.15; letter-spacing: -1px;
       margin-bottom: 1.1rem;
@@ -84,7 +87,7 @@
       border-radius: var(--radius-lg); padding: 28px;
       max-width: 480px;
     }
-    .form-card h3 { font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 700; margin-bottom: 6px; }
+    .form-card h3 { font-family: 'Inter', sans-serif; letter-spacing: -0.02em; font-size: 1.15rem; font-weight: 700; margin-bottom: 6px; }
     .form-card p { color: var(--gray); font-size: 0.9rem; margin-bottom: 18px; }
 
     .quick-form-row { display: flex; gap: 10px; flex-wrap: wrap; }
@@ -111,7 +114,7 @@
     .form-note { margin-top: 14px; color: var(--gray2); font-size: 0.75rem; line-height: 1.5; }
 
     .section { padding: 70px 5%; max-width: 1100px; margin: 0 auto; }
-    .section-title { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; text-align: center; margin-bottom: 3rem; letter-spacing: -0.5px; }
+    .section-title { font-family: 'Inter', sans-serif; font-size: 1.8rem; font-weight: 800; text-align: center; margin-bottom: 3rem; letter-spacing: -0.5px; }
     .section-title .accent { color: var(--green); }
 
     .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
@@ -135,7 +138,7 @@
     .step-card p { color: var(--gray); font-size: 0.85rem; line-height: 1.55; }
 
     .cta-bottom { text-align: center; padding: 70px 5% 100px; }
-    .cta-bottom h2 { font-family: 'Syne', sans-serif; font-size: 1.7rem; font-weight: 800; margin-bottom: 1rem; }
+    .cta-bottom h2 { font-family: 'Inter', sans-serif; letter-spacing: -0.02em; font-size: 1.7rem; font-weight: 800; margin-bottom: 1rem; }
     .cta-bottom .form-card { margin: 0 auto; }
 
     footer { border-top: 1px solid var(--border); padding: 28px 5%; text-align: center; }
@@ -161,7 +164,10 @@
       <img src="../logo.png" alt="NutriRO logo"/>
       Nutri<span>RO</span>
     </a>
-    <a href="index.html" class="nav-back">← Înapoi la NutriRO</a>
+    <div class="nav-links">
+      <a href="grup-testeri.html" class="nav-back nav-discreet">Tester oficial</a>
+      <a href="index.html" class="nav-back">← Înapoi la NutriRO</a>
+    </div>
   </nav>
 
   <section class="hero">
