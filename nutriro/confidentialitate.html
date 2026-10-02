@@ -242,7 +242,7 @@
   <div class="page-header">
     <div class="page-label">🔒 GDPR</div>
     <h1 class="page-title">Politică de Confidențialitate</h1>
-    <p class="page-meta">Versiune 1.0 · În vigoare din Iulie 2026 · <a href="mailto:nutriro2026@gmail.com" style="color:var(--green);text-decoration:none;">nutriro2026@gmail.com</a></p>
+    <p class="page-meta">Versiune 1.1 · În vigoare din 1 octombrie 2026 ·<a href="mailto:nutriro2026@gmail.com" style="color:var(--green);text-decoration:none;">nutriro2026@gmail.com</a></p>
   </div>
 
   <div class="info-box">
@@ -290,16 +290,19 @@ Dacă ești părinte sau tutore și crezi că minorul tău și-a creat un cont, 
 • Jurnal alimentar: alimente, cantități, calorii, macronutrienți
 • Hidratare, greutate istorică, activitate fizică
 • IF Tracker: orele ferestrei de alimentație
+• Fotografie de profil (opțional), stocată în Firebase Storage
+• Mesajele de feedback și imaginile atașate la ele (opțional)
 
 Date colectate automat:
 • Versiunea aplicației, tipul dispozitivului, sistemul de operare
-• Date de utilizare anonimizate pentru îmbunătățirea aplicației
+• Statistici de utilizare asociate contului tău prin ID (fără nume), folosite pentru îmbunătățirea aplicației
+• Rapoarte de erori tehnice (ID cont și email), ca să putem repara problemele
 
 Date colectate cu consimțământ separat și explicit:
 • Pași zilnici prin Health Connect — accesat doar dacă acorzi permisiunea distinctă în aplicație. Poți retrage acest acord oricând din Setări → Health Connect.
 
 Date procesate temporar (NESTOCATE):
-• Fotografiile din funcția AI sunt trimise temporar la Anthropic Claude pentru identificarea alimentelor și sunt eliminate imediat după analiză. Nu stocăm nicio imagine.
+• Fotografiile trimise la analiza AI a alimentelor ajung temporar la Anthropic Claude și sunt eliminate imediat după analiză. Nu stocăm aceste fotografii.
 
 Nu colectăm: localizare GPS, contacte, date bancare sau biometrice.</div>
     </div>
@@ -318,8 +321,10 @@ Nu colectăm: localizare GPS, contacte, date bancare sau biometrice.</div>
   <tr><td>Generarea meniurilor și rapoartelor</td><td>Executarea contractului</td></tr>
   <tr><td>Analiză AI fotografii alimente</td><td>Consimțământ explicit (Art. 6(1)(a) GDPR)</td></tr>
   <tr><td>Sincronizare pași Health Connect</td><td>Consimțământ explicit</td></tr>
-  <tr><td>Emailuri sistem (reset parolă)</td><td>Interes legitim (Art. 6(1)(f) GDPR)</td></tr>
-  <tr><td>Îmbunătățirea aplicației (date anonime)</td><td>Interes legitim</td></tr>
+  <tr><td>Emailuri de sistem (verificare cont, resetare parolă)</td><td>Interes legitim (Art. 6(1)(f) GDPR)</td></tr>
+  <tr><td>Anunțuri ocazionale despre aplicație, pe email (le poți opri oricând din Setări → Notificări)</td><td>Interes legitim</td></tr>
+  <tr><td>Accesul antrenorului la profil și jurnal, doar dacă te alături grupei lui</td><td>Consimțământ explicit</td></tr>
+  <tr><td>Îmbunătățirea aplicației și repararea erorilor (statistici și rapoarte de erori asociate contului prin ID)</td><td>Interes legitim</td></tr>
   <tr><td>Respectarea obligațiilor legale</td><td>Obligație legală (Art. 6(1)(c) GDPR)</td></tr>
 </table></div>
     </div>
@@ -339,7 +344,7 @@ Măsuri de securitate:
 • Autentificare securizată prin Firebase Auth
 • Comunicații criptate HTTPS/TLS
 • Chei API stocate în Google Secret Manager
-• Acces la date restricționat strict la contul propriu</div>
+• Acces la date restricționat la contul propriu și, doar dacă te alături unei grupe, la antrenorul tău</div>
     </div>
 
     <div class="acc-item">
@@ -353,14 +358,14 @@ Măsuri de securitate:
   <tr><th>Serviciu</th><th>Scop</th><th>Locație</th></tr>
   <tr><td>Google Firebase / GCP</td><td>Stocare, autentificare</td><td>UE (eur3)</td></tr>
   <tr><td>Anthropic Claude API</td><td>Analiză AI alimente</td><td>SUA (tranzitoriu)</td></tr>
-  <tr><td>Resend</td><td>Emailuri sistem</td><td>SUA</td></tr>
+  <tr><td>Resend</td><td>Emailuri (sistem și anunțuri)</td><td>SUA</td></tr>
   <tr><td>Google Health Connect</td><td>Sincronizare pași</td><td>Local</td></tr>
   <tr><td>Open Food Facts</td><td>Coduri de bare</td><td>Franța (UE)</td></tr>
 </table>
 
 Transferurile în SUA se realizează cu garanții adecvate prin Clauze Contractuale Standard (Art. 46 GDPR).
 
-Nu vindem, nu partajăm și nu folosim datele tale în scop publicitar sau pentru antrenarea modelelor AI.</div>
+Nu vindem datele tale și nu le folosim în scop publicitar sau pentru antrenarea modelelor AI. Dacă te alături grupei unui antrenor, acesta poate vedea profilul și jurnalul tău zilnic, cât timp ești în grupa lui.</div>
     </div>
 
     <div class="acc-item">
@@ -414,7 +419,7 @@ Utilizăm identificatori de sesiune locali (AsyncStorage) exclusiv pentru menți
 
 Continuarea utilizării aplicației după această dată constituie acceptul modificărilor.
 
-Versiune: 1.0 · În vigoare din: Iulie 2026</div>
+Versiune: 1.1 · În vigoare din: 1 octombrie 2026</div>
     </div>
 
   </div>
