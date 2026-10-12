@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manual de utilizare NutriRO | DDApp.store</title>
+  <meta name="description" content="Manualul de utilizare NutriRO: jurnalul zilnic, Foto AI, meniul săptămânal, rețete, rapoarte, antrenor, medalii și întrebări frecvente."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="icon" type="image/png" href="../favicon.png"/>
+  <style>
+    :root {
+      --bg:        #060810;
+      --bg2:       #080c14;
+      --card:      #090d1a;
+      --green:     #2ecc71;
+      --green-dim: rgba(46,204,113,0.10);
+      --green-mid: rgba(46,204,113,0.25);
+      --gold:      #FFD700;
+      --gold-dim:  rgba(255,215,0,0.12);
+      --white:     #ffffff;
+      --text:      #d5dde4;
+      --gray:      #8899aa;
+      --gray2:     #556677;
+      --border:    rgba(46,204,113,0.15);
+      --radius:    16px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; line-height: 1.65; overflow-x: hidden; }
+    a { color: var(--green); }
+    a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; border-radius: 6px; }
+
+    /* NAV — la fel ca pe pagina principală */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(6,8,16,0.88); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 0 5%; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .nav-brand { display: flex; align-items: center; gap: 12px; }
+    .nav-brand img { width: 40px; height: 40px; border-radius: 10px; }
+    .nav-logo { font-weight: 800; font-size: 1.1rem; color: var(--white); text-decoration: none; letter-spacing: -0.02em; }
+    .nav-logo span { color: var(--green); }
+    .nav-links { display: flex; gap: 1.75rem; align-items: center; }
+    .nav-links a { color: var(--gray); text-decoration: none; font-size: 0.9rem; }
+    .nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--white); }
+
+    /* ANTET */
+    .antet { padding: 112px 5% 36px; border-bottom: 1px solid var(--border); background: radial-gradient(ellipse 60% 80% at 20% 0%, rgba(46,204,113,0.09), transparent 70%); }
+    .antet-inner { max-width: 1120px; margin: 0 auto; }
+    .eticheta { font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 0.75rem; }
+    h1 { font-size: clamp(1.9rem, 4vw, 2.6rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; color: var(--white); text-wrap: balance; }
+    .versiune { color: var(--gray); font-size: 0.9rem; margin-top: 0.6rem; }
+    .cautare { margin-top: 1.5rem; max-width: 520px; position: relative; }
+    .cautare input { width: 100%; background: var(--card); border: 1px solid var(--green-mid); border-radius: 50px; color: var(--white); font: inherit; font-size: 0.95rem; padding: 0.8rem 1.2rem; }
+    .cautare input::placeholder { color: var(--gray2); }
+    .cautare-rezultat { color: var(--gray); font-size: 0.85rem; margin-top: 0.5rem; min-height: 1.3em; }
+
+    /* AȘEZARE: cuprins lipicios + conținut */
+    .pagina { max-width: 1120px; margin: 0 auto; padding: 36px 5% 64px; display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 48px; align-items: start; }
+    .cuprins { position: sticky; top: 84px; max-height: calc(100vh - 100px); overflow-y: auto; padding-right: 6px; }
+    .cuprins h2 { font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gray); margin-bottom: 0.75rem; }
+    .cuprins ol { list-style: none; display: flex; flex-direction: column; gap: 2px; counter-reset: c; }
+    .cuprins a { display: block; color: var(--gray); text-decoration: none; font-size: 0.88rem; padding: 0.35rem 0.75rem; border-left: 2px solid transparent; border-radius: 0 6px 6px 0; }
+    .cuprins a:hover { color: var(--white); background: var(--green-dim); }
+    .cuprins a.activ { color: var(--green); border-left-color: var(--green); background: var(--green-dim); }
+    .cuprins-mobil { display: none; }
+
+    /* CONȚINUT */
+    .continut { min-width: 0; }
+    .sectiune { padding-bottom: 2.25rem; margin-bottom: 2.25rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .sectiune:last-child { border-bottom: 0; }
+    .sectiune > h2 { font-size: clamp(1.3rem, 2.4vw, 1.6rem); font-weight: 800; color: var(--white); letter-spacing: -0.01em; margin-bottom: 1rem; display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap; }
+    .nr { color: var(--green); font-variant-numeric: tabular-nums; }
+    .qa { margin-bottom: 1.4rem; }
+    .qa h3 { font-size: 1.02rem; font-weight: 700; color: var(--white); margin-bottom: 0.35rem; }
+    .qa p, .qa li { font-size: 0.97rem; max-width: 70ch; }
+    .qa p + p, .qa p + ul, .qa p + ol, .qa ul + p, .qa ol + p { margin-top: 0.5rem; }
+    .qa ul, .qa ol { padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.3rem; }
+    .qa li::marker { color: var(--green); }
+    strong { color: var(--white); font-weight: 600; }
+    .pastila { display: inline-block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.5px; padding: 2px 9px; border-radius: 50px; vertical-align: 2px; }
+    .p-premium { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(255,215,0,0.25); }
+    .p-gratuit { background: var(--green-dim); color: var(--green); border: 1px solid var(--green-mid); }
+    .nota { background: var(--card); border: 1px solid var(--green-mid); border-radius: 12px; padding: 0.9rem 1.1rem; font-size: 0.92rem; color: var(--gray); max-width: 70ch; }
+    .nota strong { color: var(--text); }
+    .tabel-wrap { overflow-x: auto; margin-top: 0.5rem; }
+    table { border-collapse: collapse; font-size: 0.92rem; min-width: 420px; }
+    th, td { text-align: left; padding: 0.5rem 0.9rem; border-bottom: 1px solid rgba(255,255,255,0.06); vertical-align: top; }
+    th { color: var(--gray); font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+    td.num { font-variant-numeric: tabular-nums; color: var(--green); font-weight: 600; white-space: nowrap; }
+    .ascuns { display: none !important; }
+    mark { background: rgba(46,204,113,0.28); color: var(--white); border-radius: 3px; padding: 0 2px; }
+
+    footer { background: var(--card); border-top: 1px solid var(--border); padding: 2rem 5%; text-align: center; }
+    .footer-links { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1rem; }
+    .footer-links a { color: var(--gray); text-decoration: none; font-size: 0.85rem; }
+    .footer-links a:hover { color: var(--green); }
+    .footer-copy { color: var(--gray2); font-size: 0.8rem; }
+
+    @media (max-width: 860px) {
+      .pagina { grid-template-columns: minmax(0, 1fr); gap: 0; padding-top: 20px; }
+      .cuprins { display: none; }
+      .cuprins-mobil { display: block; margin-bottom: 1.75rem; background: var(--card); border: 1px solid var(--green-mid); border-radius: 12px; }
+      .cuprins-mobil summary { cursor: pointer; padding: 0.8rem 1rem; font-weight: 700; color: var(--white); list-style: none; display: flex; justify-content: space-between; }
+      .cuprins-mobil summary::after { content: "›"; color: var(--green); transform: rotate(90deg); transition: transform 0.2s; }
+      .cuprins-mobil[open] summary::after { transform: rotate(-90deg); }
+      .cuprins-mobil ol { list-style: none; padding: 0 0.5rem 0.75rem; display: flex; flex-direction: column; }
+      .cuprins-mobil a { display: block; color: var(--gray); text-decoration: none; padding: 0.45rem 0.6rem; font-size: 0.92rem; }
+      .nav-links a:not(.pastreaza) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <img src="../logo.png" alt="NutriRO"/>
+    <a href="index.html" class="nav-logo"><span>Nutri</span>RO</a>
+  </div>
+  <div class="nav-links">
+    <a href="index.html#functii">Funcții</a>
+    <a href="index.html#premium">Premium</a>
+    <a href="manual.html" aria-current="page" class="pastreaza">Manual</a>
+    <a href="mailto:nutriro2026@gmail.com">Contact</a>
+  </div>
+</nav>
+
+<header class="antet">
+  <div class="antet-inner">
+    <div class="eticheta">Ajutor</div>
+    <h1>Manual de utilizare NutriRO</h1>
+    <p class="versiune">Versiunea 3.1 · actualizat pe 12 octombrie 2026 · același manual îl găsești și în aplicație, la Setări → Manual de utilizare.</p>
+    <div class="cautare">
+      <label for="cauta" class="ascuns">Caută în manual</label>
+      <input id="cauta" type="search" placeholder="Caută în manual, ex. porții, apă, parolă…" autocomplete="off"/>
+      <p class="cautare-rezultat" id="cautaRezultat" aria-live="polite"></p>
+    </div>
+  </div>
+</header>
+
+<div class="pagina">
+
+  <aside class="cuprins" aria-label="Cuprins">
+    <h2>Cuprins</h2>
+    <ol id="cuprinsLista"></ol>
+  </aside>
+
+  <main class="continut" id="continut">
+
+    <details class="cuprins-mobil">
+      <summary>Cuprins</summary>
+      <ol id="cuprinsMobil"></ol>
+    </details>
+
+    <!-- 1 -->
+    <section class="sectiune" id="primii-pasi">
+      <h2><span class="nr">1.</span> Primii pași</h2>
+
+      <div class="qa">
+        <h3>Cum îmi creez un cont?</h3>
+        <p>Deschide aplicația și apasă <strong>Creează cont</strong>. Scrie adresa de email, o parolă (cel puțin 8 caractere, cu cel puțin o literă și o cifră) și confirmarea parolei. Poți crea contul și direct cu <strong>Continuă cu Google</strong>, fără parolă. Prin crearea contului accepți Termenii și Politica de confidențialitate.</p>
+        <p>După înregistrarea cu email primești automat un email de verificare. Dacă nu-l vezi, uită-te și în folderul Spam.</p>
+      </div>
+
+      <div class="qa">
+        <h3>Ce înseamnă configurarea profilului?</h3>
+        <p>La prima intrare, NutriRO îți cere câteva date ca să calculeze necesarul tău caloric, în 6 pași:</p>
+        <ol>
+          <li><strong>Profilul tău:</strong> nume, vârstă, greutate, înălțime, sex și nivelul de activitate zilnică (Manual, Sedentar, Ușor activ, Moderat activ, Foarte activ). Tot aici confirmi vârsta minimă de 18 ani și acordul cu Termenii.</li>
+          <li><strong>Ținta ta:</strong> Creștere masă musculară (+300 kcal/zi), Menținere, Slăbire lentă (−250 kcal/zi), Slăbire (−500 kcal/zi) sau Slăbire rapidă (−750 kcal/zi).</li>
+          <li><strong>Necesarul caloric:</strong> calculat automat (formula Mifflin-St Jeor) sau scris de tine, dacă ai o recomandare de la un nutriționist.</li>
+          <li><strong>Tip dietă:</strong> Echilibrată (proteine 25% / carbohidrați 50% / lipide 25%), High Protein (40/35/25), Ketogenică (25/5/70), Personalizat (procentele tale) sau Recomandare exactă (gramajele de la nutriționist).</li>
+          <li><strong>Sare și fibre:</strong> limita zilnică de sare (3, 4 sau 5 g; OMS recomandă cel mult 5 g) și ținta de fibre (25, 30 sau 35 g).</li>
+          <li><strong>Activitate fizică:</strong> alegi dacă vrei ca sportul să se adauge la necesarul zilei sau ca ținta să rămână fixă.</li>
+        </ol>
+      </div>
+
+      <div class="qa">
+        <h3>Pot modifica profilul după configurare?</h3>
+        <p>Da. În tab-ul <strong>Profil</strong> ai <strong>Modifică profilul</strong> (toate datele, dieta, sarea, fibrele) și <strong>Schimbă ținta</strong>. Atenție: Schimbă ținta recalculează și macronutrienții (proteine, carbohidrați, lipide), pe baza dietei tale.</p>
+      </div>
+
+      <div class="qa">
+        <h3>Am uitat parola. Ce fac?</h3>
+        <p>Pe ecranul de autentificare apasă <strong>Ai uitat parola?</strong> și scrie emailul. Primești un link de resetare pe email. Din motive de securitate, mesajul de confirmare e același indiferent dacă adresa are cont sau nu.</p>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="sectiune" id="tab-azi">
+      <h2><span class="nr">2.</span> Tab-ul Azi: jurnalul zilnic</h2>
+
+      <div class="qa">
+        <h3>Cum adaug un aliment sau o rețetă?</h3>
+        <p>Apasă pe masa dorită (Mic dejun, Prânz, Cină, Gustare, Desert). Se deschide o căutare unică, pentru alimente și rețete la un loc.</p>
+        <ol>
+          <li>Scrie în câmpul de căutare.</li>
+          <li>Alege rezultatul din listă. O iconiță arată sursa: casă pentru baza NutriRO, glob pentru Open Food Facts, creion pentru rețetă.</li>
+          <li>La un aliment scrii cantitatea în grame. La o rețetă scrii <strong>numărul de porții</strong>.</li>
+          <li>Apasă <strong>Adaugă în jurnal</strong>.</li>
+        </ol>
+      </div>
+
+      <div class="qa">
+        <h3>Cât cântărește o porție dintr-o rețetă?</h3>
+        <p>Peste tot unde apare o rețetă, lângă numărul de porții vezi și greutatea aproximativă a unei porții, de exemplu <strong>„≈ 193 g/porție”</strong>. Unde nu se arată numărul de porții (de exemplu la Rețeta zilei) apare rândul mic „1 porție ≈ 193 g”.</p>
+        <p>Când adaugi o rețetă în jurnal, câmpul e <strong>Număr de porții</strong>, nu grame. Dacă scrii 3 sau mai mult, aplicația îți amintește că acel câmp e în porții, ca să nu treci din greșeală 200 de porții în loc de 200 g.</p>
+      </div>
+
+      <div class="qa">
+        <h3>Pot scana codul de bare al unui produs?</h3>
+        <p>Da, cu butonul de cameră de lângă căutare. Merg codurile EAN-13, EAN-8, UPC-A, UPC-E și QR, iar pentru lumină slabă ai lanternă. Aplicația caută întâi în baza NutriRO, apoi pe Open Food Facts. Dacă produsul nu e nicăieri, îți oferă direct <strong>Propune ingredient</strong>.</p>
+      </div>
+
+      <div class="qa">
+        <h3>Cum șterg un aliment adăugat greșit?</h3>
+        <p>Apasă butonul de ștergere din dreptul intrării și confirmă cu <strong>Șterge</strong>. Intrarea ștearsă nu se mai poate recupera.</p>
+      </div>
+
+      <div class="qa">
+        <h3>Ce face săgeata de lângă numele mesei?</h3>
+        <p>Deschide sau închide lista alimentelor adăugate la acea masă. Restul rândului (numele mesei și imaginea) deschide direct fereastra de adăugare.</p>
+      </div>
+
+      <div class="qa">
+        <h3>Cum înregistrez apa și greutatea?</h3>
+        <p>Sub cercul caloric ai cinci butoane: <strong>Apă</strong>, <strong>Greutate</strong>, <strong>Activitate</strong>, <strong>Post IF</strong> și <strong>Foto AI</strong>. La Apă alegi o porție rapidă (+150, +250, +330 sau +500 ml); apa zilei se poate reseta, cu confirmare. La Greutate scrii kilogramele (între 20 și 300) și apeși <strong>Salvează</strong>.</p>
+        <p>Post IF și Foto AI sunt funcții Premium.</p>
+      </div>
+
+      <div class="qa">
+        <h3>Ce arată cercul din centrul ecranului?</h3>
+        <p>Cercul caloric arată cât ai mâncat față de ținta zilei; culoarea se schimbă pe măsură ce te apropii de țintă.</p>
+        <ul>
+          <li><strong>Sus, la mijloc:</strong> butonul Distribuie, care face o imagine cu progresul din ziua precedentă.</li>
+          <li><strong>Jos, stânga:</strong> XP-ul tău total.</li>
+          <li><strong>Jos, dreapta:</strong> nivelul tău.</li>
+          <li><strong>Sub card:</strong> streak-ul (zilele consecutive în țintă), cu un punct pentru fiecare din ultimele 7 zile.</li>
+          <li><strong>După ora 21:00:</strong> butonul Bilanțul zilei întoarce cardul și arată XP-ul de azi, medaliile, streak-ul, cele 6 obiective ale zilei (calorii, sare, fibre, proteine, apă, misiunea zilei) și media caloriilor pe 7 zile.</li>
+        </ul>
+      </div>
+
+      <div class="qa">
+        <h3>Ce sunt cardurile de sub jurnal?</h3>
+        <ul>
+          <li><strong>Următoarea masă:</strong> o propunere pentru masa care urmează, potrivită cu ce ți-a rămas din ținta zilei, cu butoanele Adaugă și Vezi rețetă.</li>
+          <li><strong>Scorul și misiunea zilei:</strong> scorul nutrițional de azi (0–100) și o misiune personalizată, cu XP în plus când o îndeplinești.</li>
+        </ul>
+      </div>
+
+      <div class="qa">
+        <h3>Ce este dispoziția zilei?</h3>
+        <p>Apasă pastila mică de lângă numele tău, în antet, și alege una din cinci variante: Obosit, Slab, Ok, Bine, Super. Alegerea se salvează și apare mai târziu în rapoarte.</p>
+      </div>
+
+      <div class="qa">
+        <h3>Cum propun un ingredient care lipsește?</h3>
+        <p>Din tab-ul <strong>Plan</strong>, cardul Biblioteca NutriRO → <strong>Propune ingredient nou</strong>, sau direct după o scanare de cod de bare fără rezultat. Completezi valorile nutriționale și trimiți; ingredientul apare la toți după ce îl verifică administratorul.</p>
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="sectiune" id="foto-ai">
+      <h2><span class="nr">3.</span> Foto AI <span class="pastila p-premium">PREMIUM</span></h2>
+
+      <div class="qa">
+        <h3>Cum funcționează Foto AI?</h3>
+        <p>Din tab-ul Azi apasă <strong>Foto AI</strong>, centrează farfuria în cadru și fă poza. AI-ul recunoaște preparatul și îl desface în ingrediente, cu gramajele ca într-o rețetă (carnea și legumele crude, mămăliga sau orezul gătite). Valorile nutriționale nu le ghicește AI-ul: ele vin din catalogul NutriRO, iar telefonul face calculul.</p>
+        <p>Pe ecranul de rezultat vezi totalul pentru toată farfuria și valorile la 100 g. Fiecare ingredient are o etichetă: <strong>catalog NutriRO</strong> (valori din bază) sau <strong>estimat AI</strong> (ingredient care nu e în catalog).</p>
+      </div>
+
+      <div class="qa">
+        <h3>Pot corecta ce a recunoscut?</h3>
+        <p>Da. Apasă <strong>Editează</strong> și intri în „Corectează ingredientele”. Acolo poți:</p>
+        <ul>
+          <li>schimba cantitatea fiecărui ingredient;</li>
+          <li>șterge un ingredient greșit;</li>
+          <li>redenumi un ingredient (dacă numele nou nu e în catalog, aplicația îi caută valorile);</li>
+          <li>adăuga un ingredient lipsă, cu sugestii din catalog pe măsură ce scrii.</li>
+        </ul>
+        <p>Totalul se recalculează pe loc. Apasă <strong>Gata</strong> când ai terminat.</p>
+      </div>
+
+      <div class="qa">
+        <h3>Cum ajunge în jurnal?</h3>
+        <p>Alegi masa (Mic dejun, Prânz, Gustare, Cină) și apeși <strong>Adaugă în jurnal</strong>. Dacă vrei doar să afli caloriile, alege <strong>Doar informativ</strong> și nu se salvează nimic. Dacă poza n-a ieșit bine, apasă <strong>Fotografiază din nou</strong>.</p>
+      </div>
+
+      <div class="qa">
+        <h3>Câte scanări am?</h3>
+        <p>5 scanări pe lună. Câte ți-au rămas vezi chiar pe ecranul de rezultat. Foto AI are nevoie de internet.</p>
+      </div>
+    </section>
+
+    <!-- 4 -->
+    <section class="sectiune" id="tab-progres">
+      <h2><span class="nr">4.</span> Tab-ul Progres</h2>
+
+      <div class="qa">
+        <h3>Ce găsesc în tab-ul Progres?</h3>
+        <ul>
+          <li><strong>AI Asistent</strong> <span class="pastila p-premium">PREMIUM</span>: trei întrebări gata făcute: „Cum mă descurc?”, „De ce nu slăbesc?” și „Ce trebuie să îmbunătățesc?”. Ultima e o analiză săptămânală, disponibilă o dată la 7 zile.</li>
+          <li><strong>Rapoarte</strong> <span class="pastila p-premium">PREMIUM</span>: cinci rapoarte PDF (vezi <a href="#rapoarte">Rapoarte</a>).</li>
+          <li><strong>Aderență 30 de zile:</strong> câte zile din ultima lună ai respectat ținta.</li>
+          <li><strong>Activitate 60 de zile:</strong> o hartă cu fiecare zi: albastru = sub țintă, verde = în țintă, portocaliu = depășit, gri = nimic notat. Portocaliul e ales intenționat în locul roșului, ca să se distingă și de cei care nu deosebesc roșul de verde.</li>
+          <li><strong>Graficul greutății</strong> pe ultimele 30 de zile.</li>
+          <li><strong>Caloriile pe 7 zile</strong> și un rezumat cu proteine, carbohidrați, lipide, sare, fibre și apă.</li>
+          <li><strong>Editare zile introduse:</strong> corectezi jurnalul din ultimele 7 zile.</li>
+        </ul>
+      </div>
+
+      <div class="qa">
+        <h3>Câte întrebări AI am pe lună?</h3>
+        <p>10 întrebări pe lună, cu Premium. Contorul se resetează pe 1 ale fiecărei luni. Dacă butonul analizei săptămânale scrie „în X zile”, atâtea zile mai sunt până se deblochează.</p>
+      </div>
+
+      <div class="qa">
+        <h3>Ce este scorul nutrițional?</h3>
+        <p>Un scor de la 0 la 100 care arată cât de aproape ai fost de țintele tale, calculat din 7 piloni:</p>
+        <div class="tabel-wrap">
+          <table>
+            <thead><tr><th>Pilon</th><th>Puncte</th></tr></thead>
+            <tbody>
+              <tr><td>Calorii (scor maxim la ~90–100% din țintă)</td><td class="num">25</td></tr>
+              <tr><td>Proteine</td><td class="num">20</td></tr>
+              <tr><td>Carbohidrați</td><td class="num">15</td></tr>
+              <tr><td>Lipide</td><td class="num">15</td></tr>
+              <tr><td>Sare</td><td class="num">15</td></tr>
+              <tr><td>Hidratare + greutate înregistrată</td><td class="num">10</td></tr>
+              <tr><td>Fibre</td><td class="num">10</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Cele 110 puncte se aduc la 100. Interpretare: Critic (0–29), Slab (30–44), Acceptabil (45–59), Bun (60–74), Excelent (75–89), Gold (90–100). Scorul zilei îl vezi în tab-ul Azi.</p>
+      </div>
+    </section>
+
+    <!-- 5 -->
+    <section class="sectiune" id="tab-plan">
+      <h2><span class="nr">5.</span> Tab-ul Plan: meniul săptămânal</h2>
+
+      <div class="qa">
+        <h3>Cum generez un meniu pe 7 zile? <span class="pastila p-premium">PREMIUM</span></h3>
+        <ol>
+          <li><strong>Stil de alimentație:</strong> poți alege mai multe: Carbohidrați scăzuți, Bogat în proteine, Grăsimi scăzute, Calorii reduse, Vegan, Vegetarian, Meal Prep.</li>
+          <li><strong>Grăsimi pe porție:</strong> Orice nivel, Slab (sub 10 g), Mediu (10–20 g) sau Bogat (peste 20 g).</li>
+          <li><strong>Repetiția meselor:</strong> pentru fiecare masă alegi mese diferite zilnic, repetate la 2–3 zile sau aceeași toată săptămâna.</li>
+          <li>Apasă <strong>Generează Meniu</strong>.</li>
+        </ol>
+        <p>Meniul se face pe necesarul tău caloric. Ai 5 generări pe lună.</p>
+      </div>
+
+      <div class="qa">
+        <h3>Ce pot face cu meniul generat?</h3>
+        <p>Apeși pe o masă ca să vezi rețeta, sau pe <strong>Prepară rețeta</strong> pentru pașii de preparare. Din butonul <strong>⋯</strong> din antet ai: Exportă PDF meniu, Listă cumpărături și Șterge meniul.</p>
+      </div>
+
+      <div class="qa">
+        <h3>Cum funcționează lista de cumpărături?</h3>
+        <p>Se face automat din ingredientele meniului, grupate pe categorii (Carne și pește, Lactate și ouă, Legume…). Bifezi ce ai cumpărat, câte un produs sau toată categoria, o exporți ca PDF și poți reseta bifele.</p>
+      </div>
+
+      <div class="qa">
+        <h3>Pot face un meniu de mână? <span class="pastila p-gratuit">GRATUIT</span></h3>
+        <p>Da, cu <strong>Întocmește meniu</strong>: alegi 1–7 zile și pui rețete pe patru mese: Mic dejun, Prânz, Cină și Gustare (desertul merge la Gustare).</p>
+      </div>
+
+      <div class="qa">
+        <h3>Pot corecta zilele trecute din jurnal?</h3>
+        <p>Da, din tab-ul <strong>Progres</strong> → Editare zile introduse. Corectezi ultimele 7 zile, iar scorul și medaliile se recalculează. Meniul săptămânii nu se editează pe zile: generezi altul sau îl întocmești de mână.</p>
+      </div>
+
+      <div class="qa">
+        <h3>Ce mai e în tab-ul Plan?</h3>
+        <ul>
+          <li><strong>Rețeta zilei</strong>, aleasă după ora la care deschizi aplicația.</li>
+          <li><strong>Biblioteca NutriRO</strong>: câte rețete și ingrediente sunt acum în bază, plus Propune rețeta proprie și Propune ingredient nou.</li>
+          <li>Un <strong>calendar</strong> săptămânal și lunar.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 6 -->
+    <section class="sectiune" id="retete">
+      <h2><span class="nr">6.</span> Rețete</h2>
+
+      <div class="qa">
+        <h3>Unde găsesc rețetele?</h3>
+        <p>În tab-ul Plan → Rețete. Sunt peste 1.200 de rețete românești și internaționale, cu filtre după tipul mesei (mic dejun, prânz, cină, gustare, desert) și după categorie (fel principal, supe și ciorbe, salate, deserturi…).</p>
+      </div>
+
+      <div class="qa">
+        <h3>Ce văd la o rețetă?</h3>
+        <p>Ingredientele, valorile pe porție, greutatea porției, timpul de preparare, dificultatea și scorul de sațietate. De acolo intri în modul de preparare: pașii unul după altul, citirea lor cu voce tare și exportul fișei rețetei ca PDF.</p>
+      </div>
+
+      <div class="qa">
+        <h3>Pot schimba caloriile unei rețete?</h3>
+        <p>Da, din modul de preparare → Modifică calorii: alegi numărul de porții și poți înlocui un ingredient cu altul din bază. Valorile se recalculează.</p>
+      </div>
+
+      <div class="qa">
+        <h3>Cum propun o rețetă proprie?</h3>
+        <ol>
+          <li>Tab-ul Plan → Biblioteca NutriRO → <strong>Propune rețeta proprie</strong>.</li>
+          <li>Adaugi ingredientele din bază, cu cantitățile în grame.</li>
+          <li>Scrii pașii de preparare.</li>
+          <li>Alegi categoria, tipul mesei și dificultatea.</li>
+          <li>Apeși <strong>Trimite spre aprobare</strong>.</li>
+        </ol>
+        <p>Rețeta apare la toți după ce o verifică administratorul; valorile finale se calculează la aprobare.</p>
+      </div>
+    </section>
+
+    <!-- 7 -->
+    <section class="sectiune" id="tab-profil">
+      <h2><span class="nr">7.</span> Tab-ul Profil</h2>
+
+      <div class="qa">
+        <h3>Ce conține profilul?</h3>
+        <ul>
+          <li>Un salut după ora zilei și o bifă verde dacă emailul e verificat.</li>
+          <li>O bandă cu țintele tale: kcal/zi, proteine/zi, apă/zi și IMC.</li>
+          <li><strong>Progres:</strong> XP total, cât mai ai până la nivelul următor, streak, medaliile zilei și totalul medaliilor.</li>
+          <li><strong>Biometrie:</strong> greutate, înălțime, IMC pe benzile OMS și evoluția pe 30 de zile.</li>
+          <li><strong>Date personale</strong> și <strong>Obiective nutriționale</strong> (macro, tip dietă, fibre, sare, apă).</li>
+          <li><strong>Codul tău de asociere</strong> (de forma NR-XXXXXX), cu buton de copiere, prin care te găsește un antrenor.</li>
+          <li><strong>Antrenorul tău</strong> și, dacă ești antrenor, <strong>Panou Antrenor</strong> (vezi <a href="#antrenor">Antrenor</a>).</li>
+        </ul>
+        <p>Butoane: Modifică profilul, Schimbă ținta, Logout. Apasă pe poza de profil ca s-o schimbi din galerie.</p>
+      </div>
+    </section>
+
+    <!-- 8 -->
+    <section class="sectiune" id="setari">
+      <h2><span class="nr">8.</span> Setări (tab-ul „Mai mult”)</h2>
+
+      <div class="qa">
+        <h3>Ce găsesc în Setări?</h3>
+        <ul>
+          <li><strong>Cont:</strong> Schimbă email, Schimbă parola, Exportă datele mele (un PDF cu toate datele tale, conform GDPR), Șterge cont.</li>
+          <li><strong>Notificări:</strong> un comutator general și trei mementouri, fiecare cu ora lui: Mic dejun, Hidratare și Streak. Le schimbi din <strong>Modifică notificările</strong>.</li>
+          <li><strong>Anunțuri pe email:</strong> noutăți despre aplicație, ocazional. Le poți opri oricând; emailurile despre cont (verificare, parolă) vin oricum.</li>
+          <li><strong>Despre și Legal:</strong> Despre NutriRO (cu Revezi ghidul de bun venit și cerințele minime ale telefonului), Trimite feedback, Manual de utilizare, Termeni, Politica de confidențialitate.</li>
+        </ul>
+      </div>
+
+      <div class="qa">
+        <h3>Cum vă trimit o problemă sau o idee?</h3>
+        <p>Setări → <strong>Trimite feedback</strong>: alegi „Am găsit o eroare” sau „Am o propunere”, scrii mesajul și poți atașa o captură de ecran. Sau scrie-ne la <strong>nutriro2026@gmail.com</strong>.</p>
+      </div>
+    </section>
+
+    <!-- 9 -->
+    <section class="sectiune" id="activitate">
+      <h2><span class="nr">9.</span> Activitate fizică <span class="pastila p-gratuit">GRATUIT</span></h2>
+
+      <div class="qa">
+        <h3>Cum notez o activitate?</h3>
+        <p>Tab-ul Azi → <strong>Activitate</strong>. Ecranul are două moduri: <strong>Jurnal azi</strong> (se scrie în jurnal și schimbă ținta zilei) și <strong>Calculator</strong> (doar calculează, nu salvează nimic). În Jurnal azi ai trei variante:</p>
+        <ul>
+          <li><strong>Din listă:</strong> o categorie (Mers, Alergare, Ciclism, Înot, Sală, Sporturi de echipă, Rachetă, Arte marțiale, Yoga/Dans, Nautic/Iarnă, Casnice, Profesionale, Diverse), apoi una din cele 108 activități și durata. Caloriile se văd înainte să apeși Adaugă.</li>
+          <li><strong>Gadget:</strong> scrii direct caloriile arse măsurate de ceas sau brățară.</li>
+          <li><strong>Auto:</strong> pașii citiți din Health Connect (sau scriși de tine), transformați în calorii.</li>
+        </ul>
+        <p>Caloriile din listă se calculează cu formula MET × greutatea (kg) × ore.</p>
+      </div>
+
+      <div class="qa">
+        <h3>Sportul crește sau scade ce am voie să mănânc?</h3>
+        <p>Îl crește, dacă ai ales la configurare ca sportul să se adauge la necesar. Exemplu: cu 2.000 kcal necesare și 300 kcal arse la sală, ținta zilei devine 2.300 kcal.</p>
+      </div>
+
+      <div class="qa">
+        <h3>Health Connect are permisiune, dar Auto arată 0 pași. De ce?</h3>
+        <p>Health Connect doar transmite datele; pașii trebuie să-i trimită acolo aplicația care îi numără. Verifică, în ordine:</p>
+        <ol>
+          <li>În Google Fit (nu în Health Connect): Profil → Setări → pornește sincronizarea cu Health Connect.</li>
+          <li>În aceleași setări, „Urmărește-ți automat activitatea” trebuie să fie pornit.</li>
+          <li>Repornește telefonul.</li>
+          <li>Deschide din nou NutriRO → Activitate → Auto.</li>
+        </ol>
+        <p>Cu Samsung Health, Mi Fitness sau alt contor, pașii sunt aceiași, doar că setarea de conectare la Health Connect o cauți în acea aplicație.</p>
+      </div>
+    </section>
+
+    <!-- 10 -->
+    <section class="sectiune" id="post-if">
+      <h2><span class="nr">10.</span> Post intermitent <span class="pastila p-premium">PREMIUM</span></h2>
+
+      <div class="qa">
+        <h3>Ce protocoale am?</h3>
+        <ul>
+          <li><strong>16:8</strong>: 16 ore de post, 8 ore de mâncat (bun pentru început).</li>
+          <li><strong>18:6</strong>: 18 ore de post, 6 ore de mâncat.</li>
+          <li><strong>20:4</strong>: 20 ore de post, 4 ore de mâncat (avansat).</li>
+        </ul>
+      </div>
+
+      <div class="qa">
+        <h3>Cum pornesc un post?</h3>
+        <p>Tab-ul Azi → <strong>Post IF</strong> → alegi protocolul. Dacă ai început deja mai devreme, alegi la „Când ai început postul?” (până la 23 de ore în urmă). Apoi apeși <strong>Începe postul</strong>. Primești notificări când se deschide fereastra de mâncat și cu 30 de minute înainte să se închidă.</p>
+      </div>
+
+      <div class="qa">
+        <h3>Pot opri postul mai devreme?</h3>
+        <p>Da, cu <strong>Oprește postul</strong> și o confirmare. Poți porni altul oricând.</p>
+      </div>
+    </section>
+
+    <!-- 11 -->
+    <section class="sectiune" id="rapoarte">
+      <h2><span class="nr">11.</span> Rapoarte <span class="pastila p-premium">PREMIUM</span></h2>
+
+      <div class="qa">
+        <h3>Ce rapoarte există?</h3>
+        <p>Toate se fac din tab-ul Progres → cardul Rapoarte → <strong>Generează</strong>, ca PDF pe care îl poți salva sau trimite.</p>
+        <div class="tabel-wrap">
+          <table>
+            <thead><tr><th>Raport</th><th>Ce conține</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Nutrițional</strong></td><td>Ultimele 30 de zile: medii zilnice (calorii, macro, sare, fibre, apă), cât ai respectat ținta, tiparul meselor, postul, greutatea.</td></tr>
+              <tr><td><strong>Medical</strong></td><td>Cum se împart caloriile pe mese, sare și hidratare, zile lucrătoare față de weekend, evoluția greutății.</td></tr>
+              <tr><td><strong>Jurnal</strong></td><td>Jurnalul detaliat din ultimele 30 de zile.</td></tr>
+              <tr><td><strong>Lunar</strong></td><td>O analiză scrisă de AI a ultimei luni; de 2 ori la 30 de zile.</td></tr>
+              <tr><td><strong>Istoric</strong></td><td>Grafice pe termen lung: 6 luni, 1 an sau 2 ani.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="nota"><strong>Important:</strong> rapoartele sunt informative și nu sunt un document medical. NutriRO nu trimite nimic medicului; dacă vrei, îi arăți tu PDF-ul.</p>
+      </div>
+    </section>
+
+    <!-- 12 -->
+    <section class="sectiune" id="antrenor">
+      <h2><span class="nr">12.</span> Antrenor</h2>
+
+      <div class="qa">
+        <h3>Cum mă asociez cu un antrenor?</h3>
+        <p>Îi dai antrenorului codul tău de asociere (Profil → Codul tău de asociere). Cererea lui apare la tine în cardul <strong>Antrenorul tău</strong>, cu Acceptă și Refuză. Poți avea un singur antrenor odată și te poți deconecta oricând.</p>
+      </div>
+
+      <div class="qa">
+        <h3>Ce primesc de la antrenor?</h3>
+        <p>Mesaje, planuri alimentare și programe de antrenament. Le găsești în Notificări (clopoțelul din tab-ul Azi), la „De la antrenor”, și le poți salva ca PDF.</p>
+      </div>
+
+      <div class="qa">
+        <h3>Cum devin antrenor?</h3>
+        <p>Statutul de antrenor cere Premium activ și vârsta de cel puțin 18 ani. Deocamdată îl activează administratorul, la cerere: scrie-ne la nutriro2026@gmail.com.</p>
+      </div>
+
+      <div class="qa">
+        <h3>Ce poate face un antrenor?</h3>
+        <p>Din <strong>Panou Antrenor</strong>:</p>
+        <ul>
+          <li><strong>Grupe:</strong> își împarte clienții în grupe și îi invită prin codul lor de asociere (clientul primește o cerere).</li>
+          <li><strong>Membri:</strong> sumarul, jurnalul și notițele private pentru fiecare client, plus alerte (de exemplu, cine n-a mai notat nimic).</li>
+          <li><strong>Mesaje:</strong> unui client sau unei grupe întregi; fiecare primește mesajul separat.</li>
+          <li><strong>Antrenament:</strong> programe pe până la 7 zile, cu până la 12 exerciții pe zi.</li>
+          <li><strong>Alimentar:</strong> planuri pe până la 7 zile, pornind de la ținta clientului.</li>
+        </ul>
+        <p class="nota">„Antrenorul AI” din Premium e asistentul AI din tab-ul Progres, nu o persoană.</p>
+      </div>
+    </section>
+
+    <!-- 13 -->
+    <section class="sectiune" id="premium">
+      <h2><span class="nr">13.</span> Premium</h2>
+
+      <div class="qa">
+        <h3>Ce e gratuit și ce e Premium?</h3>
+        <p><strong>Gratuit:</strong> jurnalul și calculul nutrițional, scanarea codului de bare, activitatea fizică (108 activități) și pașii din Health Connect, meniul întocmit de mână, rețetele, medaliile, XP-ul și nivelurile, scorul nutrițional, harta de activitate și aderența, propunerile de rețete și ingrediente.</p>
+        <p><strong>Premium:</strong> AI Asistent (10 întrebări pe lună), Foto AI (5 scanări pe lună), generatorul de meniu (5 pe lună), postul intermitent și cele 5 rapoarte PDF.</p>
+      </div>
+
+      <div class="qa">
+        <h3>Cum îmi iau Premium?</h3>
+        <p>Abonamentul prin Google Play va fi disponibil <strong>în curând</strong>. Până atunci, funcțiile Premium apar în aplicație cu lacăt.</p>
+      </div>
+    </section>
+
+    <!-- 14 -->
+    <section class="sectiune" id="medalii">
+      <h2><span class="nr">14.</span> Medalii, XP și niveluri</h2>
+
+      <div class="qa">
+        <h3>Cum obțin medalii?</h3>
+        <p>Automat, când îndeplinești condiția. Sunt 22 de medalii, în trei categorii.</p>
+        <p><strong>Zilnice</strong> (10 XP fiecare, dacă nu scrie altfel): Calorii în țintă, Proteină atinsă, Fibre atinse, Carbo în control, Lipide OK, Hidratat, Sare în normă, Mic dejun sănătos (între 6 și 11, cel puțin 15 g proteine și 200 kcal), Prânz echilibrat (între 11 și 15, cel puțin 20 g proteine, lipide sub 30% din masă), Cină devreme (înainte de 20, sub 40% din necesarul zilei), Greutate înregistrată (5 XP). <strong>Zi perfectă</strong>: toate cele 11 în aceeași zi, +30 XP; se acordă după încheierea zilei.</p>
+        <p><strong>Periodice:</strong> 3 zile la rând (50 XP), Săptămână perfectă (150 XP), Luna de foc (500 XP), Primul kg jos (100 XP), 5 kg (300 XP), Săptămână proteică (100 XP).</p>
+        <p><strong>Permanente:</strong> Prima înregistrare (20 XP), Bucătar experimentat (10 rețete, 100 XP), Scanner activ (15 XP), 5 zile perfecte (200 XP).</p>
+      </div>
+
+      <div class="qa">
+        <h3>Care sunt nivelurile?</h3>
+        <div class="tabel-wrap">
+          <table>
+            <thead><tr><th>Nivel</th><th>Titlu</th><th>XP necesar</th></tr></thead>
+            <tbody>
+              <tr><td class="num">1</td><td>Începător</td><td class="num">0</td></tr>
+              <tr><td class="num">2</td><td>Curios</td><td class="num">100</td></tr>
+              <tr><td class="num">3</td><td>Constant</td><td class="num">250</td></tr>
+              <tr><td class="num">4</td><td>Disciplinat</td><td class="num">500</td></tr>
+              <tr><td class="num">5</td><td>Devotat</td><td class="num">900</td></tr>
+              <tr><td class="num">6</td><td>Avansat</td><td class="num">1.400</td></tr>
+              <tr><td class="num">7</td><td>Expert</td><td class="num">2.000</td></tr>
+              <tr><td class="num">8</td><td>Maestru</td><td class="num">3.000</td></tr>
+              <tr><td class="num">9</td><td>Legendă</td><td class="num">5.000</td></tr>
+              <tr><td class="num">10</td><td>NutriRO Champion</td><td class="num">8.000</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="qa">
+        <h3>Ce este streak-ul?</h3>
+        <p>Numărul de zile la rând în care caloriile au fost în țintă. Dacă sari o zi, pornește din nou de la 0.</p>
+      </div>
+    </section>
+
+    <!-- 15 -->
+    <section class="sectiune" id="intrebari">
+      <h2><span class="nr">15.</span> Întrebări frecvente</h2>
+
+      <div class="qa">
+        <h3>Nu găsesc un aliment. Ce fac?</h3>
+        <p>Baza are peste 1.400 de ingrediente. Încearcă:</p>
+        <ul>
+          <li>alt nume („piept de pui” în loc de „pui piept”);</li>
+          <li>mai puține cuvinte („morcov” în loc de „morcovi fierți”);</li>
+          <li>scanarea codului de bare, la produsele ambalate;</li>
+          <li>Propune ingredient nou, din tab-ul Plan.</li>
+        </ul>
+      </div>
+
+      <div class="qa">
+        <h3>Merge aplicația fără internet?</h3>
+        <p>În mare parte. Rețetele și ingredientele se văd fără internet, iar jurnalul, apa și dispoziția se salvează pe telefon și se trimit singure când revine conexiunea (vezi mesajul „Salvat local”). Au nevoie de internet: generatorul de meniu, AI Asistent, Foto AI, rapoartele și ștergerea contului.</p>
+      </div>
+
+      <div class="qa">
+        <h3>Unde a dispărut meniul generat?</h3>
+        <p>Meniul e salvat în cont, dar unul nou îl înlocuiește pe cel vechi, iar Șterge meniul îl șterge de tot. Dacă vrei să-l păstrezi, exportă-l întâi ca PDF.</p>
+      </div>
+
+      <div class="qa">
+        <h3>De ce am scor mic deși am mâncat sănătos?</h3>
+        <p>Scorul arată cât de aproape ai fost de țintele tale (calorii, macro, sare, fibre, apă), nu cât de sănătoase sunt alimentele. Dacă ai mâncat mult sub sau peste necesar, scorul scade.</p>
+      </div>
+
+      <div class="qa">
+        <h3>Pot folosi un cont pentru toată familia?</h3>
+        <p>Nu. Fiecare persoană are nevoie de contul ei; datele sunt separate pe cont.</p>
+      </div>
+
+      <div class="qa">
+        <h3>Cum îmi șterg contul?</h3>
+        <p>Din aplicație: Setări → Cont → <strong>Șterge cont</strong>, scrii <strong>ȘTERGE</strong> și confirmi cu Șterge definitiv (cu internet). Contul se dezactivează imediat, iar datele se șterg complet în cel mult 30 de zile. Dacă nu mai ai aplicația, urmează pașii de pe pagina <a href="stergere-cont.html">Ștergerea contului</a>.</p>
+      </div>
+
+      <div class="qa">
+        <h3>Am o problemă care nu e aici.</h3>
+        <p>Scrie-ne din aplicație (Setări → Trimite feedback) sau la <strong>nutriro2026@gmail.com</strong>.</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="../">DDApp.store</a>
+    <a href="index.html">NutriRO</a>
+    <a href="manual.html">Manual</a>
+    <a href="termeni.html">Termeni și Condiții</a>
+    <a href="confidentialitate.html">Confidențialitate</a>
+    <a href="stergere-cont.html">Ștergerea contului</a>
+    <a href="mailto:nutriro2026@gmail.com">Contact</a>
+  </div>
+  <p class="footer-copy">© 2026 NutriRO · D.D. · Toate drepturile rezervate · Făcut în România</p>
+</footer>
+
+<script>
+  (function () {
+    var sectiuni = Array.prototype.slice.call(document.querySelectorAll('.sectiune'));
+    var lista = document.getElementById('cuprinsLista');
+    var listaMobil = document.getElementById('cuprinsMobil');
+    var mobil = document.querySelector('.cuprins-mobil');
+
+    // Cuprinsul se construiește din titlurile secțiunilor (o singură sursă).
+    sectiuni.forEach(function (s) {
+      var titlu = s.querySelector('h2').cloneNode(true);
+      titlu.querySelectorAll('.pastila').forEach(function (p) { p.remove(); });
+      var text = titlu.textContent.replace(/\s+/g, ' ').trim();
+      [lista, listaMobil].forEach(function (l) {
+        var li = document.createElement('li');
+        var a = document.createElement('a');
+        a.href = '#' + s.id;
+        a.textContent = text;
+        a.dataset.tinta = s.id;
+        li.appendChild(a);
+        l.appendChild(li);
+      });
+    });
+    listaMobil.addEventListener('click', function (e) { if (e.target.tagName === 'A') mobil.open = false; });
+
+    // Secțiunea curentă, marcată în cuprins.
+    var linkuri = lista.querySelectorAll('a');
+    if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function (intrari) {
+        intrari.forEach(function (i) {
+          if (i.isIntersecting) {
+            linkuri.forEach(function (a) { a.classList.toggle('activ', a.dataset.tinta === i.target.id); });
+          }
+        });
+      }, { rootMargin: '-90px 0px -70% 0px' });
+      sectiuni.forEach(function (s) { obs.observe(s); });
+    }
+
+    // Căutare: ascunde întrebările care nu conțin textul (fără diacritice).
+    var camp = document.getElementById('cauta');
+    var rezultat = document.getElementById('cautaRezultat');
+    var fara = function (t) { return t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); };
+    var qas = Array.prototype.slice.call(document.querySelectorAll('.qa'));
+    qas.forEach(function (q) { q.dataset.text = fara(q.textContent); });
+    camp.addEventListener('input', function () {
+      var c = fara(camp.value.trim());
+      var gasite = 0;
+      qas.forEach(function (q) {
+        var ok = !c || q.dataset.text.indexOf(c) !== -1;
+        q.classList.toggle('ascuns', !ok);
+        if (ok) gasite++;
+      });
+      sectiuni.forEach(function (s) {
+        s.classList.toggle('ascuns', !!c && !s.querySelector('.qa:not(.ascuns)'));
+      });
+      rezultat.textContent = !c ? '' : gasite === 0 ? 'Nimic găsit. Încearcă alt cuvânt sau scrie-ne la nutriro2026@gmail.com.' : gasite === 1 ? 'O întrebare găsită.' : gasite + ' întrebări găsite.';
+    });
+  })();
+</script>
+</body>
+</html>
