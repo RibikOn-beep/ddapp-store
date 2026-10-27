@@ -1,10 +1,12 @@
-/* Pagina de rețetă NutriRO: calculatorul de porții, filtrele din listă, căutarea și protecția textului de preparare. */
+/* Paginile de rețete NutriRO: calculatorul de porții, protecția textului de preparare,
+   iar pe paginile de listă căutarea, filtrele și paginile câte 20 (ideea 5, aleasă de Dorel pe 27 oct 2026). */
 (function () {
   function grup(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
   function cant(q) {
     var r = q >= 100 ? Math.round(q / 10) * 10 : (q >= 20 ? Math.round(q) : Math.round(q * 10) / 10);
     return r >= 1000 ? grup(r) : String(r).replace('.', ',');
   }
+  function fara(t) { return String(t || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
 
   // calculatorul de porții
   var calc = document.querySelector('[data-portii-baza]');
@@ -46,36 +48,72 @@
     e.clipboardData.setData('text/plain', sel.toString() + '\n\nSursa: ' + location.origin + location.pathname);
   });
 
-  // filtrele din lista de rețete
-  var filtre = document.querySelectorAll('[data-filtru]');
-  var aplica = function (f) {
-    filtre.forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-filtru') === f ? 'true' : 'false'); });
-    document.querySelectorAll('.masa').forEach(function (m) {
-      var vizibile = 0;
-      m.querySelectorAll('li[data-kcal]').forEach(function (li) {
-        var ok = f === 'toate'
-          || (f === 'sub300' && +li.getAttribute('data-kcal') < 300)
-          || (f === 'rapide' && +li.getAttribute('data-min') > 0 && +li.getAttribute('data-min') <= 30)
-          || (f === 'lowcarb' && li.getAttribute('data-lowcarb') === '1');
-        li.hidden = !ok;
-        if (ok) vizibile++;
-      });
-      var gol = m.querySelector('.gol');
-      if (gol) gol.hidden = vizibile > 0;
-    });
-  };
-  filtre.forEach(function (b) { b.addEventListener('click', function () { aplica(b.getAttribute('data-filtru')); }); });
+  // căutarea din bara de sus (?q=) ajunge în câmpul paginii de listă
+  var q = new URLSearchParams(location.search).get('q') || '';
+  var campSus = document.querySelector('.cauta input');
+  if (campSus && q) campSus.value = q;
 
-  // căutarea pe pagina cu toate rețetele (?q=)
-  var grile = document.querySelectorAll('.grila a');
-  var q = new URLSearchParams(location.search).get('q');
-  var camp = document.querySelector('.cauta input');
-  if (camp && q) camp.value = q;
-  if (grile.length && q) {
-    var t = q.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
-    grile.forEach(function (a) {
-      var n = a.textContent.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
-      a.hidden = n.indexOf(t) < 0;
+  // paginile de listă: căutare, filtre, câte 20 pe pagină; toate rețetele sunt în HTML (le citește Google), scriptul doar ascunde
+  var lista = document.querySelector('[data-lista]');
+  if (!lista) return;
+  var PE_PAGINA = 20, pagina = 1;
+  var randuri = Array.prototype.slice.call(lista.children);
+  randuri.forEach(function (li) { li._n = fara(li.textContent); });
+  var caut = document.querySelector('[data-caut]');
+  if (caut && q) caut.value = q;
+  var det = document.querySelector('.f-det');
+  if (det && window.matchMedia('(max-width: 760px)').matches) det.removeAttribute('open');
+  var nr = document.querySelector('[data-nr]'), gol = document.querySelector('[data-gol]'), pag = document.querySelector('[data-pagini]');
+
+  function bifat(nume) { var el = document.querySelector('input[name="' + nume + '"]'); return el && el.checked; }
+  function potrivite() {
+    var t = fara(caut ? caut.value : '').trim();
+    var treapta = (document.querySelector('input[name="kcal"]:checked') || {}).value || 'toate';
+    var feluri = Array.prototype.map.call(document.querySelectorAll('input[name="fel"]:checked'), function (x) { return x.value; });
+    return randuri.filter(function (li) {
+      var k = +li.getAttribute('data-kcal'), m = +li.getAttribute('data-min');
+      if (t && li._n.indexOf(t) < 0) return false;
+      if (treapta === 'sub200' && !(k < 200)) return false;
+      if (treapta === 'medii' && !(k >= 200 && k <= 350)) return false;
+      if (treapta === 'peste' && !(k > 350)) return false;
+      if (feluri.length && feluri.indexOf(li.getAttribute('data-fel')) < 0) return false;
+      if (bifat('rapide') && !(m > 0 && m <= 30)) return false;
+      if (bifat('post') && li.getAttribute('data-post') !== '1') return false;
+      if (bifat('prot') && li.getAttribute('data-prot') !== '1') return false;
+      return true;
     });
   }
+  function buton(n, eticheta) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.textContent = eticheta || n;
+    if (n === pagina && !eticheta) b.setAttribute('aria-current', 'page');
+    b.addEventListener('click', function () { pagina = n; arata(); lista.scrollIntoView({ block: 'start' }); });
+    return b;
+  }
+  function arata() {
+    var ok = potrivite(), total = Math.max(1, Math.ceil(ok.length / PE_PAGINA));
+    if (pagina > total) pagina = total;
+    var de = (pagina - 1) * PE_PAGINA, pana = de + PE_PAGINA;
+    randuri.forEach(function (li) { li.hidden = true; });
+    ok.forEach(function (li, i) { li.hidden = i < de || i >= pana; });
+    if (nr) nr.textContent = ok.length;
+    if (gol) gol.hidden = ok.length > 0;
+    if (!pag) return;
+    pag.innerHTML = '';
+    if (total < 2) return;
+    if (pagina > 1) pag.appendChild(buton(pagina - 1, '← Înapoi'));
+    var vazute = {};
+    [1, pagina - 1, pagina, pagina + 1, total].forEach(function (n) {
+      if (n < 1 || n > total || vazute[n]) return;
+      if (Object.keys(vazute).length && !vazute[n - 1]) { var s = document.createElement('span'); s.className = 'pct'; s.textContent = '…'; pag.appendChild(s); }
+      vazute[n] = 1;
+      pag.appendChild(buton(n));
+    });
+    if (pagina < total) pag.appendChild(buton(pagina + 1, 'Următoarea →'));
+  }
+  document.querySelectorAll('.filtre-col input').forEach(function (el) {
+    el.addEventListener(el.type === 'search' ? 'input' : 'change', function () { pagina = 1; arata(); });
+  });
+  arata();
 })();
