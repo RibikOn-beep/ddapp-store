@@ -1,0 +1,21 @@
+# DDApp.store
+
+> Aplicații mobile românești. Aplicația principală: NutriRO, aplicație Android de rețete și calorii, doar în limba română.
+
+## NutriRO
+
+NutriRO (pachetul Android `ro.calorii.calculator`) are peste 1.200 de rețete: rețete tradiționale românești, completate cu rețete internaționale adaptate alimentelor din România. Cele mai multe sunt refăcute ca să aibă mai puține calorii, iar fiecare are caloriile, proteinele, grăsimile, carbohidrații (fără fibre), fibrele, sarea și greutatea porției calculate pe porție. Felurile clasice (sarmale cu porc și smântână, ciorbă de burtă, papanași, mici, fast-food) sunt în catalogul de alimente, cu valorile la 100 g. Catalogul are peste 1.400 de alimente și produse.
+
+Gratuit: rețetele, jurnalul zilnic de calorii și macronutrienți, scanarea codurilor de bare (catalogul NutriRO, apoi Open Food Facts), apa, greutatea, activitatea fizică (108 activități, pașii din Health Connect), meniul întocmit manual și lista de cumpărături.
+Premium (abonament lunar prin Google Play): Foto AI, Antrenorul AI, generatorul de meniu, IF Tracker (post intermitent), rapoartele PDF.
+Antrenor (abonament separat): secțiune pentru antrenori, care urmăresc caloriile elevilor și le trimit planuri.
+
+- [NutriRO, pagina principală](https://ddapp.store/nutriro/)
+- [Google Play](https://play.google.com/store/apps/details?id=ro.calorii.calculator)
+- [Calorii în mâncarea românească: clasic și light](https://ddapp.store/nutriro/calorii-mancare-romaneasca.html)
+- [Câte calorii au sarmalele](https://ddapp.store/nutriro/calorii-sarmale.html)
+- [Câte calorii are ciorba de burtă](https://ddapp.store/nutriro/calorii-ciorba-de-burta.html)
+- [Câte calorii au papanașii](https://ddapp.store/nutriro/calorii-papanasi.html)
+- [Manualul de utilizare](https://ddapp.store/nutriro/manual.html)
+
+Contact: nutriro2026@gmail.com
