@@ -491,10 +491,12 @@
       .hero-title { font-size: 2rem; }
     }
       /* ── REȚETE (tabel comparație) ── */
-    .retete-wrap { overflow-x: auto; margin-top: 2rem; border: 1px solid rgba(46,204,113,0.25); border-radius: var(--radius); }
+    .retete-wrap { margin-top: 2rem; }
     .retete-tabel { width: 100%; border-collapse: collapse; }
     .retete-tabel th, .retete-tabel td { padding: 0.9rem 0.8rem; text-align: left; border-bottom: 1px solid rgba(46,204,113,0.12); }
-    .retete-tabel th { color: var(--gray); font-size: 0.85rem; font-weight: 600; background: var(--card); }
+    .retete-tabel th { color: var(--gray); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 2px solid rgba(46,204,113,0.25); }
+    .retete-tabel td:first-child, .retete-tabel th:first-child { padding-left: 0; }
+    .retete-tabel td:last-child, .retete-tabel th:last-child { padding-right: 0; }
     .retete-tabel tr:last-child td { border-bottom: 0; }
     .retete-tabel td a { color: var(--white); font-weight: 700; text-decoration: none; }
     .retete-tabel td span { display: block; color: var(--gray); font-size: 0.8rem; }
