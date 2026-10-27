@@ -67,4 +67,41 @@ li { margin-bottom: 6px; }
 .card strong { display: block; color: var(--white); margin-bottom: 4px; }
 footer { border-top: 1px solid var(--border); padding: 24px 16px; text-align: center; font-size: 0.85rem; color: var(--gray); }
 footer a { color: var(--gray); margin: 0 8px; display: inline-block; }
-table.wide { min-width: 640px; }
+
+/* ── Paginile de rețetă ── */
+.nav-link { color: var(--gray); text-decoration: none; font-size: 0.95rem; padding: 12px 4px; }
+.draft { background: rgba(255,215,0,0.10); border: 1px solid rgba(255,215,0,0.35); color: #ffe27a; border-radius: 12px; padding: 10px 14px; font-size: 0.9rem; }
+.ingrediente { list-style: none; margin-left: 0; }
+.ingrediente li { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(46,204,113,0.12); margin: 0; }
+.ingrediente li strong { color: var(--white); white-space: nowrap; }
+.pasi { counter-reset: pas; list-style: none; margin-left: 0; }
+.pasi li { counter-increment: pas; position: relative; padding: 0 0 0 46px; margin-bottom: 18px; min-height: 34px; }
+.pasi li::before { content: counter(pas); position: absolute; left: 0; top: 0; width: 32px; height: 32px; border-radius: 50%; background: var(--green-dim); border: 1px solid var(--border); color: var(--green); font-weight: 800; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; }
+.app-box { border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; margin: 30px 0; background: var(--card); }
+.app-box p { margin-bottom: 8px; color: var(--text); font-size: 0.95rem; }
+.app-box a { display: inline-block; padding: 10px 0; font-weight: 700; text-decoration: none; }
+
+/* ── Telefoane (Android și altele) ── */
+@media (max-width: 600px) {
+  body { font-size: 16px; line-height: 1.65; -webkit-text-size-adjust: 100%; }
+  nav { height: 56px; }
+  .nav-logo img { width: 32px; height: 32px; }
+  main { padding: 20px 16px 40px; }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.2rem; margin-top: 30px; }
+  th, td { padding: 10px 8px; font-size: 0.9rem; }
+  .answer { padding: 14px 15px; }
+  .cards { grid-template-columns: 1fr; }
+  .card { padding: 14px; min-height: 48px; }
+  .btn, .nav-cta { min-height: 44px; display: inline-flex; align-items: center; }
+  footer a { padding: 10px 6px; }
+  .pasi li { padding-left: 42px; }
+  .crumbs a { display: inline-block; padding: 10px 0; }
+}
+
+/* ── Tabelul clasic vs light (pagina de calorii): 3 coloane, numele mic sub cifră ── */
+table.comparatie td.num { white-space: normal; }
+table.comparatie td b { display: block; color: var(--white); font-size: 1.05rem; white-space: nowrap; }
+table.comparatie td.light b { color: var(--green); }
+table.comparatie td small { display: block; color: var(--gray); font-size: 0.78rem; line-height: 1.35; margin-top: 2px; }
+table.comparatie th:first-child, table.comparatie td:first-child { width: 28%; }
