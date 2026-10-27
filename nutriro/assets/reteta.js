@@ -98,6 +98,8 @@
     randuri.forEach(function (li) { li.hidden = true; });
     ok.forEach(function (li, i) { li.hidden = i < de || i >= pana; });
     if (nr) nr.textContent = ok.length;
+    var et = document.querySelector('[data-nr-et]'), n = ok.length, r100 = n % 100;
+    if (et) et.textContent = n === 1 ? 'rețetă' : ((n < 20 || (r100 > 0 && r100 < 20)) ? 'rețete' : 'de rețete');
     if (gol) gol.hidden = ok.length > 0;
     if (!pag) return;
     pag.innerHTML = '';
