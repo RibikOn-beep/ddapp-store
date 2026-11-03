@@ -1,0 +1,385 @@
+<!doctype html>
+<!-- Șablonul paginii „Calculator calorii pe zi” (SITE-CALC-01, 3 nov 2026). Îl completează genereaza_pagini.py: marcajul RETETE = rețetele de pe site, marcajul PLAY = linkul Play din registrul UTM. Formula și regulile copiază ProfileSetup.js din aplicație. -->
+<html lang="ro">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Calculator calorii pe zi | NutriRO</title>
+<meta name="description" content="Află câte calorii îți trebuie pe zi ca să slăbești, să te menții sau să crești în greutate. Aceeași formulă ca aplicația NutriRO. Gratuit, fără cont."/>
+<meta name="theme-color" content="#0E3B2A"/>
+<link rel="canonical" href="https://ddapp.store/nutriro/calculator-calorii.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:locale" content="ro_RO"/>
+<meta property="og:site_name" content="NutriRO"/>
+<meta property="og:title" content="Calculator calorii pe zi | NutriRO"/>
+<meta property="og:description" content="Află câte calorii îți trebuie pe zi, cu aceeași formulă ca aplicația NutriRO. Gratuit, fără cont."/>
+<meta property="og:url" content="https://ddapp.store/nutriro/calculator-calorii.html"/>
+<meta property="og:image" content="https://ddapp.store/nutriro/assets/og-nutriro.png"/>
+<link rel="icon" type="image/png" href="../favicon.png"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculator calorii pe zi","inLanguage":"ro","url":"https://ddapp.store/nutriro/calculator-calorii.html","description":"Calculator de calorii pe zi, cu formula Mifflin-St Jeor, aceeași ca în aplicația NutriRO.","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"NutriRO","item":"https://ddapp.store/nutriro/"},{"@type":"ListItem","position":2,"name":"Calculator calorii","item":"https://ddapp.store/nutriro/calculator-calorii.html"}]}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap"/>
+<style>
+:root{--ground:#EEF2EC;--card:#fff;--ink:#10231A;--ink2:#3E5247;--muted:#56695E;--line:#E3EAE5;--soft:#F3F6F2;--forest:#0E3B2A;--forest2:#184D38;--mint:#5EE09A;--mint-soft:#DDF5E6;--green:#146B3A;--bar-green:#1FA75A;--red:#D63A1F;
+  --prot:#3D6FB0;--carb:#C98A0E;--fat:#D63A1F;--display:'Bricolage Grotesque','Inter',system-ui,sans-serif}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:16px;line-height:1.6}
+a{color:var(--green)}
+button{font:inherit;cursor:pointer}
+.top{background:#fff;border-bottom:1px solid #DCE5DE}
+.top-in{max-width:1240px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:8px 16px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--display);font-weight:800;font-size:24px;color:var(--ink)}
+.logo img{width:36px;height:36px;border-radius:8px}
+footer{max-width:1240px;margin:0 auto;padding:0 16px 40px;display:flex;flex-wrap:wrap;gap:8px 20px;font-size:14px}
+footer a{color:var(--ink2)}
+.logo span{color:var(--red)}
+.top nav{display:flex;flex-wrap:wrap;font-size:15px;font-weight:500;flex:1}
+.top nav a{text-decoration:none;color:var(--ink);padding:10px 12px}
+.top nav a.act{color:var(--green);font-weight:700}
+.btn-ink{text-decoration:none;background:var(--ink);color:#fff;font-weight:600;font-size:14px;padding:12px 18px;border-radius:999px}
+.wrap{max-width:1240px;margin:0 auto;padding:24px 16px 64px}
+
+.hero{background:var(--forest);color:#fff;border-radius:28px;padding:32px;display:flex;flex-wrap:wrap;gap:20px 40px;align-items:flex-end}
+.hero-txt{flex:999 1 520px;display:flex;flex-direction:column;gap:14px}
+.crumbs{font-size:13px;color:#A9D7BC}.crumbs a{color:#A9D7BC}
+.hero h1{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(34px,5vw,58px);line-height:1.02;letter-spacing:-.02em}
+.hero h1 em{font-style:normal;color:var(--mint)}
+.hero p{margin:0;font-size:17px;color:#D5EBDD;max-width:620px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;font-size:14px;font-weight:500}
+.chips span{background:var(--forest2);padding:8px 14px;border-radius:999px}
+.pasi-hero{flex:1 1 280px;display:grid;gap:8px;font-size:14px;color:#D5EBDD}
+.pasi-hero div{display:flex;gap:10px;align-items:center}
+.pasi-hero b{width:26px;height:26px;border-radius:50%;background:var(--mint);color:var(--forest);display:grid;place-items:center;font-size:13px;flex:none}
+
+.calc{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:24px;margin-top:24px;align-items:start}
+.box{background:#fff;border-radius:24px;padding:28px}
+.box h2{margin:0 0 4px;font-family:var(--display);font-weight:700;font-size:24px;line-height:1.2}
+.pas{padding:22px 0;border-top:1px solid var(--line)}
+.pas:first-of-type{border-top:0;padding-top:6px}
+.pas-cap{display:flex;align-items:baseline;gap:10px;margin-bottom:14px}
+.pas-cap b{font-size:12px;font-weight:700;color:var(--green);background:var(--mint-soft);border-radius:999px;padding:2px 9px}
+.pas-cap h3{margin:0;font-size:17px}
+.seg{display:inline-flex;background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:4px;gap:4px}
+.seg button{border:0;background:transparent;padding:9px 22px;border-radius:999px;font-weight:600;color:var(--ink2)}
+.seg button[aria-pressed=true]{background:var(--forest);color:#fff}
+.campuri{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
+.camp label{display:block;font-size:13px;font-weight:600;color:var(--ink2);margin-bottom:6px}
+.stepper{display:flex;align-items:center;border:1px solid #D5DFD8;border-radius:14px;background:#fff;overflow:hidden}
+.stepper:focus-within{border-color:var(--bar-green);box-shadow:0 0 0 3px rgba(31,167,90,.15)}
+.stepper button{border:0;background:var(--soft);width:38px;height:46px;font-size:18px;color:var(--ink2);flex:none}
+.stepper input{border:0;width:100%;min-width:0;text-align:center;font:600 17px Inter,sans-serif;color:var(--ink);outline:none;-moz-appearance:textfield}
+.stepper input::-webkit-inner-spin-button{-webkit-appearance:none}
+.stepper small{font-size:12px;color:var(--muted);padding-right:8px}
+.optiuni{display:grid;gap:8px}
+.optiuni.doua{grid-template-columns:1fr 1fr}
+.opt{display:flex;gap:12px;align-items:center;text-align:left;border:1px solid #D5DFD8;background:#fff;border-radius:14px;padding:12px 14px;width:100%;color:var(--ink)}
+.opt:hover{border-color:#A9C9B4}
+.opt[aria-pressed=true]{border-color:var(--bar-green);background:#F2FAF5;box-shadow:inset 0 0 0 1px var(--bar-green)}
+.opt .bul{width:18px;height:18px;border-radius:50%;border:2px solid #B9C8BE;flex:none;position:relative}
+.opt[aria-pressed=true] .bul{border-color:var(--bar-green)}
+.opt[aria-pressed=true] .bul::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--bar-green)}
+.opt span{display:flex;flex-direction:column;line-height:1.3;min-width:0}
+.opt strong{font-size:15px}
+.opt small{font-size:13px;color:var(--muted)}
+.opt em{font-style:normal;margin-left:auto;font-size:13px;font-weight:700;color:var(--ink2);white-space:nowrap}
+.priv{margin:18px 0 0;font-size:13px;color:var(--muted);display:flex;gap:8px;align-items:flex-start}
+
+.rez{position:sticky;top:16px;display:flex;flex-direction:column;gap:16px}
+.rez-card{background:#fff;border-radius:24px;padding:26px}
+.rez-et{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.tinta{display:flex;align-items:baseline;gap:8px;margin:6px 0 2px}
+.tinta b{font-family:var(--display);font-weight:800;font-size:40px;line-height:1.05;color:var(--ink)}
+.tinta span{font-size:16px;color:var(--ink2);font-weight:600}
+.rez-sub{margin:0;color:var(--ink2);font-size:15px}
+.clamp{display:none;margin-top:12px;font-size:13px;background:#FFF4D6;border:1px solid #F0D58A;color:#5C4300;border-radius:12px;padding:10px 12px}
+.clamp.vizibil{display:block}
+.compozitie{margin-top:20px}
+.bar{position:relative;height:30px;border-radius:9px;background:var(--soft);display:flex;overflow:hidden}
+.bar i{display:block;height:100%}
+.bar .bmr{background:#2D5A45}.bar .act{background:var(--bar-green)}
+.bar .plus{background:repeating-linear-gradient(135deg,#7FD6A4 0 6px,#5EC48C 6px 12px)}
+.bar .gol{position:absolute;top:0;bottom:0;right:0;border:1.5px dashed rgba(214,58,31,.7);border-radius:9px;background:repeating-linear-gradient(135deg,#F7D5CE 0 6px,#FFF4F1 6px 12px);display:flex;align-items:center;justify-content:center}
+.bar .gol span{font-size:12px;font-weight:700;color:#B42F18;background:#fff;padding:0 6px;border-radius:99px;white-space:nowrap}
+.leg{display:grid;gap:6px;margin-top:12px;font-size:14px}
+.leg div{display:flex;align-items:center;gap:8px;color:var(--ink2)}
+.leg div b{margin-left:auto;color:var(--ink);font-variant-numeric:tabular-nums}
+.leg i{width:10px;height:10px;border-radius:3px;flex:none}
+.macro{margin-top:4px}
+.macro h3{margin:0 0 2px;font-size:16px}
+.macro p{margin:0 0 12px;font-size:13px;color:var(--muted)}
+.mrow{display:grid;grid-template-columns:96px 1fr 64px;gap:10px;align-items:center;margin:8px 0;font-size:14px}
+.mrow .tr{height:10px;border-radius:99px;background:var(--soft);overflow:hidden}.mrow .tr i{display:block;height:100%;border-radius:99px}
+.mrow b{text-align:right;font-variant-numeric:tabular-nums}
+.app{background:var(--forest);color:#fff;border-radius:24px;padding:22px 24px;display:flex;flex-direction:column;gap:12px}
+.app p{margin:0;color:#D5EBDD;font-size:15px}
+.app p b{color:#fff}
+.btn-play{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--mint);color:var(--forest);text-decoration:none;font-weight:700;padding:13px 18px;border-radius:14px}
+.btn-play small{display:block;font-weight:500;font-size:12px;opacity:.8}
+
+.farfurie{margin-top:24px}
+.farf-cap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:18px}
+.farf-cap p{margin:4px 0 0;color:var(--ink2);max-width:640px}
+.btn-alt{border:1px solid #CFDCD3;background:#fff;border-radius:999px;padding:10px 16px;font-weight:600;color:var(--ink)}
+.btn-alt:hover{border-color:var(--bar-green)}
+.zi{height:22px;border-radius:8px;background:var(--soft);display:flex;overflow:hidden;gap:2px}
+.zi i{display:block;height:100%}
+.zi .z1{background:#2D5A45}.zi .z2{background:var(--bar-green)}.zi .z3{background:#C98A0E}
+.zi-leg{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px 16px;margin:8px 0 18px;font-size:14px;color:var(--ink2)}
+.zi-leg b{color:var(--ink)}
+.fel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.fel a{display:flex;flex-direction:column;gap:8px;text-decoration:none;color:var(--ink);background:var(--soft);border:1px solid var(--line);border-radius:18px;padding:16px;transition:border-color .15s}
+.fel a:hover{border-color:var(--bar-green)}
+.fel small{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:6px}
+.fel small i{width:9px;height:9px;border-radius:3px}
+.fel strong{font-size:16px;line-height:1.3}
+.fel .kc{display:flex;justify-content:space-between;align-items:baseline;margin-top:auto;font-size:14px;color:var(--ink2)}
+.fel .kc b{color:var(--ink);font-size:15px}
+.fel .vezi{font-size:13px;font-weight:600;color:var(--green)}
+
+.doua-col{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px;align-items:start}
+.formula{display:grid;gap:12px;margin-top:14px}
+.formula div{display:grid;grid-template-columns:30px 1fr;gap:12px}
+.formula b{width:30px;height:30px;border-radius:50%;background:var(--mint-soft);color:var(--green);display:grid;place-items:center;font-size:14px}
+.formula p{margin:0;font-size:15px;color:var(--ink2)}
+.formula p strong{color:var(--ink)}
+.formula code{font:600 13px ui-monospace,Consolas,monospace;background:var(--soft);border:1px solid var(--line);border-radius:8px;padding:2px 6px;color:var(--ink);white-space:nowrap}
+details{border-top:1px solid var(--line);padding:14px 0}
+details:first-of-type{border-top:0}
+summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:20px;line-height:1;color:var(--green)}
+details[open] summary::after{content:"\2212"}
+details p{margin:10px 0 0;color:var(--ink2);font-size:15px}
+.nota{margin:24px 0 0;font-size:13px;color:var(--muted);text-align:center}
+.mini-rez{display:none}
+@media(max-width:900px){.calc,.doua-col{grid-template-columns:1fr}.rez{position:static}
+  .mini-rez{position:fixed;left:12px;right:12px;bottom:12px;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--forest);color:#fff;border-radius:16px;padding:12px 16px;text-decoration:none;box-shadow:0 8px 24px rgba(14,59,42,.35);transition:transform .2s,opacity .2s}
+  .mini-rez span{font-size:13px;color:#A9D7BC}.mini-rez b{font-size:18px;color:#fff;display:block}
+  .mini-rez em{font-style:normal;font-size:13px;font-weight:600;color:var(--mint);white-space:nowrap}
+  .mini-rez.ascuns{transform:translateY(130%);opacity:0;pointer-events:none}}
+@media(max-width:560px){
+  .top nav{order:3;flex-basis:100%;font-size:14px}.top nav a{padding:6px 12px 6px 0}.btn-ink{margin-left:auto;padding:10px 14px;font-size:13px}
+  .hero{padding:24px 20px;border-radius:22px}.pasi-hero{display:none}
+  .box,.rez-card{padding:20px 16px}
+  .campuri{grid-template-columns:1fr 1fr}.campuri .camp:first-child{grid-column:1/3}
+  .optiuni.doua{grid-template-columns:1fr}
+  .fel{grid-template-columns:1fr}
+  .tinta b{font-size:34px}
+  .mrow{grid-template-columns:84px 1fr 56px}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="./"><img src="../logo.png" alt="" width="36" height="36"/><b>Nutri<span>RO</span></b></a>
+  <nav aria-label="Meniu"><a href="retete/">Rețete</a><a href="calorii-mancare-romaneasca.html">Câte calorii are…</a><a class="act" href="calculator-calorii.html" aria-current="page">Calculator calorii</a></nav>
+  <a class="btn-ink" href="./">Aplicația NutriRO</a>
+</div></header>
+
+<main class="wrap">
+  <section class="hero">
+    <div class="hero-txt">
+      <div class="crumbs"><a href="./">NutriRO</a> / Calculator calorii</div>
+      <h1>Câte calorii îți trebuie <em>pe zi?</em></h1>
+      <p>Completezi patru date și afli pe loc ținta ta zilnică, plus cum se împarte pe proteine, carbohidrați și grăsimi. Calculul e făcut cu aceeași formulă ca aplicația NutriRO.</p>
+      <div class="chips"><span>Gratuit, fără cont</span><span>Rezultat pe loc</span><span>Aceeași formulă ca în aplicație</span></div>
+    </div>
+    <div class="pasi-hero">
+      <div><b>1</b>Spui cine ești: vârstă, înălțime, greutate</div>
+      <div><b>2</b>Alegi cât de activ ești</div>
+      <div><b>3</b>Alegi ce vrei: să slăbești, să te menții sau să crești</div>
+    </div>
+  </section>
+
+  <section class="calc">
+    <div class="box">
+      <h2>Datele tale</h2>
+      <div class="pas">
+        <div class="pas-cap"><b>1</b><h3>Despre tine</h3></div>
+        <div class="seg" role="group" aria-label="Sex"><button type="button" data-sex="femeie" aria-pressed="true">Femeie</button><button type="button" data-sex="barbat" aria-pressed="false">Bărbat</button></div>
+        <div class="campuri">
+          <div class="camp"><label for="v">Vârstă</label><div class="stepper"><button type="button" data-pas="v:-1" aria-label="Mai puțin">−</button><input id="v" type="number" inputmode="numeric" min="18" max="80" value="35"/><small>ani</small><button type="button" data-pas="v:1" aria-label="Mai mult">+</button></div></div>
+          <div class="camp"><label for="i">Înălțime</label><div class="stepper"><button type="button" data-pas="i:-1" aria-label="Mai puțin">−</button><input id="i" type="number" inputmode="numeric" min="140" max="220" value="165"/><small>cm</small><button type="button" data-pas="i:1" aria-label="Mai mult">+</button></div></div>
+          <div class="camp"><label for="g">Greutate</label><div class="stepper"><button type="button" data-pas="g:-1" aria-label="Mai puțin">−</button><input id="g" type="number" inputmode="decimal" min="40" max="200" step="0.5" value="72"/><small>kg</small><button type="button" data-pas="g:1" aria-label="Mai mult">+</button></div></div>
+        </div>
+      </div>
+      <div class="pas">
+        <div class="pas-cap"><b>2</b><h3>Cât de activ ești</h3></div>
+        <div class="optiuni doua" id="activ">
+          <button type="button" class="opt" data-f="1.2" aria-pressed="false"><i class="bul"></i><span><strong>Sedentar</strong><small>Birou, fără sport</small></span></button>
+          <button type="button" class="opt" data-f="1.375" aria-pressed="true"><i class="bul"></i><span><strong>Ușor activ</strong><small>Sport 1–3 zile pe săptămână</small></span></button>
+          <button type="button" class="opt" data-f="1.55" aria-pressed="false"><i class="bul"></i><span><strong>Moderat activ</strong><small>Sport 3–5 zile pe săptămână</small></span></button>
+          <button type="button" class="opt" data-f="1.725" aria-pressed="false"><i class="bul"></i><span><strong>Foarte activ</strong><small>Sport 6–7 zile pe săptămână</small></span></button>
+        </div>
+      </div>
+      <div class="pas">
+        <div class="pas-cap"><b>3</b><h3>Ce vrei</h3></div>
+        <div class="optiuni" id="obiectiv">
+          <button type="button" class="opt" data-a="-750" aria-pressed="false"><i class="bul"></i><span><strong>Slăbire rapidă</strong></span><em>−750 kcal/zi</em></button>
+          <button type="button" class="opt" data-a="-500" aria-pressed="true"><i class="bul"></i><span><strong>Slăbire</strong></span><em>−500 kcal/zi</em></button>
+          <button type="button" class="opt" data-a="-250" aria-pressed="false"><i class="bul"></i><span><strong>Slăbire lentă</strong></span><em>−250 kcal/zi</em></button>
+          <button type="button" class="opt" data-a="0" aria-pressed="false"><i class="bul"></i><span><strong>Menținere</strong><small>Greutate stabilă</small></span><em>0</em></button>
+          <button type="button" class="opt" data-a="300" aria-pressed="false"><i class="bul"></i><span><strong>Creștere masă musculară</strong></span><em>+300 kcal/zi</em></button>
+        </div>
+      </div>
+      <p class="priv">🔒 Calculul se face în browserul tău. Datele nu sunt exportate și nici nu sunt păstrate de NutriRO.</p>
+    </div>
+
+    <a class="mini-rez" id="mini-rez" href="#rez"><span>Ținta ta zilnică<b id="m-tinta">–</b></span><em>Vezi rezultatul ↓</em></a>
+    <aside class="rez" id="rez" aria-live="polite">
+      <div class="rez-card">
+        <div class="rez-et">Ținta ta zilnică</div>
+        <div class="tinta"><b id="r-tinta">–</b><span>kcal pe zi</span></div>
+        <p class="rez-sub" id="r-sub"></p>
+        <div class="clamp" id="r-clamp"></div>
+        <div class="compozitie">
+          <div class="bar" id="r-bar"></div>
+          <div class="leg" id="r-leg"></div>
+        </div>
+      </div>
+      <div class="rez-card macro">
+        <h3>Cum se împarte ținta</h3>
+        <p>Dieta „Echilibrată” din aplicație: 25% proteine, 50% carbohidrați, 25% grăsimi.</p>
+        <div id="r-macro"></div>
+      </div>
+      <div class="app">
+        <p><b>În NutriRO, ținta se calculează la fel</b> când îți faci profilul. Apoi, în aplicație, vezi câte calorii mai ai până la obiectiv.</p>
+        <a class="btn-play" href="https://play.google.com/store/apps/details?id=ro.calorii.calculator&amp;utm_source=site&amp;utm_campaign=nutriro"><span>Instalează NutriRO<small>Gratuit, din Google Play</small></span><span>→</span></a>
+      </div>
+    </aside>
+  </section>
+
+  <section class="box farfurie">
+    <div class="farf-cap">
+      <div><h2>Ce înseamnă ținta ta în farfurie</h2>
+      <p id="f-intro">Un prânz românesc din rețetele noastre: ciorbă, fel principal și desert, cu caloriile pe porție.</p></div>
+      <button type="button" class="btn-alt" id="f-alt">↻ Altă combinație</button>
+    </div>
+    <div class="zi" id="f-zi"></div>
+    <div class="zi-leg" id="f-leg"></div>
+    <div class="fel" id="f-fel"></div>
+  </section>
+
+  <section class="doua-col">
+    <div class="box">
+      <h2>Cum se calculează</h2>
+      <div class="formula">
+        <div><b>1</b><p><strong>Metabolismul în repaus</strong>, cu formula Mifflin-St Jeor:<br/><code>10 × kg + 6,25 × cm − 5 × vârsta + 5</code> la bărbați, <code>… − 161</code> la femei.</p></div>
+        <div><b>2</b><p><strong>Înmulțit cu nivelul de activitate</strong>: 1,2 sedentar, 1,375 ușor activ, 1,55 moderat activ, 1,725 foarte activ. Rezultatul e cât consumi într-o zi obișnuită.</p></div>
+        <div><b>3</b><p><strong>Plus sau minus obiectivul</strong>: −750, −500 sau −250 kcal pentru slăbire, 0 pentru menținere, +300 pentru creștere. Ținta nu coboară sub 1.200 kcal la femei și 1.500 kcal la bărbați.</p></div>
+      </div>
+    </div>
+    <div class="box">
+      <h2>Întrebări</h2>
+      <details><summary>Ce nivel de activitate aleg?</summary><p>Alege după sportul pe care îl faci de obicei într-o săptămână, nu după o săptămână excepțională. Dacă ești între două niveluri, alege-l pe cel mai mic.</p></details>
+      <details><summary>Cât de exactă e cifra?</summary><p>E o estimare făcută după o formulă. Consumul real diferă de la om la om, așa că urmărește cum evoluează greutatea ta în câteva săptămâni. Dacă ai o recomandare de la un nutriționist, în aplicație o poți introduce manual.</p></details>
+      <details><summary>De ce nu scade ținta sub 1.200 sau 1.500 kcal?</summary><p>Aplicația NutriRO nu coboară ținta sub 1.200 kcal la femei și 1.500 kcal la bărbați, oricât de mare ar fi deficitul ales. Calculatorul păstrează aceeași regulă.</p></details>
+      <details><summary>Cum aflu câte calorii am mâncat?</summary><p>În NutriRO cauți ce ai mâncat, cu porția ta, din peste 1.200 de rețete românești și peste 5.000 de alimente, sau scanezi codul de bare.</p></details>
+    </div>
+  </section>
+  <p class="nota">Calculatorul nu e potrivit în sarcină, în alăptare, sub 18 ani sau dacă ai o afecțiune care cere o dietă specială. În aceste cazuri, întreabă medicul.</p>
+</main>
+<footer>
+  <a href="./">NutriRO</a>
+  <a href="retete/">Rețete</a>
+  <a href="calorii-mancare-romaneasca.html">Calorii în mâncarea românească</a>
+  <a href="calculator-calorii.html">Calculator calorii</a>
+  <a href="confidentialitate.html">Confidențialitate</a>
+</footer>
+
+<script>
+const RETETE = [{"t": "Sarmale light din curcan", "u": "retete/sarmale-light-din-curcan.html", "k": 202, "m": "pranz", "s": "fel_principal"}, {"t": "Ciorbă de burtă fără făină", "u": "retete/ciorba-de-burta-fara-faina.html", "k": 329, "m": "pranz", "s": "supe_ciorbe"}, {"t": "Ciorbă de perișoare light", "u": "retete/ciorba-de-perisoare-light.html", "k": 202, "m": "pranz", "s": "supe_ciorbe"}, {"t": "Ciorbă de văcuță low-carb", "u": "retete/ciorba-de-vacuta-low-carb.html", "k": 219, "m": "pranz", "s": "supe_ciorbe"}, {"t": "Ciorbă de fasole cu afumătură, varianta light", "u": "retete/ciorba-de-fasole-cu-afumatura-varianta-light.html", "k": 382, "m": "pranz", "s": "supe_ciorbe"}, {"t": "Ciorbă ardelenească de miel, varianta light", "u": "retete/ciorba-ardeleneasca-de-miel-varianta-light.html", "k": 333, "m": "pranz", "s": "supe_ciorbe"}, {"t": "Ciorbă de potroace, varianta light", "u": "retete/ciorba-de-potroace-varianta-light.html", "k": 274, "m": "pranz", "s": "supe_ciorbe"}, {"t": "Sarmale cu urdă în frunze de sfeclă", "u": "retete/sarmale-cu-urda-in-frunze-de-sfecla.html", "k": 239, "m": "pranz", "s": "fel_principal"}, {"t": "Varză a la Cluj light", "u": "retete/varza-a-la-cluj-light.html", "k": 271, "m": "pranz", "s": "regionale"}, {"t": "Musaca de vinete fără cartofi", "u": "retete/musaca-de-vinete-fara-cartofi.html", "k": 404, "m": "pranz", "s": "fel_principal"}, {"t": "Tochitură moldovenească fără mămăligă", "u": "retete/tochitura-moldoveneasca-fara-mamaliga.html", "k": 260, "m": "pranz", "s": "regionale"}, {"t": "Drob de miel fără pâine", "u": "retete/drob-de-miel-fara-paine.html", "k": 172, "m": "pranz", "s": "fel_principal"}, {"t": "Ardei umpluți cu curcan", "u": "retete/ardei-umpluti-cu-curcan.html", "k": 251, "m": "pranz", "s": "fel_principal"}, {"t": "Iahnie de fasole light", "u": "retete/iahnie-de-fasole-light.html", "k": 301, "m": "pranz", "s": "fel_principal"}, {"t": "Fasole bătută cremă cu tăiței de ceapă la cuptor", "u": "retete/fasole-batuta-crema-cu-taitei-de-ceapa-la-cuptor.html", "k": 257, "m": "pranz", "s": "fel_principal"}, {"t": "Ghiveci de legume light", "u": "retete/ghiveci-de-legume-light.html", "k": 136, "m": "pranz", "s": "fel_principal"}, {"t": "Ghiveci mănăstiresc cu piept de pui", "u": "retete/ghiveci-manastiresc-cu-piept-de-pui.html", "k": 362, "m": "cina", "s": "fel_principal"}, {"t": "Chiftele de curcan la cuptor", "u": "retete/chiftele-de-curcan-la-cuptor.html", "k": 310, "m": "pranz", "s": "fel_principal"}, {"t": "Tocăniță ardelenească cu curcan", "u": "retete/tocanita-ardeleneasca-cu-curcan.html", "k": 160, "m": "pranz", "s": "fel_principal"}, {"t": "Mâncare de fasole verde ardelenească", "u": "retete/mancare-de-fasole-verde-ardeleneasca.html", "k": 179, "m": "pranz", "s": "regionale"}, {"t": "Mămăligă cu brânză și smântână light", "u": "retete/mamaliga-cu-branza-si-smantana-light.html", "k": 310, "m": "pranz", "s": "fel_principal"}, {"t": "Gogoși răsucite cu magiun, varianta dietetică", "u": "retete/gogosi-rasucite-cu-magiun-varianta-dietetica.html", "k": 260, "m": "desert", "s": "deserturi"}, {"t": "Chec light cu lămâie", "u": "retete/chec-light-cu-lamaie.html", "k": 154, "m": "desert", "s": "deserturi"}, {"t": "Salam de biscuiți dietetic", "u": "retete/salam-de-biscuiti-dietetic.html", "k": 358, "m": "desert", "s": "deserturi"}, {"t": "Plăcintă cu dovleac fără zahăr adăugat", "u": "retete/placinta-cu-dovleac-fara-zahar-adaugat.html", "k": 241, "m": "desert", "s": "deserturi"}, {"t": "Cornulețe cu prune", "u": "retete/cornulete-cu-prune.html", "k": 121, "m": "gustare", "s": "deserturi"}, {"t": "Plăcintă cu brânză și spanac, cu aluat low-carb", "u": "retete/placinta-cu-branza-si-spanac-cu-aluat-low-carb.html", "k": 189, "m": "pranz", "s": "gustari"}, {"t": "Brânzoaice Poale-n brâu optimizate nutrițional", "u": "retete/branzoaice-poale-n-brau-optimizate-nutritional.html", "k": 215, "m": "desert", "s": "deserturi"}, {"t": "Papanași moldovenești- reinterpretați", "u": "retete/papanasi-moldovenesti-reinterpretati.html", "k": 296, "m": "desert", "s": "deserturi"}, {"t": "Sarmale moldovenești cu ciuperci, soia și orez (de post)", "u": "retete/sarmale-moldovenesti-cu-ciuperci-soia-si-orez-de-post.html", "k": 253, "m": "pranz", "s": "fel_principal"}];
+const $ = id => document.getElementById(id);
+const nr = x => Math.round(x).toLocaleString('ro-RO');
+const st = { sex: 'femeie', f: 1.375, a: -500 };
+const LIM = { v: [18, 80], i: [140, 220], g: [40, 200] };
+
+function citeste(id) {
+  const x = parseFloat(String($(id).value).replace(',', '.'));
+  return isNaN(x) ? null : Math.min(LIM[id][1], Math.max(LIM[id][0], x));
+}
+
+let tintaCurenta = 0;
+function calc() {
+  const v = citeste('v'), i = citeste('i'), g = citeste('g');
+  if (v === null || i === null || g === null) return;
+  const bmr = st.sex === 'barbat' ? 10 * g + 6.25 * i - 5 * v + 5 : 10 * g + 6.25 * i - 5 * v - 161;
+  const tdee = Math.round(bmr * st.f);
+  const minim = st.sex === 'barbat' ? 1500 : 1200;
+  let tinta = tdee + st.a;
+  const clamped = tinta < minim;
+  if (clamped) tinta = minim;
+  tintaCurenta = tinta;
+
+  $('r-tinta').textContent = nr(tinta);
+  $('m-tinta').textContent = nr(tinta) + ' kcal pe zi';
+  const dif = tinta - tdee;
+  $('r-sub').textContent = `Consumi aproximativ ${nr(tdee)} kcal pe zi.` + (dif < 0 ? ` Pentru slăbire mănânci cu ${nr(-dif)} kcal mai puțin.`
+    : dif > 0 && st.a > 0 ? ` Pentru creștere mănânci cu ${nr(dif)} kcal mai mult.` : '');
+  $('r-clamp').className = 'clamp' + (clamped ? ' vizibil' : '');
+  $('r-clamp').textContent = clamped ? `Ținta ar fi ieșit ${nr(tdee + st.a)} kcal. Am păstrat minimul de ${nr(minim)} kcal, ca în aplicație.` : '';
+
+  // bara: metabolism + activitate = consum; partea tăiată de obiectiv apare hașurată
+  const total = Math.max(tdee, tinta);
+  const pBmr = Math.round(bmr) / total * 100, pAct = (tdee - Math.round(bmr)) / total * 100;
+  let html = `<i class="bmr" style="width:${pBmr}%"></i><i class="act" style="width:${pAct}%"></i>`;
+  if (tinta > tdee) html += `<i class="plus" style="width:${(tinta - tdee) / total * 100}%"></i>`;
+  if (tinta < tdee) html += `<div class="gol" style="width:${(tdee - tinta) / total * 100}%"><span>−${nr(tdee - tinta)}</span></div>`;
+  $('r-bar').innerHTML = html;
+  $('r-leg').innerHTML =
+    `<div><i style="background:#2D5A45"></i>Metabolism în repaus<b>${nr(bmr)} kcal</b></div>` +
+    `<div><i style="background:var(--bar-green)"></i>Activitate<b>${nr(tdee - Math.round(bmr))} kcal</b></div>` +
+    (dif ? `<div><i style="background:${dif < 0 ? 'rgba(214,58,31,.5)' : '#7FD6A4'}"></i>${clamped ? 'Până la minim' : 'Obiectiv'}<b>${dif < 0 ? '−' : '+'}${nr(Math.abs(dif))} kcal</b></div>` : '');
+
+  const m = [['Proteine', .25, 4, 'var(--prot)'], ['Carbohidrați', .50, 4, 'var(--carb)'], ['Grăsimi', .25, 9, 'var(--fat)']];
+  $('r-macro').innerHTML = m.map(([n, p, k, c]) =>
+    `<div class="mrow"><span>${n}</span><div class="tr"><i style="width:${p * 200}%;background:${c}"></i></div><b>${nr(tinta * p / k)} g</b></div>`).join('');
+  farfurie();
+}
+
+// combinația curentă: o ciorbă, un fel principal și un desert din rețetele de pe site
+const dulce = r => r.m === 'desert' || r.m === 'gustare';
+const grupe = { c: RETETE.filter(r => r.s === 'supe_ciorbe'), f: RETETE.filter(r => !dulce(r) && r.s !== 'supe_ciorbe'), d: RETETE.filter(dulce) };
+let alegere = null;
+const alege = l => l[Math.floor(Math.random() * l.length)];
+const escH = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+function combinatieNoua() { alegere = [['Ciorbă', grupe.c, 'z1'], ['Fel principal', grupe.f, 'z2'], ['Desert', grupe.d, 'z3']].filter(x => x[1].length).map(([e, l, z]) => [e, alege(l), z]); }
+function farfurie() {
+  if (!alegere) combinatieNoua();
+  if (!alegere.length) { document.querySelector('.farfurie').hidden = true; return; }
+  const t = tintaCurenta, suma = alegere.reduce((s, x) => s + x[1].k, 0), rest = t - suma;
+  $('f-zi').innerHTML = alegere.map(x => `<i class="${x[2]}" style="width:${Math.min(100, x[1].k / t * 100)}%"></i>`).join('');
+  $('f-leg').innerHTML = `<span>Prânzul: <b>${nr(suma)} kcal</b>, adică ${Math.round(suma / t * 100)}% din ținta ta</span>` +
+    (rest > 0 ? `<span>Rămân <b>${nr(rest)} kcal</b> pentru micul dejun, cină și gustări</span>` : `<span>Prânzul depășește ținta cu <b>${nr(-rest)} kcal</b></span>`);
+  const cul = { z1: '#2D5A45', z2: 'var(--bar-green)', z3: '#C98A0E' };
+  $('f-fel').innerHTML = alegere.map(([et, r, z]) =>
+    `<a href="${escH(r.u)}"><small><i style="background:${cul[z]}"></i>${et}</small><strong>${escH(r.t)}</strong>` +
+    `<span class="kc"><span><b>${nr(r.k)} kcal</b> pe porție</span><span>${Math.round(r.k / t * 100)}% din zi</span></span><span class="vezi">Vezi rețeta →</span></a>`).join('');
+}
+
+document.querySelectorAll('[data-sex]').forEach(b => b.onclick = () => {
+  st.sex = b.dataset.sex;
+  document.querySelectorAll('[data-sex]').forEach(x => x.setAttribute('aria-pressed', x === b));
+  calc();
+});
+function grup(id, cheie, camp) {
+  const bt = document.querySelectorAll('#' + id + ' .opt');
+  bt.forEach(b => b.onclick = () => { st[camp] = parseFloat(b.dataset[cheie]); bt.forEach(x => x.setAttribute('aria-pressed', x === b)); calc(); });
+}
+grup('activ', 'f', 'f'); grup('obiectiv', 'a', 'a');
+document.querySelectorAll('[data-pas]').forEach(b => b.onclick = () => {
+  const [id, d] = b.dataset.pas.split(':'), x = citeste(id) ?? LIM[id][0];
+  $(id).value = Math.min(LIM[id][1], Math.max(LIM[id][0], x + Number(d)));
+  calc();
+});
+['v', 'i', 'g'].forEach(id => { $(id).addEventListener('input', calc); $(id).addEventListener('blur', () => { const x = citeste(id); if (x !== null) $(id).value = x; }); });
+$('f-alt').onclick = () => { combinatieNoua(); farfurie(); };
+// pe telefon, bara de jos arată ținta cât timp completezi; dispare când rezultatul e pe ecran sau după el
+if ('IntersectionObserver' in window) {
+  new IntersectionObserver(([e]) => $('mini-rez').classList.toggle('ascuns', e.isIntersecting || e.boundingClientRect.top < 0))
+    .observe(document.querySelector('.rez-card'));
+}
+calc();
+</script>
+</body>
+</html>
