@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NutriRO în Google Play</title>
+  <meta name="robots" content="noindex"/>
+  <meta name="description" content="Deschide NutriRO în Google Play."/>
+  <meta property="og:title" content="NutriRO - Calorii &amp; Nutriție"/>
+  <meta property="og:description" content="Rețete românești cu calorii pe porție. Instalează NutriRO din Google Play."/>
+  <meta property="og:image" content="https://ddapp.store/nutriro/assets/og-nutriro.png"/>
+  <link rel="icon" type="image/png" href="../favicon.png"/>
+  <style>
+    :root { --bg: #060810; --text: #ffffff; --gray: #8899aa; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 20px; padding: 24px 16px; text-align: center;
+      background: var(--bg); color: var(--text); font-family: Arial, Helvetica, sans-serif;
+    }
+    .logo { width: 88px; height: 88px; border-radius: 20px; }
+    h1 { font-size: 24px; }
+    p { font-size: 15px; line-height: 1.5; color: var(--gray); max-width: 340px; }
+    .insigna img { display: block; width: 240px; max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+  <img class="logo" src="../logo.png" alt="Logo NutriRO"/>
+  <h1>NutriRO</h1>
+  <p>Se deschide Google Play. Dacă nu se întâmplă nimic, apasă pe butonul de mai jos.</p>
+  <a class="insigna" id="deschide" href="https://play.google.com/store/apps/details?id=ro.calorii.calculator&amp;referrer=utm_source%3Dfacebook%26utm_campaign%3Dpagina">
+    <img src="assets/google-play-ro.png" alt="Deschide NutriRO în Google Play"/>
+  </a>
+  <script>
+    // Browserul din aplicația Facebook poate pierde eticheta din linkul web de Play.
+    // Pe Android deschidem direct aplicația Magazin Play, cu eticheta în `referrer`.
+    (function () {
+      var CAMPANII = ['pagina', 'grupuri', 'promovare', 'reels'];
+      var campanie = new URLSearchParams(location.search).get('c');
+      if (CAMPANII.indexOf(campanie) === -1) campanie = 'pagina';
+
+      var detalii = 'details?id=ro.calorii.calculator&referrer=' +
+        encodeURIComponent('utm_source=facebook&utm_campaign=' + campanie);
+      var web = 'https://play.google.com/store/apps/' + detalii;
+      var buton = document.getElementById('deschide');
+      buton.href = web;
+
+      if (/android/i.test(navigator.userAgent)) {
+        var intentie = 'intent://' + detalii +
+          '#Intent;scheme=market;package=com.android.vending;S.browser_fallback_url=' +
+          encodeURIComponent(web) + ';end';
+        buton.href = intentie;
+        location.href = intentie;
+      }
+    })();
+  </script>
+</body>
+</html>
