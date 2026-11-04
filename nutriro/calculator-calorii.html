@@ -36,7 +36,19 @@ footer a{color:var(--ink2)}
 .top nav{display:flex;flex-wrap:wrap;font-size:15px;font-weight:500;flex:1}
 .top nav a{text-decoration:none;color:var(--ink);padding:10px 12px}
 .top nav a.act{color:var(--green);font-weight:700}
-.btn-ink{text-decoration:none;background:var(--ink);color:#fff;font-weight:600;font-size:14px;padding:12px 18px;border-radius:999px}
+.ins{display:flex;flex-wrap:wrap;align-items:center;gap:12px;width:100%;max-width:440px;box-sizing:border-box;padding:10px;border-radius:16px;background:#0E3B2A;color:#fff;text-decoration:none;text-align:left;font-family:'Inter',system-ui,sans-serif;line-height:1.3;transition:background .2s}
+.ins:hover{background:#184D38;color:#fff}
+.ins-logo{flex:none;width:48px;height:48px;border-radius:11px}
+.ins-text{flex:1 1 150px;display:flex;flex-direction:column;gap:1px;min-width:0}
+.ins-text b{font-size:17px;font-weight:800;line-height:1.2;color:inherit}
+.ins-text small{font-size:13px;font-weight:400;color:#DDF5E6}
+.ins-play{flex:none;display:block;width:148px;height:auto;border-radius:2.6%/8.8%}
+.ins-alb{background:#fff;color:#10231A}
+.ins-alb:hover{background:#EEF2EC;color:#10231A}
+.ins-alb .ins-text small{color:#3E5247}
+.ins-mic{display:inline-flex;flex-wrap:nowrap;width:auto;max-width:none;gap:8px;min-height:44px;padding:5px 16px 5px 6px;border-radius:12px;font-size:14px;font-weight:700;white-space:nowrap}
+.ins-mic img{flex:none;width:32px;height:32px;border-radius:8px}
+@media(max-width:480px){.ins-play{width:100%;max-width:260px;margin:0 auto}.ins-mic{padding:0 16px}.ins-mic img,.ins-nume{display:none}}
 .wrap{max-width:1240px;margin:0 auto;padding:24px 16px 64px}
 
 .hero{background:var(--forest);color:#fff;border-radius:28px;padding:32px;display:flex;flex-wrap:wrap;gap:20px 40px;align-items:flex-end}
@@ -113,8 +125,6 @@ footer a{color:var(--ink2)}
 .app{background:var(--forest);color:#fff;border-radius:24px;padding:22px 24px;display:flex;flex-direction:column;gap:12px}
 .app p{margin:0;color:#D5EBDD;font-size:15px}
 .app p b{color:#fff}
-.btn-play{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--mint);color:var(--forest);text-decoration:none;font-weight:700;padding:13px 18px;border-radius:14px}
-.btn-play small{display:block;font-weight:500;font-size:12px;opacity:.8}
 
 .farfurie{margin-top:24px}
 .farf-cap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:18px}
@@ -158,7 +168,7 @@ details p{margin:10px 0 0;color:var(--ink2);font-size:15px}
   .mini-rez em{font-style:normal;font-size:13px;font-weight:600;color:var(--mint);white-space:nowrap}
   .mini-rez.ascuns{transform:translateY(130%);opacity:0;pointer-events:none}}
 @media(max-width:560px){
-  .top nav{order:3;flex-basis:100%;font-size:14px}.top nav a{padding:6px 12px 6px 0}.btn-ink{margin-left:auto;padding:10px 14px;font-size:13px}
+  .top nav{order:3;flex-basis:100%;font-size:14px}.top nav a{padding:6px 12px 6px 0}.top .ins-mic{margin-left:auto}
   .hero{padding:24px 20px;border-radius:22px}.pasi-hero{display:none}
   .box,.rez-card{padding:20px 16px}
   .campuri{grid-template-columns:1fr 1fr}.campuri .camp:first-child{grid-column:1/3}
@@ -173,7 +183,7 @@ details p{margin:10px 0 0;color:var(--ink2);font-size:15px}
 <header class="top"><div class="top-in">
   <a class="logo" href="./"><img src="../logo.png" alt="" width="36" height="36"/><b>Nutri<span>RO</span></b></a>
   <nav aria-label="Meniu"><a href="retete/">Rețete</a><a href="calorii-mancare-romaneasca.html">Câte calorii are…</a><a class="act" href="calculator-calorii.html" aria-current="page">Calculator calorii</a></nav>
-  <a class="btn-ink" href="./">Aplicația NutriRO</a>
+  <a class="ins ins-mic" href="https://play.google.com/store/apps/details?id=ro.calorii.calculator&amp;referrer=utm_source%3Dsite%26utm_campaign%3Dnutriro" target="_blank" rel="noopener"><img src="assets/logo-buton.png" alt="" width="32" height="32"/><span>Instalează<span class="ins-nume"> NutriRO</span></span></a>
 </div></header>
 
 <main class="wrap">
@@ -244,7 +254,7 @@ details p{margin:10px 0 0;color:var(--ink2);font-size:15px}
       </div>
       <div class="app">
         <p><b>În NutriRO, ținta se calculează la fel</b> când îți faci profilul. Apoi, în aplicație, vezi câte calorii mai ai până la obiectiv.</p>
-        <a class="btn-play" href="https://play.google.com/store/apps/details?id=ro.calorii.calculator&amp;utm_source=site&amp;utm_campaign=nutriro"><span>Instalează NutriRO<small>Gratuit, din Google Play</small></span><span>→</span></a>
+        <a class="ins ins-alb" href="https://play.google.com/store/apps/details?id=ro.calorii.calculator&amp;referrer=utm_source%3Dsite%26utm_campaign%3Dnutriro" target="_blank" rel="noopener"><img class="ins-logo" src="assets/logo-buton.png" alt="" width="48" height="48"/><span class="ins-text"><b>Instalează NutriRO</b><small>Gratuit, pentru Android</small></span><img class="ins-play" src="assets/google-play-ro.png" alt="Google Play" width="148" height="44"/></a>
       </div>
     </aside>
   </section>
