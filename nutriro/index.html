@@ -475,6 +475,11 @@
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
     /* ── RESPONSIVE ── */
+    @media (max-width: 1060px) {
+      .nav-links { gap: 1.25rem; }
+      .nav-links a { white-space: nowrap; }
+      .nav-links a[href="manual.html"], .nav-links a[href^="mailto:"] { display: none; }
+    }
     @media (max-width: 768px) {
       .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
       .hero-visual { order: -1; }
@@ -538,6 +543,7 @@
   <div class="nav-links">
     <a href="retete/">Rețete</a>
     <a href="calorii-mancare-romaneasca.html">Calorii</a>
+    <a href="calculator-calorii.html">Calculator</a>
     <a href="#functii">Funcții</a>
     <a href="#pentru-tine">Pentru tine</a>
     <a href="#premium">Premium</a>
@@ -902,7 +908,7 @@
   <div class="section-inner" style="text-align: center; position: relative; z-index: 1;">
     <div class="premium-badge">NutriRO Premium</div>
     <h2 class="premium-title">
-      Deblochează tot<br/>potențialul nutriției tale
+      Unelte în plus,<br/>doar când ai nevoie de ele
     </h2>
     <p style="color: var(--gray); margin-bottom: 2rem; font-size: 1.05rem; max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.7;">
       Antrenor AI, rapoarte PDF, meniu săptămânal și recunoaștere alimente prin imagine. Abonament lunar prin Google Play, la prețul afișat acolo, anulabil oricând; restul aplicației e gratuit.
