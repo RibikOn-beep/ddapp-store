@@ -1,10 +1,10 @@
 # NutriRO
 
-> NutriRO: aplicație Android de rețete și calorii, doar în limba română.
+> NutriRO este o aplicație Android de jurnal alimentar și monitorizare a caloriilor, în limba română, cu peste 1.300 de rețete, inclusiv preparate tradiționale românești reinterpretate pentru o alimentație mai sănătoasă. Permite calcularea caloriilor și nutrienților, monitorizarea alimentației și progresului, scanarea codurilor de bare și planificarea meniurilor, cu instrumente inteligente și asistență AI.
 
 ## NutriRO
 
-NutriRO (pachetul Android `ro.calorii.calculator`) are peste 1.200 de rețete: rețete tradiționale românești, completate cu rețete internaționale adaptate alimentelor din România. Cele mai multe sunt refăcute ca să aibă mai puține calorii, iar fiecare are caloriile, proteinele, grăsimile, carbohidrații (fără fibre), fibrele, sarea și greutatea porției calculate pe porție. Felurile clasice (sarmale cu porc și smântână, ciorbă de burtă, papanași, mici, fast-food) sunt în catalogul de alimente, cu valorile la 100 g. Catalogul are peste 10.000 de alimente și produse.
+NutriRO (pachetul Android `ro.calorii.calculator`) are peste 1.300 de rețete: rețete tradiționale românești, completate cu rețete internaționale adaptate alimentelor din România. Cele mai multe sunt refăcute ca să aibă mai puține calorii, iar fiecare are caloriile, proteinele, grăsimile, carbohidrații (fără fibre), fibrele, sarea și greutatea porției calculate pe porție. Felurile clasice (sarmale cu porc și smântână, ciorbă de burtă, papanași, mici, fast-food) sunt în catalogul de alimente, cu valorile la 100 g. Catalogul are peste 10.000 de alimente și produse.
 
 Gratuit: rețetele, jurnalul zilnic de calorii și macronutrienți, scanarea codurilor de bare (catalogul NutriRO, apoi Open Food Facts), apa, greutatea, activitatea fizică (108 activități, pașii din Health Connect), meniul întocmit manual și lista de cumpărături.
 Premium (abonament lunar prin Google Play): Foto AI, Antrenorul AI, generatorul de meniu, IF Tracker (post intermitent), rapoartele PDF.
