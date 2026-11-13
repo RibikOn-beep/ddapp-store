@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="theme-color" content="#060810"/>
+  <meta name="theme-color" content="#0E3B2A"/>
   <title>NutriRO: jurnal alimentar cu rețete românești</title>
   <meta name="description" content="NutriRO: jurnal alimentar și monitorizare a caloriilor, în limba română, cu peste 1.300 de rețete, inclusiv tradiționale românești reinterpretate. Android."/>
   <link rel="canonical" href="https://ddapp.store/nutriro/"/>
@@ -18,24 +18,27 @@
   <meta name="p:domain_verify" content="94210634f6db5df75153b6410007ffa8"/>
   <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://ddapp.store/nutriro/#org", "name": "NutriRO", "url": "https://ddapp.store/nutriro/", "logo": "https://ddapp.store/logo.png", "email": "nutriro2026@gmail.com", "sameAs": ["https://play.google.com/store/apps/details?id=ro.calorii.calculator", "https://www.youtube.com/@NutriRo-m8c", "https://www.facebook.com/profile.php?id=61594479747796", "https://www.instagram.com/nutr.iro/", "https://www.tiktok.com/@nutriro2026", "https://ro.pinterest.com/nutriro_2026/"], "description": "NutriRO este o aplicație Android de jurnal alimentar și monitorizare a caloriilor, în limba română, cu peste 1.300 de rețete, inclusiv preparate tradiționale românești reinterpretate pentru o alimentație mai sănătoasă."}, {"@type": "WebSite", "@id": "https://ddapp.store/nutriro/#site", "name": "NutriRO", "url": "https://ddapp.store/nutriro/", "inLanguage": "ro", "publisher": {"@id": "https://ddapp.store/nutriro/#org"}, "description": "NutriRO este o aplicație Android de jurnal alimentar și monitorizare a caloriilor, în limba română, cu peste 1.300 de rețete, inclusiv preparate tradiționale românești reinterpretate pentru o alimentație mai sănătoasă. Permite calcularea caloriilor și nutrienților, monitorizarea alimentației și progresului, scanarea codurilor de bare și planificarea meniurilor, cu instrumente inteligente și asistență AI.", "alternateName": "NutriRO: jurnal alimentar cu rețete românești"}, {"@type": "MobileApplication", "@id": "https://ddapp.store/nutriro/#app", "name": "NutriRO", "alternateName": "NutriRO: Rețete și calorii", "operatingSystem": "Android", "applicationCategory": "HealthApplication", "inLanguage": "ro", "description": "NutriRO este o aplicație Android de jurnal alimentar și monitorizare a caloriilor, în limba română, cu peste 1.300 de rețete, inclusiv preparate tradiționale românești reinterpretate pentru o alimentație mai sănătoasă. Permite calcularea caloriilor și nutrienților, monitorizarea alimentației și progresului, scanarea codurilor de bare și planificarea meniurilor, cu instrumente inteligente și asistență AI.", "url": "https://ddapp.store/nutriro/", "installUrl": "https://play.google.com/store/apps/details?id=ro.calorii.calculator", "downloadUrl": "https://play.google.com/store/apps/details?id=ro.calorii.calculator", "image": "https://ddapp.store/logo.png", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "RON"}, "publisher": {"@id": "https://ddapp.store/nutriro/#org"}}]}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@400;500;600;700;800&display=swap"/>
+  <link rel="stylesheet" href="assets/bara.css?v=1"/>
   <link rel="icon" type="image/png" href="../favicon.png"/>
   <style>
     :root {
-      --bg:         #060810;
-      --bg2:        #080c14;
-      --card:       #090d1a;
-      --card2:      #0c1220;
-      --green:      #2ecc71;
-      --green-dim:  rgba(46,204,113,0.10);
-      --green-mid:  rgba(46,204,113,0.25);
-      --green-glow: rgba(46,204,113,0.15);
-      --gold:       #FFD700;
-      --gold-dim:   rgba(255,215,0,0.12);
-      --white:      #ffffff;
-      --gray:       #8899aa;
-      --gray2:      #445566;
-      --border:     rgba(46,204,113,0.15);
+      --bg:         #EEF2EC;
+      --bg2:        #F3F6F2;
+      --card:       #FFFFFF;
+      --card2:      #F3F6F2;
+      --green:      #146B3A;
+      --green-dim:  rgba(20,107,58,0.08);
+      --green-mid:  rgba(20,107,58,0.28);
+      --green-glow: rgba(20,107,58,0.10);
+      --gold:       #8A5A00;
+      --gold-dim:   rgba(201,138,14,0.14);
+      --white:      #10231A;
+      --gray:       #56695E;
+      --gray2:      #56695E;
+      --border:     #DCE5DE;
       --radius:     16px;
       --radius-lg:  24px;
     }
@@ -62,7 +65,7 @@
     /* ── NAV ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(6,8,16,0.85);
+      background: #FFFFFF;
       backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
       padding: 0 5%;
@@ -76,7 +79,7 @@
     .nav-links a { color: var(--gray); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
     .nav-links a:hover { color: var(--white); }
     .nav-cta { background: var(--green); color: #000; font-weight: 700; font-size: 0.85rem; padding: 0.5rem 1.25rem; border-radius: 50px; text-decoration: none; transition: all 0.2s; white-space: nowrap; }
-    .nav-cta:hover { background: #27ae60; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(46,204,113,0.35); }
+    .nav-cta:hover { background: #184D38; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(20,107,58,0.35); }
 
     /* ── HERO ── */
     .hero {
@@ -90,14 +93,14 @@
     .hero-glow {
       position: absolute;
       width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(46,204,113,0.12) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(20,107,58,0.12) 0%, transparent 70%);
       top: 50%; left: 30%; transform: translate(-50%, -50%);
       pointer-events: none;
     }
     .hero-glow-2 {
       position: absolute;
       width: 400px; height: 400px;
-      background: radial-gradient(circle, rgba(46,100,204,0.08) 0%, transparent 70%);
+      background: radial-gradient(circle, transparent 0%, transparent 70%);
       top: 20%; right: 10%;
       pointer-events: none;
     }
@@ -153,7 +156,7 @@
       text-decoration: none; transition: all 0.25s;
       border: none; cursor: pointer;
     }
-    .btn-primary:hover { background: #27ae60; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(46,204,113,0.4); }
+    .btn-primary:hover { background: #184D38; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(20,107,58,0.4); }
     .btn-secondary {
       display: inline-flex; align-items: center; gap: 8px;
       background: transparent; color: var(--white);
@@ -184,12 +187,12 @@
       position: absolute;
       width: 240px;
       border-radius: 36px;
-      border: 2px solid rgba(46,204,113,0.3);
+      border: 2px solid rgba(20,107,58,0.3);
       overflow: hidden;
       box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05);
     }
     .phone-frame img { width: 100%; display: block; }
-    .phone-1 { top: 0; left: 0; transform: rotate(-4deg); z-index: 2; box-shadow: -10px 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(46,204,113,0.1); }
+    .phone-1 { top: 0; left: 0; transform: rotate(-4deg); z-index: 2; box-shadow: -10px 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(20,107,58,0.1); }
     .phone-2 { top: 30px; left: 40px; transform: rotate(3deg); z-index: 1; opacity: 0.7; }
 
     /* ── SOCIAL PROOF ── */
@@ -287,14 +290,14 @@
     .tab-img-wrap img {
       width: 220px; border-radius: 28px;
       border: 2px solid var(--border);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(46,204,113,0.08);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(20,107,58,0.08);
       transition: transform 0.4s ease;
     }
     .tab-img-wrap:hover img { transform: translateY(-8px) rotate(1deg); }
     .tab-img-glow {
       position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%);
       width: 200px; height: 100px;
-      background: radial-gradient(ellipse, rgba(46,204,113,0.2) 0%, transparent 70%);
+      background: radial-gradient(ellipse, rgba(20,107,58,0.2) 0%, transparent 70%);
       pointer-events: none;
     }
 
@@ -330,7 +333,7 @@
       font-size: 0.7rem; font-weight: 700; letter-spacing: 0.5px;
       padding: 3px 10px; border-radius: 50px;
     }
-    .badge-premium { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(255,215,0,0.25); }
+    .badge-premium { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(201,138,14,0.25); }
     .badge-free { background: var(--green-dim); color: var(--green); border: 1px solid var(--green-mid); }
 
     /* ── SCREENSHOTS SHOWCASE ── */
@@ -355,7 +358,7 @@
     .screenshot-item:hover {
       transform: translateY(-8px) scale(1.02);
       border-color: var(--green-mid);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 30px rgba(46,204,113,0.1);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 30px rgba(20,107,58,0.1);
     }
     .screenshot-item img { width: 100%; display: block; }
     .screenshot-label {
@@ -386,7 +389,7 @@
     .medal-item:nth-child(9) { animation-delay: 2.4s; }
     .medal-item img {
       width: 72px; height: 72px; object-fit: contain;
-      filter: drop-shadow(0 4px 12px rgba(46,204,113,0.25));
+      filter: drop-shadow(0 4px 12px rgba(20,107,58,0.25));
       transition: transform 0.3s;
     }
     .medal-item:hover img { transform: scale(1.15) rotate(5deg); }
@@ -394,7 +397,7 @@
 
     /* ── PREMIUM CTA ── */
     .premium-section {
-      background: linear-gradient(135deg, #080c14 0%, #0a140a 50%, #080c14 100%);
+      background: #FFFFFF;
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
       text-align: center;
@@ -403,12 +406,12 @@
     .premium-glow {
       position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
       width: 600px; height: 300px;
-      background: radial-gradient(ellipse, rgba(46,204,113,0.08) 0%, transparent 70%);
+      background: radial-gradient(ellipse, rgba(20,107,58,0.08) 0%, transparent 70%);
       pointer-events: none;
     }
     .premium-badge {
       display: inline-flex; align-items: center; gap: 6px;
-      background: var(--gold-dim); border: 1px solid rgba(255,215,0,0.3);
+      background: var(--gold-dim); border: 1px solid rgba(201,138,14,0.3);
       border-radius: 50px; padding: 6px 16px;
       font-size: 0.8rem; color: var(--gold); font-weight: 700;
       margin-bottom: 1.5rem; letter-spacing: 0.5px;
@@ -525,12 +528,12 @@
     .retete-wrap { margin-top: 2rem; }
     .retete-linkuri { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; }
     .retete-linkuri p { flex-basis: 100%; margin: 0 0 0.2rem; color: var(--gray); font-size: 0.95rem; }
-    .retete-linkuri a { color: var(--white); text-decoration: none; border: 1px solid rgba(46,204,113,0.25); border-radius: 50px; padding: 0.6rem 1.1rem; font-size: 0.95rem; font-weight: 600; min-height: 44px; display: inline-flex; align-items: center; }
-    .retete-linkuri a:hover { border-color: #2ecc71; }
-    .retete-linkuri a.toate { background: #2ecc71; color: #000; border-color: #2ecc71; }
+    .retete-linkuri a { color: var(--white); text-decoration: none; border: 1px solid rgba(20,107,58,0.25); border-radius: 50px; padding: 0.6rem 1.1rem; font-size: 0.95rem; font-weight: 600; min-height: 44px; display: inline-flex; align-items: center; }
+    .retete-linkuri a:hover { border-color: #146B3A; }
+    .retete-linkuri a.toate { background: #146B3A; color: #000; border-color: #146B3A; }
     .retete-tabel { width: 100%; border-collapse: collapse; }
-    .retete-tabel th, .retete-tabel td { padding: 0.9rem 0.8rem; text-align: left; border-bottom: 1px solid rgba(46,204,113,0.12); }
-    .retete-tabel th { color: var(--gray); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 2px solid rgba(46,204,113,0.25); }
+    .retete-tabel th, .retete-tabel td { padding: 0.9rem 0.8rem; text-align: left; border-bottom: 1px solid rgba(20,107,58,0.12); }
+    .retete-tabel th { color: var(--gray); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 2px solid rgba(20,107,58,0.25); }
     .retete-tabel td:first-child, .retete-tabel th:first-child { padding-left: 0; }
     .retete-tabel td:last-child, .retete-tabel th:last-child { padding-right: 0; }
     .retete-tabel tr:last-child td { border-bottom: 0; }
@@ -542,7 +545,7 @@
     .retete-nota a { color: var(--green); }
 
     /* ── ÎNTREBĂRI FRECVENTE + calculator (FAQ-HOME-01, 3 nov 2026) ── */
-    .calc-card { display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; flex-wrap: wrap; margin: 2rem 0 1.5rem; padding: 1.4rem 1.6rem; border-radius: var(--radius-lg); text-decoration: none; color: var(--white); background: linear-gradient(135deg, rgba(46,204,113,0.16), rgba(46,204,113,0.04)); border: 1px solid var(--green-mid); transition: border-color 0.2s; }
+    .calc-card { display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; flex-wrap: wrap; margin: 2rem 0 1.5rem; padding: 1.4rem 1.6rem; border-radius: var(--radius-lg); text-decoration: none; color: var(--white); background: linear-gradient(135deg, rgba(20,107,58,0.16), rgba(20,107,58,0.04)); border: 1px solid var(--green-mid); transition: border-color 0.2s; }
     .calc-card:hover { border-color: var(--green); }
     .calc-card b { display: block; font-size: 1.15rem; color: var(--white); margin-bottom: 0.2rem; }
     .calc-card span { color: var(--gray); font-size: 0.95rem; }
@@ -556,29 +559,53 @@
     .faq-lista details[open] summary::after { content: "\2212"; }
     .faq-lista details p { color: var(--gray); line-height: 1.7; margin: 0 0 1.1rem; }
     .faq-lista details p a { color: var(--green); font-weight: 600; }
+  
+    /* ── Tema unitară a site-ului (cerere Dorel, 12 nov 2026): culorile de la rețete (fond crem-verzui, alb, verde
+       închis). Numele variabilelor au rămas cele vechi: --white e acum culoarea textului închis, --bg fondul deschis.
+       Bara de sus și subsolul sunt în assets/bara.css și se rescriu din _unelte/bara.py, între marcajele BARA și SUBSOL. ── */
+    body::before { display: none; }
+    .hero { padding-top: 48px; }
+    .hero-title, .section-title, .premium-title, .tab-text h3, .feature-title, .hero-stat-val, .stat-item-val, .premium-price { font-family: 'Bricolage Grotesque', 'Inter', sans-serif; }
+    .btn-primary, .calc-card em, .retete-linkuri a.toate { background: #0E3B2A; color: #fff; border-color: #0E3B2A; }
+    .btn-primary:hover { background: #184D38; box-shadow: 0 8px 24px rgba(14,59,42,0.25); }
+    .retete-linkuri a { border-color: #CBD8CF; background: #fff; }
+    .retete-linkuri a:hover { border-color: #146B3A; }
+    .retete-linkuri a.toate:hover { background: #184D38; border-color: #184D38; }
+    .retete-tabel th, .retete-tabel td { border-bottom-color: #E3EAE5; }
+    .retete-tabel th { border-bottom-color: #CBD8CF; }
+    .phone-frame { border-color: #CBD8CF; box-shadow: 0 24px 60px rgba(16,35,26,0.22); }
+    .phone-1 { box-shadow: -8px 18px 44px rgba(16,35,26,0.20); }
+    .tab-img-wrap img { box-shadow: 0 18px 44px rgba(16,35,26,0.18); }
+    .feature-card:hover { box-shadow: 0 12px 32px rgba(16,35,26,0.12); }
+    .screenshot-item:hover { box-shadow: 0 18px 40px rgba(16,35,26,0.16); }
+    .premium-section { background: #fff; }
+    .badge-premium, .premium-badge { border-color: rgba(138,90,0,0.30); }
+    .calc-card { background: #DDF5E6; }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <div style="display:flex;align-items:center;gap:12px;">
-    <img src="../logo.png" alt="NutriRO logo" style="width:48px;height:48px;border-radius:10px;" width="1254" height="1254"/>
-    <a href="./" class="nav-logo"><b><span>Nutri</span>RO</b></a>
-  </div>
-  <div class="nav-links">
+<!-- BARA:START -->
+<header class="nb"><div class="nb-in">
+  <a href="./" class="nb-logo"><img src="../logo.png" alt="" width="36" height="36"/><b>Nutri<span>RO</span></b></a>
+  <div class="nb-nav" role="navigation" aria-label="Meniu">
     <a href="retete/">Rețete</a>
     <a href="retete/de-post.html">De post</a>
-    <a href="calorii-mancare-romaneasca.html">Calorii</a>
-    <a href="calculator-calorii.html">Calculator</a>
-    <a href="#functii">Funcții</a>
-    <a href="#pentru-tine">Pentru tine</a>
-    <a href="#premium">Premium</a>
-    <a href="manual.html">Manual</a>
-    <a href="mailto:nutriro2026@gmail.com">Contact</a>
+    <a href="calorii-mancare-romaneasca.html">Câte calorii are…</a>
+    <a href="calculator-calorii.html">Calculator calorii</a>
+    <details class="nb-drop"><summary>Despre NutriRO</summary>
+      <div class="nb-menu">
+        <a href="./#functii">Funcții</a>
+        <a href="./#pentru-tine">Pentru tine</a>
+        <a href="./#premium">Premium</a>
+        <a href="manual.html">Manual</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </details>
   </div>
-  <a href="https://play.google.com/store/apps/details?id=ro.calorii.calculator&amp;referrer=utm_source%3Dsite%26utm_campaign%3Dnutriro" class="ins ins-alb ins-mic" target="_blank" rel="noopener"><img src="assets/logo-buton.png" alt="" width="32" height="32"/><span>Instalează<span class="ins-nume"> NutriRO</span></span></a>
-</nav>
+  <a class="nb-ins" href="https://play.google.com/store/apps/details?id=ro.calorii.calculator&amp;referrer=utm_source%3Dsite%26utm_campaign%3Dnutriro" target="_blank" rel="noopener"><img src="assets/logo-buton.png" alt="" width="32" height="32"/><span>Instalează<span class="nb-ins-nume"> NutriRO</span></span></a>
+</div></header>
+<!-- BARA:END -->
 
 <!-- HERO -->
 <section class="hero" id="top">
@@ -599,7 +626,7 @@
         NutriRO este o aplicație Android de jurnal alimentar și monitorizare a caloriilor, în limba română, cu peste 1.300 de rețete, inclusiv preparate tradiționale românești reinterpretate pentru o alimentație mai sănătoasă. Permite calcularea caloriilor și nutrienților, monitorizarea alimentației și progresului, scanarea codurilor de bare și planificarea meniurilor, cu instrumente inteligente și asistență AI.
       </p>
       <div class="hero-actions">
-        <a href="https://play.google.com/store/apps/details?id=ro.calorii.calculator&amp;referrer=utm_source%3Dsite%26utm_campaign%3Dnutriro" class="ins ins-alb" target="_blank" rel="noopener"><img class="ins-logo" src="assets/logo-buton.png" alt="" width="48" height="48"/><span class="ins-text"><b>Instalează NutriRO</b><small>Gratuit, pentru Android</small></span><img class="ins-play" src="assets/google-play-ro.png" alt="Google Play" width="148" height="44"/></a>
+        <a href="https://play.google.com/store/apps/details?id=ro.calorii.calculator&amp;referrer=utm_source%3Dsite%26utm_campaign%3Dnutriro" class="ins" target="_blank" rel="noopener"><img class="ins-logo" src="assets/logo-buton.png" alt="" width="48" height="48"/><span class="ins-text"><b>Instalează NutriRO</b><small>Gratuit, pentru Android</small></span><img class="ins-play" src="assets/google-play-ro.png" alt="Google Play" width="148" height="44"/></a>
         <a href="#pentru-tine" class="btn-secondary">
           Descoperă funcțiile →
         </a>
@@ -695,7 +722,7 @@
           <li><strong>Generator meniu 7 zile</strong> <span>— calculat exact pe deficitul tău caloric</span></li>
           <li><strong>Scor de aderență zilnic</strong> <span>— știi exact cât de consecvent ești</span></li>
         </ul>
-        <a href="https://play.google.com/store/apps/details?id=ro.calorii.calculator&amp;referrer=utm_source%3Dsite%26utm_campaign%3Dnutriro" class="ins ins-alb" target="_blank" rel="noopener"><img class="ins-logo" src="assets/logo-buton.png" alt="" width="48" height="48" loading="lazy"/><span class="ins-text"><b>Instalează NutriRO</b><small>Gratuit, pentru Android</small></span><img class="ins-play" src="assets/google-play-ro.png" alt="Google Play" width="148" height="44" loading="lazy"/></a>
+        <a href="https://play.google.com/store/apps/details?id=ro.calorii.calculator&amp;referrer=utm_source%3Dsite%26utm_campaign%3Dnutriro" class="ins" target="_blank" rel="noopener"><img class="ins-logo" src="assets/logo-buton.png" alt="" width="48" height="48" loading="lazy"/><span class="ins-text"><b>Instalează NutriRO</b><small>Gratuit, pentru Android</small></span><img class="ins-play" src="assets/google-play-ro.png" alt="Google Play" width="148" height="44" loading="lazy"/></a>
       </div>
       <div class="tab-img-wrap">
         <img src="assets/img/img-02-190c3aa1.webp" alt="Progres greutate NutriRO" loading="lazy" width="923" height="2000" style="height:auto"/>
@@ -715,7 +742,7 @@
           <li><strong>Raport nutrițional detaliat</strong> <span>— media săptămânală per macronutrient</span></li>
           <li><strong>Peste 1.300 de rețete</strong> <span>— cu proteinele și greutatea fiecărei porții</span></li>
         </ul>
-        <a href="https://play.google.com/store/apps/details?id=ro.calorii.calculator&amp;referrer=utm_source%3Dsite%26utm_campaign%3Dnutriro" class="ins ins-alb" target="_blank" rel="noopener"><img class="ins-logo" src="assets/logo-buton.png" alt="" width="48" height="48" loading="lazy"/><span class="ins-text"><b>Instalează NutriRO</b><small>Gratuit, pentru Android</small></span><img class="ins-play" src="assets/google-play-ro.png" alt="Google Play" width="148" height="44" loading="lazy"/></a>
+        <a href="https://play.google.com/store/apps/details?id=ro.calorii.calculator&amp;referrer=utm_source%3Dsite%26utm_campaign%3Dnutriro" class="ins" target="_blank" rel="noopener"><img class="ins-logo" src="assets/logo-buton.png" alt="" width="48" height="48" loading="lazy"/><span class="ins-text"><b>Instalează NutriRO</b><small>Gratuit, pentru Android</small></span><img class="ins-play" src="assets/google-play-ro.png" alt="Google Play" width="148" height="44" loading="lazy"/></a>
       </div>
       <div class="tab-img-wrap">
         <img src="assets/img/img-03-65c0be12.jpg" alt="Tracking macro NutriRO" loading="lazy" width="600" height="1300" style="height:auto"/>
@@ -735,7 +762,7 @@
           <li><strong>Raport Nutrițional PDF</strong> <span>— 30 de zile de medii zilnice, gata de arătat medicului</span></li>
           <li><strong>Health Connect</strong> <span>— sincronizare automată pași și activitate fizică</span></li>
         </ul>
-        <a href="https://play.google.com/store/apps/details?id=ro.calorii.calculator&amp;referrer=utm_source%3Dsite%26utm_campaign%3Dnutriro" class="ins ins-alb" target="_blank" rel="noopener"><img class="ins-logo" src="assets/logo-buton.png" alt="" width="48" height="48" loading="lazy"/><span class="ins-text"><b>Instalează NutriRO</b><small>Gratuit, pentru Android</small></span><img class="ins-play" src="assets/google-play-ro.png" alt="Google Play" width="148" height="44" loading="lazy"/></a>
+        <a href="https://play.google.com/store/apps/details?id=ro.calorii.calculator&amp;referrer=utm_source%3Dsite%26utm_campaign%3Dnutriro" class="ins" target="_blank" rel="noopener"><img class="ins-logo" src="assets/logo-buton.png" alt="" width="48" height="48" loading="lazy"/><span class="ins-text"><b>Instalează NutriRO</b><small>Gratuit, pentru Android</small></span><img class="ins-play" src="assets/google-play-ro.png" alt="Google Play" width="148" height="44" loading="lazy"/></a>
       </div>
       <div class="tab-img-wrap">
         <img src="assets/img/img-04-f15e400c.jpg" alt="Rapoarte NutriRO" loading="lazy" width="600" height="1300" style="height:auto"/>
@@ -755,7 +782,7 @@
           <li><strong>Analiză săptămânală AI</strong> <span>— ce să îmbunătățești, pe datele tale</span></li>
           <li><strong>Sistem de medalii</strong> <span>— 22 de medalii care fac nutriția motivantă</span></li>
         </ul>
-        <a href="https://play.google.com/store/apps/details?id=ro.calorii.calculator&amp;referrer=utm_source%3Dsite%26utm_campaign%3Dnutriro" class="ins ins-alb" target="_blank" rel="noopener"><img class="ins-logo" src="assets/logo-buton.png" alt="" width="48" height="48" loading="lazy"/><span class="ins-text"><b>Instalează NutriRO</b><small>Gratuit, pentru Android</small></span><img class="ins-play" src="assets/google-play-ro.png" alt="Google Play" width="148" height="44" loading="lazy"/></a>
+        <a href="https://play.google.com/store/apps/details?id=ro.calorii.calculator&amp;referrer=utm_source%3Dsite%26utm_campaign%3Dnutriro" class="ins" target="_blank" rel="noopener"><img class="ins-logo" src="assets/logo-buton.png" alt="" width="48" height="48" loading="lazy"/><span class="ins-text"><b>Instalează NutriRO</b><small>Gratuit, pentru Android</small></span><img class="ins-play" src="assets/google-play-ro.png" alt="Google Play" width="148" height="44" loading="lazy"/></a>
       </div>
       <div class="tab-img-wrap">
         <img src="assets/img/img-03-65c0be12.jpg" alt="Dashboard NutriRO" loading="lazy" width="600" height="1300" style="height:auto"/>
@@ -948,7 +975,7 @@
       <div class="pf-item">IF Tracker complet</div>
       <div class="pf-item">Raport jurnal nutrițional</div>
     </div>
-    <a href="https://play.google.com/store/apps/details?id=ro.calorii.calculator&amp;referrer=utm_source%3Dsite%26utm_campaign%3Dnutriro" class="ins ins-alb ins-centru" target="_blank" rel="noopener"><img class="ins-logo" src="assets/logo-buton.png" alt="" width="48" height="48" loading="lazy"/><span class="ins-text"><b>Instalează NutriRO</b><small>Gratuit, pentru Android</small></span><img class="ins-play" src="assets/google-play-ro.png" alt="Google Play" width="148" height="44" loading="lazy"/></a>
+    <a href="https://play.google.com/store/apps/details?id=ro.calorii.calculator&amp;referrer=utm_source%3Dsite%26utm_campaign%3Dnutriro" class="ins ins-centru" target="_blank" rel="noopener"><img class="ins-logo" src="assets/logo-buton.png" alt="" width="48" height="48" loading="lazy"/><span class="ins-text"><b>Instalează NutriRO</b><small>Gratuit, pentru Android</small></span><img class="ins-play" src="assets/google-play-ro.png" alt="Google Play" width="148" height="44" loading="lazy"/></a>
   </div>
 </section>
 
@@ -983,7 +1010,7 @@
       </div>
     </div>
     <div style="text-align: center; margin-top: 2.5rem;">
-      <a href="https://play.google.com/store/apps/details?id=ro.calorii.calculator&amp;referrer=utm_source%3Dsite%26utm_campaign%3Dnutriro" class="ins ins-alb ins-centru" target="_blank" rel="noopener"><img class="ins-logo" src="assets/logo-buton.png" alt="" width="48" height="48" loading="lazy"/><span class="ins-text"><b>Instalează NutriRO</b><small>Gratuit, pentru Android</small></span><img class="ins-play" src="assets/google-play-ro.png" alt="Google Play" width="148" height="44" loading="lazy"/></a>
+      <a href="https://play.google.com/store/apps/details?id=ro.calorii.calculator&amp;referrer=utm_source%3Dsite%26utm_campaign%3Dnutriro" class="ins ins-centru" target="_blank" rel="noopener"><img class="ins-logo" src="assets/logo-buton.png" alt="" width="48" height="48" loading="lazy"/><span class="ins-text"><b>Instalează NutriRO</b><small>Gratuit, pentru Android</small></span><img class="ins-play" src="assets/google-play-ro.png" alt="Google Play" width="148" height="44" loading="lazy"/></a>
       <p style="color: var(--gray); font-size: 0.85rem; margin-top: 0.9rem; max-width: 560px; margin-left: auto; margin-right: auto; line-height: 1.6;">Antrenor e un abonament lunar separat, prin Google Play, din Profil → Devino Antrenor. Se cumpără doar cu Premium activ și de la 18 ani; după aceea, uneltele de antrenor funcționează și dacă renunți la Premium. Dacă abonamentul Antrenor expiră, reactivarea cere din nou Premium.</p>
     </div>
   </div>
@@ -1006,10 +1033,11 @@
     <details><summary>Câte calorii are o porție de sarmale?</summary><p>O porție de 244 g de sarmale clasice cu carne de porc și smântână are aproximativ 439 kcal, adică 180 kcal la 100 g. Aceeași porție din sarmalele light din curcan din NutriRO are 201 kcal. Vezi <a href="calorii-sarmale.html">câte calorii au sarmalele</a>.</p></details>
     <details><summary>Câte calorii are o ciorbă de burtă?</summary><p>O porție de 458 g de ciorbă de burtă cu smântână are aproximativ 481 kcal, adică 105 kcal la 100 g. Ciorba de burtă fără făină din NutriRO are 329 kcal pe o porție de aceeași mărime. Vezi <a href="calorii-ciorba-de-burta.html">câte calorii are ciorba de burtă</a>.</p></details>
     <details><summary>Mămăliga îngrașă?</summary><p>Mămăliga simplă are aproximativ 76 kcal la 100 g, cam de trei ori mai puțin decât pâinea albă, care are în jur de 230–255 kcal la 100 g, după tip. Caloriile cresc mult cu brânza, smântâna și untul puse alături. Contează totalul caloriilor din zi, nu un singur aliment. Rețeta de pe site: <a href="retete/mamaliga-cu-branza-si-smantana-light.html">Mămăligă cu brânză și smântână light</a>.</p></details>
+    <details><summary>Câte calorii are masa de Crăciun?</summary><p>O masă de Crăciun cu piftie de porc, salată de boeuf, tobă de casă, cârnați de casă, sarmale cu porc și smântână, friptură de porc la tavă cu cartofi, mămăligă și cozonac cu nucă și cacao are aproximativ 2.594 kcal, fără pâine și fără băuturi. Cu patru feluri reinterpretate, aceeași masă are aproximativ 1.968 kcal. Vezi <a href="calorii-masa-de-craciun.html">masa de Crăciun, fel cu fel</a>.</p></details>
     <details><summary>Ce pot mânca în post cu puține calorii?</summary><p>Pe site găsești <a href="retete/de-post.html">rețetele de post din NutriRO</a>, fără ingrediente de origine animală, cu caloriile pe porție. De exemplu: <a href="retete/bautura-cu-anason-stelat-cuisoare-si-scortisoara-infuzie-de-post.html">Băutură cu anason stelat, cuișoare și scorțișoară (infuzie) (de post)</a>, 11 kcal pe porție și <a href="retete/ceapa-rosie-murata-rapid-quick-pickled-red-onion-de-post.html">Ceapă roșie murată rapid (quick pickled red onion) (de post)</a>, 16 kcal pe porție.</p></details>
     <details><summary>Cum sunt calculate caloriile din NutriRO?</summary><p>Fiecare aliment are în catalog valorile la 100 g. La o rețetă, aplicația adună ingredientele și împarte totalul la numărul de porții. Așa vezi pe porție caloriile, proteinele, grăsimile și carbohidrații, plus greutatea porției în grame.</p></details>
     </div>
-    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Există o aplicație de jurnal alimentar și calorii în limba română?", "acceptedAnswer": {"@type": "Answer", "text": "Da. NutriRO este o aplicație Android de jurnal alimentar și monitorizare a caloriilor, în limba română, făcută în România. Are peste 1.300 de rețete, inclusiv preparate tradiționale românești reinterpretate pentru o alimentație mai sănătoasă, peste 10.000 de alimente și produse din magazinele din România și scanarea codului de bare."}}, {"@type": "Question", "name": "NutriRO e gratuită?", "acceptedAnswer": {"@type": "Answer", "text": "Da, aplicația e gratuită: o instalezi din Google Play și folosești fără plată jurnalul alimentar, rețetele și catalogul de alimente. Doar câteva unelte costă. Ele sunt în Premium, un abonament de 29,99 lei pe lună prin Google Play, pe care îl anulezi oricând: antrenorul AI, recunoașterea alimentelor din poze, meniul pe 7 zile, rapoartele PDF și IF Tracker complet."}}, {"@type": "Question", "name": "Merge pe iPhone?", "acceptedAnswer": {"@type": "Answer", "text": "Deocamdată NutriRO e doar pentru telefoanele Android și se instalează din Google Play. Pe iPhone nu e disponibilă."}}, {"@type": "Question", "name": "Pot afla caloriile mâncării dintr-o poză?", "acceptedAnswer": {"@type": "Answer", "text": "Da, cu Premium. Faci o poză farfuriei, iar aplicația numește alimentele și gramajele și ia valorile din catalogul NutriRO. Înainte să salvezi, poți corecta gramajele și ingredientele. Ai 5 scanări pe lună."}}, {"@type": "Question", "name": "Câte calorii trebuie să mănânci pe zi ca să slăbești?", "acceptedAnswer": {"@type": "Answer", "text": "Depinde de vârstă, înălțime, greutate și de cât de activ ești. Calculatorul NutriRO îți dă cifra în câteva secunde. Află cât consumi într-o zi obișnuită, apoi scade 250, 500 sau 750 kcal, după ritmul ales. Ținta nu coboară sub 1.200 kcal la femei și 1.500 kcal la bărbați."}}, {"@type": "Question", "name": "Ce înseamnă deficit caloric?", "acceptedAnswer": {"@type": "Answer", "text": "Deficit caloric înseamnă să mănânci mai puține calorii decât consumă corpul tău într-o zi. Dacă arzi 2.000 kcal și mănânci 1.500 kcal, ai un deficit de 500 kcal. În calculator și în aplicație alegi deficitul: 250, 500 sau 750 kcal pe zi."}}, {"@type": "Question", "name": "Câte calorii are o porție de sarmale?", "acceptedAnswer": {"@type": "Answer", "text": "O porție de 244 g de sarmale clasice cu carne de porc și smântână are aproximativ 439 kcal, adică 180 kcal la 100 g. Aceeași porție din sarmalele light din curcan din NutriRO are 201 kcal. Vezi câte calorii au sarmalele."}}, {"@type": "Question", "name": "Câte calorii are o ciorbă de burtă?", "acceptedAnswer": {"@type": "Answer", "text": "O porție de 458 g de ciorbă de burtă cu smântână are aproximativ 481 kcal, adică 105 kcal la 100 g. Ciorba de burtă fără făină din NutriRO are 329 kcal pe o porție de aceeași mărime. Vezi câte calorii are ciorba de burtă."}}, {"@type": "Question", "name": "Mămăliga îngrașă?", "acceptedAnswer": {"@type": "Answer", "text": "Mămăliga simplă are aproximativ 76 kcal la 100 g, cam de trei ori mai puțin decât pâinea albă, care are în jur de 230–255 kcal la 100 g, după tip. Caloriile cresc mult cu brânza, smântâna și untul puse alături. Contează totalul caloriilor din zi, nu un singur aliment. Rețeta de pe site: Mămăligă cu brânză și smântână light."}}, {"@type": "Question", "name": "Ce pot mânca în post cu puține calorii?", "acceptedAnswer": {"@type": "Answer", "text": "Pe site găsești rețetele de post din NutriRO, fără ingrediente de origine animală, cu caloriile pe porție. De exemplu: Băutură cu anason stelat, cuișoare și scorțișoară (infuzie) (de post), 11 kcal pe porție și Ceapă roșie murată rapid (quick pickled red onion) (de post), 16 kcal pe porție."}}, {"@type": "Question", "name": "Cum sunt calculate caloriile din NutriRO?", "acceptedAnswer": {"@type": "Answer", "text": "Fiecare aliment are în catalog valorile la 100 g. La o rețetă, aplicația adună ingredientele și împarte totalul la numărul de porții. Așa vezi pe porție caloriile, proteinele, grăsimile și carbohidrații, plus greutatea porției în grame."}}]}</script>
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Există o aplicație de jurnal alimentar și calorii în limba română?", "acceptedAnswer": {"@type": "Answer", "text": "Da. NutriRO este o aplicație Android de jurnal alimentar și monitorizare a caloriilor, în limba română, făcută în România. Are peste 1.300 de rețete, inclusiv preparate tradiționale românești reinterpretate pentru o alimentație mai sănătoasă, peste 10.000 de alimente și produse din magazinele din România și scanarea codului de bare."}}, {"@type": "Question", "name": "NutriRO e gratuită?", "acceptedAnswer": {"@type": "Answer", "text": "Da, aplicația e gratuită: o instalezi din Google Play și folosești fără plată jurnalul alimentar, rețetele și catalogul de alimente. Doar câteva unelte costă. Ele sunt în Premium, un abonament de 29,99 lei pe lună prin Google Play, pe care îl anulezi oricând: antrenorul AI, recunoașterea alimentelor din poze, meniul pe 7 zile, rapoartele PDF și IF Tracker complet."}}, {"@type": "Question", "name": "Merge pe iPhone?", "acceptedAnswer": {"@type": "Answer", "text": "Deocamdată NutriRO e doar pentru telefoanele Android și se instalează din Google Play. Pe iPhone nu e disponibilă."}}, {"@type": "Question", "name": "Pot afla caloriile mâncării dintr-o poză?", "acceptedAnswer": {"@type": "Answer", "text": "Da, cu Premium. Faci o poză farfuriei, iar aplicația numește alimentele și gramajele și ia valorile din catalogul NutriRO. Înainte să salvezi, poți corecta gramajele și ingredientele. Ai 5 scanări pe lună."}}, {"@type": "Question", "name": "Câte calorii trebuie să mănânci pe zi ca să slăbești?", "acceptedAnswer": {"@type": "Answer", "text": "Depinde de vârstă, înălțime, greutate și de cât de activ ești. Calculatorul NutriRO îți dă cifra în câteva secunde. Află cât consumi într-o zi obișnuită, apoi scade 250, 500 sau 750 kcal, după ritmul ales. Ținta nu coboară sub 1.200 kcal la femei și 1.500 kcal la bărbați."}}, {"@type": "Question", "name": "Ce înseamnă deficit caloric?", "acceptedAnswer": {"@type": "Answer", "text": "Deficit caloric înseamnă să mănânci mai puține calorii decât consumă corpul tău într-o zi. Dacă arzi 2.000 kcal și mănânci 1.500 kcal, ai un deficit de 500 kcal. În calculator și în aplicație alegi deficitul: 250, 500 sau 750 kcal pe zi."}}, {"@type": "Question", "name": "Câte calorii are o porție de sarmale?", "acceptedAnswer": {"@type": "Answer", "text": "O porție de 244 g de sarmale clasice cu carne de porc și smântână are aproximativ 439 kcal, adică 180 kcal la 100 g. Aceeași porție din sarmalele light din curcan din NutriRO are 201 kcal. Vezi câte calorii au sarmalele."}}, {"@type": "Question", "name": "Câte calorii are o ciorbă de burtă?", "acceptedAnswer": {"@type": "Answer", "text": "O porție de 458 g de ciorbă de burtă cu smântână are aproximativ 481 kcal, adică 105 kcal la 100 g. Ciorba de burtă fără făină din NutriRO are 329 kcal pe o porție de aceeași mărime. Vezi câte calorii are ciorba de burtă."}}, {"@type": "Question", "name": "Mămăliga îngrașă?", "acceptedAnswer": {"@type": "Answer", "text": "Mămăliga simplă are aproximativ 76 kcal la 100 g, cam de trei ori mai puțin decât pâinea albă, care are în jur de 230–255 kcal la 100 g, după tip. Caloriile cresc mult cu brânza, smântâna și untul puse alături. Contează totalul caloriilor din zi, nu un singur aliment. Rețeta de pe site: Mămăligă cu brânză și smântână light."}}, {"@type": "Question", "name": "Câte calorii are masa de Crăciun?", "acceptedAnswer": {"@type": "Answer", "text": "O masă de Crăciun cu piftie de porc, salată de boeuf, tobă de casă, cârnați de casă, sarmale cu porc și smântână, friptură de porc la tavă cu cartofi, mămăligă și cozonac cu nucă și cacao are aproximativ 2.594 kcal, fără pâine și fără băuturi. Cu patru feluri reinterpretate, aceeași masă are aproximativ 1.968 kcal. Vezi masa de Crăciun, fel cu fel."}}, {"@type": "Question", "name": "Ce pot mânca în post cu puține calorii?", "acceptedAnswer": {"@type": "Answer", "text": "Pe site găsești rețetele de post din NutriRO, fără ingrediente de origine animală, cu caloriile pe porție. De exemplu: Băutură cu anason stelat, cuișoare și scorțișoară (infuzie) (de post), 11 kcal pe porție și Ceapă roșie murată rapid (quick pickled red onion) (de post), 16 kcal pe porție."}}, {"@type": "Question", "name": "Cum sunt calculate caloriile din NutriRO?", "acceptedAnswer": {"@type": "Answer", "text": "Fiecare aliment are în catalog valorile la 100 g. La o rețetă, aplicația adună ingredientele și împarte totalul la numărul de porții. Așa vezi pe porție caloriile, proteinele, grăsimile și carbohidrații, plus greutatea porției în grame."}}]}</script>
 <!-- FAQ-ACASA:END -->
   </div>
 </section>
@@ -1023,7 +1051,7 @@
       Instalează NutriRO gratuit pe telefonul Android. Ai întrebări despre o funcție? Totul e explicat pas cu pas în manualul de utilizare.
     </p>
     <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-      <a href="https://play.google.com/store/apps/details?id=ro.calorii.calculator&amp;referrer=utm_source%3Dsite%26utm_campaign%3Dnutriro" class="ins ins-alb" target="_blank" rel="noopener"><img class="ins-logo" src="assets/logo-buton.png" alt="" width="48" height="48" loading="lazy"/><span class="ins-text"><b>Instalează NutriRO</b><small>Gratuit, pentru Android</small></span><img class="ins-play" src="assets/google-play-ro.png" alt="Google Play" width="148" height="44" loading="lazy"/></a>
+      <a href="https://play.google.com/store/apps/details?id=ro.calorii.calculator&amp;referrer=utm_source%3Dsite%26utm_campaign%3Dnutriro" class="ins" target="_blank" rel="noopener"><img class="ins-logo" src="assets/logo-buton.png" alt="" width="48" height="48" loading="lazy"/><span class="ins-text"><b>Instalează NutriRO</b><small>Gratuit, pentru Android</small></span><img class="ins-play" src="assets/google-play-ro.png" alt="Google Play" width="148" height="44" loading="lazy"/></a>
       <a href="manual.html" class="btn-secondary">
         Manual de utilizare
       </a>
@@ -1036,27 +1064,34 @@
 </section>
 
 <!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-links">
-      <a href="manual.html">Manual de utilizare</a>
-      <a href="retete/">Rețete cu calorii pe porție</a>
-      <a href="retete/de-post.html">Rețete de post</a>
-      <a href="calorii-mancare-romaneasca.html">Calorii în mâncarea românească</a>
-      <a href="calculator-calorii.html">Calculator calorii</a>
-      <a href="termeni.html">Termeni și Condiții</a>
-      <a href="confidentialitate.html">Confidențialitate</a>
-      <a href="stergere-cont.html">Ștergerea contului</a>
-      <a href="mailto:nutriro2026@gmail.com">Contact</a>
-      <a href="https://www.youtube.com/@NutriRo-m8c" target="_blank" rel="noopener me">YouTube</a>
-      <a href="https://www.facebook.com/profile.php?id=61594479747796" target="_blank" rel="noopener me">Facebook</a>
-      <a href="https://www.instagram.com/nutr.iro/" target="_blank" rel="noopener me">Instagram</a>
-      <a href="https://www.tiktok.com/@nutriro2026" target="_blank" rel="noopener me">TikTok</a>
-      <a href="https://ro.pinterest.com/nutriro_2026/" target="_blank" rel="noopener me">Pinterest</a>
-    </div>
-    <p class="footer-copy">© 2026 NutriRO · D.D. · Toate drepturile rezervate · Făcut în România</p>
+<!-- SUBSOL:START -->
+<div class="nb-foot" role="contentinfo">
+  <div class="nb-foot-r">
+    <a href="./">NutriRO</a>
+    <a href="retete/">Rețete</a>
+    <a href="retete/de-post.html">Rețete de post</a>
+    <a href="calorii-mancare-romaneasca.html">Câte calorii are…</a>
+    <a href="calorii-masa-de-craciun.html">Masa de Crăciun</a>
+    <a href="calculator-calorii.html">Calculator calorii</a>
+    <a href="manual.html">Manual de utilizare</a>
+    <a href="termeni.html">Termeni și Condiții</a>
+    <a href="confidentialitate.html">Confidențialitate</a>
+    <a href="stergere-cont.html">Ștergerea contului</a>
   </div>
-</footer>
+  <div class="nb-foot-r nb-contact" id="contact">
+    <b>Contact</b>
+    <a href="mailto:nutriro2026@gmail.com">nutriro2026@gmail.com</a>
+    <a href="https://www.facebook.com/profile.php?id=61594479747796" target="_blank" rel="noopener me">Facebook</a>
+    <a href="https://www.instagram.com/nutr.iro/" target="_blank" rel="noopener me">Instagram</a>
+    <a href="https://www.youtube.com/@NutriRo-m8c" target="_blank" rel="noopener me">YouTube</a>
+    <a href="https://www.tiktok.com/@nutriro2026" target="_blank" rel="noopener me">TikTok</a>
+    <a href="https://ro.pinterest.com/nutriro_2026/" target="_blank" rel="noopener me">Pinterest</a>
+    <a href="https://play.google.com/store/apps/details?id=ro.calorii.calculator&amp;referrer=utm_source%3Dsite%26utm_campaign%3Dnutriro%26utm_content%3Dcontact" target="_blank" rel="noopener">Google Play</a>
+  </div>
+  <p class="nb-copy">© 2026 NutriRO · D.D. · Toate drepturile rezervate · Făcut în România</p>
+</div>
+<script>(function(){var d=document.querySelector('.nb-drop');if(!d)return;document.addEventListener('click',function(e){if(d.open&&(!d.contains(e.target)||e.target.closest('.nb-menu a')))d.open=false});document.addEventListener('keydown',function(e){if(e.key==='Escape')d.open=false})})();</script>
+<!-- SUBSOL:END -->
 
 <script>
   // Tab switching

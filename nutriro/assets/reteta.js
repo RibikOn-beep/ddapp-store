@@ -114,7 +114,8 @@
     });
     if (pagina < total) pag.appendChild(buton(pagina + 1, 'Următoarea →'));
   }
-  document.querySelectorAll('.filtre-col input').forEach(function (el) {
+  // căutarea e acum deasupra listei, în afara coloanei de filtre (12 nov 2026)
+  document.querySelectorAll('.filtre-col input, [data-caut]').forEach(function (el) {
     el.addEventListener(el.type === 'search' ? 'input' : 'change', function () { pagina = 1; arata(); });
   });
   arata();

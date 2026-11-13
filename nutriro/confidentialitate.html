@@ -7,24 +7,27 @@
   <link rel="canonical" href="https://ddapp.store/nutriro/confidentialitate.html"/>
   <meta name="description" content="Politica de Confidențialitate a aplicației NutriRO — cum colectăm, utilizăm și protejăm datele tale."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@400;500;600;700;800&display=swap"/>
+  <link rel="stylesheet" href="assets/bara.css?v=1"/>
   <link rel="icon" type="image/png" href="../favicon.png"/>
   <style>
     :root {
-      --bg:         #060810;
-      --bg2:        #080c14;
-      --card:       #090d1a;
-      --card2:      #0c1220;
-      --green:      #2ecc71;
-      --green-dim:  rgba(46,204,113,0.10);
-      --green-mid:  rgba(46,204,113,0.25);
-      --green-glow: rgba(46,204,113,0.15);
-      --gold:       #FFD700;
-      --gold-dim:   rgba(255,215,0,0.12);
-      --white:      #ffffff;
-      --gray:       #8899aa;
-      --gray2:      #445566;
-      --border:     rgba(46,204,113,0.15);
+      --bg:         #EEF2EC;
+      --bg2:        #F3F6F2;
+      --card:       #FFFFFF;
+      --card2:      #F3F6F2;
+      --green:      #146B3A;
+      --green-dim:  rgba(20,107,58,0.08);
+      --green-mid:  rgba(20,107,58,0.28);
+      --green-glow: rgba(20,107,58,0.10);
+      --gold:       #8A5A00;
+      --gold-dim:   rgba(201,138,14,0.14);
+      --white:      #10231A;
+      --gray:       #56695E;
+      --gray2:      #56695E;
+      --border:     #DCE5DE;
       --radius:     16px;
       --radius-lg:  24px;
     }
@@ -50,7 +53,7 @@
     /* NAV */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(6,8,16,0.85);
+      background: #FFFFFF;
       backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
       padding: 0 5%;
@@ -72,7 +75,7 @@
       font-size: 0.85rem; padding: 0.5rem 1.25rem; border-radius: 50px;
       text-decoration: none; transition: all 0.2s; white-space: nowrap;
     }
-    .nav-cta:hover { background: #27ae60; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(46,204,113,0.35); }
+    .nav-cta:hover { background: #184D38; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(20,107,58,0.35); }
 
     /* MAIN */
     main {
@@ -127,8 +130,8 @@
       overflow: hidden;
       transition: border-color 0.2s;
     }
-    .acc-item:hover { border-color: rgba(46,204,113,0.3); }
-    .acc-item.open { border-color: rgba(46,204,113,0.4); }
+    .acc-item:hover { border-color: rgba(20,107,58,0.3); }
+    .acc-item.open { border-color: rgba(20,107,58,0.4); }
 
     .acc-header {
       width: 100%;
@@ -143,7 +146,7 @@
       gap: 1rem;
     }
     .acc-title {
-      color: #ccd;
+      color: var(--white);
       font-size: 0.95rem;
       font-weight: 600;
       font-family: 'Inter', sans-serif;
@@ -174,7 +177,7 @@
       margin-top: 0.75rem;
     }
     .legal-table th {
-      background: rgba(46,204,113,0.08);
+      background: rgba(20,107,58,0.08);
       color: var(--green);
       padding: 0.6rem 0.8rem;
       text-align: left;
@@ -184,7 +187,7 @@
     .legal-table td {
       padding: 0.6rem 0.8rem;
       color: var(--gray);
-      border: 1px solid rgba(46,204,113,0.08);
+      border: 1px solid rgba(20,107,58,0.08);
       vertical-align: top;
     }
     .legal-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
@@ -221,22 +224,38 @@
       main { padding: 90px 4% 60px; }
       .legal-table { font-size: 0.75rem; }
     }
+  
+    /* ── Tema unitară a site-ului (cerere Dorel, 12 nov 2026): culorile de la rețete (fond crem-verzui, alb, verde
+       închis). Numele variabilelor au rămas cele vechi: --white e acum culoarea textului închis, --bg fondul deschis.
+       Bara de sus și subsolul sunt în assets/bara.css și se rescriu din _unelte/bara.py, între marcajele BARA și SUBSOL. ── */
+    body::before { display: none; }
+    h1, h2 { font-family: 'Bricolage Grotesque', 'Inter', sans-serif; }
+    main { padding-top: 40px; }
   </style>
 </head>
 <body>
 
-<nav>
-  <a href="./" class="nav-logo">
-    <img src="../favicon.png" alt="NutriRO logo"/>
-    Nutri<span>RO</span>
-  </a>
-  <div class="nav-links">
-    <a href="index.html#features">Funcții</a>
-    <a href="index.html#premium">Premium</a>
-    <a href="termeni.html">Termeni</a>
+<!-- BARA:START -->
+<header class="nb"><div class="nb-in">
+  <a href="./" class="nb-logo"><img src="../logo.png" alt="" width="36" height="36"/><b>Nutri<span>RO</span></b></a>
+  <div class="nb-nav" role="navigation" aria-label="Meniu">
+    <a href="retete/">Rețete</a>
+    <a href="retete/de-post.html">De post</a>
+    <a href="calorii-mancare-romaneasca.html">Câte calorii are…</a>
+    <a href="calculator-calorii.html">Calculator calorii</a>
+    <details class="nb-drop"><summary>Despre NutriRO</summary>
+      <div class="nb-menu">
+        <a href="./#functii">Funcții</a>
+        <a href="./#pentru-tine">Pentru tine</a>
+        <a href="./#premium">Premium</a>
+        <a href="manual.html">Manual</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </details>
   </div>
-  <a href="index.html#download" class="nav-cta">📲 Descarcă</a>
-</nav>
+  <a class="nb-ins" href="https://play.google.com/store/apps/details?id=ro.calorii.calculator&amp;referrer=utm_source%3Dsite%26utm_campaign%3Dnutriro" target="_blank" rel="noopener"><img src="assets/logo-buton.png" alt="" width="32" height="32"/><span>Instalează<span class="nb-ins-nume"> NutriRO</span></span></a>
+</div></header>
+<!-- BARA:END -->
 
 <main>
 
@@ -442,18 +461,34 @@ Versiune: 1.1 · În vigoare din: 1 octombrie 2026</div>
 
 </main>
 
-<footer>
-  <div class="footer-inner">
-    <div class="footer-links">
-      <a href="./">NutriRO</a>
-      <a href="termeni.html">Termeni și Condiții</a>
-      <a href="confidentialitate.html">Confidențialitate</a>
-      <a href="stergere-cont.html">Ștergere cont</a>
-      <a href="mailto:nutriro2026@gmail.com">Contact</a>
-    </div>
-    <p class="footer-copy">© 2026 NutriRO · D.D. · Toate drepturile rezervate · Făcut în România 🇷🇴</p>
+<!-- SUBSOL:START -->
+<div class="nb-foot" role="contentinfo">
+  <div class="nb-foot-r">
+    <a href="./">NutriRO</a>
+    <a href="retete/">Rețete</a>
+    <a href="retete/de-post.html">Rețete de post</a>
+    <a href="calorii-mancare-romaneasca.html">Câte calorii are…</a>
+    <a href="calorii-masa-de-craciun.html">Masa de Crăciun</a>
+    <a href="calculator-calorii.html">Calculator calorii</a>
+    <a href="manual.html">Manual de utilizare</a>
+    <a href="termeni.html">Termeni și Condiții</a>
+    <a href="confidentialitate.html">Confidențialitate</a>
+    <a href="stergere-cont.html">Ștergerea contului</a>
   </div>
-</footer>
+  <div class="nb-foot-r nb-contact" id="contact">
+    <b>Contact</b>
+    <a href="mailto:nutriro2026@gmail.com">nutriro2026@gmail.com</a>
+    <a href="https://www.facebook.com/profile.php?id=61594479747796" target="_blank" rel="noopener me">Facebook</a>
+    <a href="https://www.instagram.com/nutr.iro/" target="_blank" rel="noopener me">Instagram</a>
+    <a href="https://www.youtube.com/@NutriRo-m8c" target="_blank" rel="noopener me">YouTube</a>
+    <a href="https://www.tiktok.com/@nutriro2026" target="_blank" rel="noopener me">TikTok</a>
+    <a href="https://ro.pinterest.com/nutriro_2026/" target="_blank" rel="noopener me">Pinterest</a>
+    <a href="https://play.google.com/store/apps/details?id=ro.calorii.calculator&amp;referrer=utm_source%3Dsite%26utm_campaign%3Dnutriro%26utm_content%3Dcontact" target="_blank" rel="noopener">Google Play</a>
+  </div>
+  <p class="nb-copy">© 2026 NutriRO · D.D. · Toate drepturile rezervate · Făcut în România</p>
+</div>
+<script>(function(){var d=document.querySelector('.nb-drop');if(!d)return;document.addEventListener('click',function(e){if(d.open&&(!d.contains(e.target)||e.target.closest('.nb-menu a')))d.open=false});document.addEventListener('keydown',function(e){if(e.key==='Escape')d.open=false})})();</script>
+<!-- SUBSOL:END -->
 
 <script>
   function toggle(btn) {
