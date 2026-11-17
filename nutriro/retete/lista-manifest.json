@@ -1,0 +1,33 @@
+{
+ "id": "lista-de-cumparaturi.html",
+ "name": "Lista de cumpărături NutriRO",
+ "short_name": "Lista NutriRO",
+ "description": "Lista de cumpărături din rețetele NutriRO, cu bife.",
+ "lang": "ro",
+ "dir": "ltr",
+ "start_url": "lista-de-cumparaturi.html?ecran=1",
+ "scope": "lista-de-cumparaturi.html",
+ "display": "standalone",
+ "background_color": "#EEF2EC",
+ "theme_color": "#0E3B2A",
+ "icons": [
+  {
+   "src": "../assets/lista-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "../assets/lista-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "../assets/lista-maskable-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}

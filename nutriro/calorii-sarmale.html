@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@400;500;600;700;800&display=swap"/>
-  <link rel="stylesheet" href="assets/bara.css?v=1"/>
+  <link rel="stylesheet" href="assets/bara.css?v=2"/>
   <link rel="stylesheet" href="assets/pagini.css?v=7"/>
   <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Article", "headline": "Câte calorii au sarmalele? Clasic și varianta light", "description": "Sarmale cu porc și smântână: 180 kcal la 100 g. Sarmale light din curcan: 201 kcal pe porția de ≈ 244 g. Comparația și rețeta, din catalogul NutriRO.", "inLanguage": "ro", "datePublished": "2026-10-27", "dateModified": "2026-11-10", "url": "https://ddapp.store/nutriro/calorii-sarmale.html", "image": "https://ddapp.store/nutriro/assets/og-nutriro.png", "mainEntityOfPage": "https://ddapp.store/nutriro/calorii-sarmale.html", "author": {"@type": "Organization", "name": "NutriRO", "url": "https://ddapp.store/nutriro/"}, "publisher": {"@type": "Organization", "name": "NutriRO", "url": "https://ddapp.store/nutriro/"}}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Câte calorii are o sarma?", "acceptedAnswer": {"@type": "Answer", "text": "Depinde de mărime. O sarma de 50 g cu carne de porc și smântână are aproximativ 90 kcal, după valoarea din catalogul NutriRO (180 kcal la 100 g). O sarma light din curcan de aceeași mărime are aproximativ 41 kcal."}}, {"@type": "Question", "name": "Sunt sarmalele bune când ții dietă?", "acceptedAnswer": {"@type": "Answer", "text": "Pot intra într-o zi cu mai puține calorii dacă alegi carne slabă, puțin orez și renunți la smântâna de deasupra. Contează și porția: trei sarmale mari cu mămăligă și smântână pot depăși o masă obișnuită."}}, {"@type": "Question", "name": "Mămăliga intră în calculul de mai sus?", "acceptedAnswer": {"@type": "Answer", "text": "Nu. Valorile sunt doar pentru sarmale. Mămăliga se notează separat, ca aliment distinct."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "NutriRO", "item": "https://ddapp.store/nutriro/"}, {"@type": "ListItem", "position": 2, "name": "Calorii în mâncarea românească", "item": "https://ddapp.store/nutriro/calorii-mancare-romaneasca.html"}, {"@type": "ListItem", "position": 3, "name": "Sarmale", "item": "https://ddapp.store/nutriro/calorii-sarmale.html"}]}]</script>
 </head>
@@ -41,6 +41,7 @@
       </div>
     </details>
   </div>
+  <a class="nb-lista" href="retete/lista-de-cumparaturi.html" aria-label="Lista de cumpărături" title="Lista de cumpărături"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.4 11.2a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.1L21 8H6.2"/><circle cx="9.5" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/></svg><span class="nb-lista-t">Lista</span><b data-lista-nr hidden></b></a>
   <a class="nb-ins" href="https://play.google.com/store/apps/details?id=ro.calorii.calculator&amp;referrer=utm_source%3Dsite%26utm_campaign%3Dnutriro" target="_blank" rel="noopener"><img src="assets/logo-buton.png" alt="" width="32" height="32"/><span>Instalează<span class="nb-ins-nume"> NutriRO</span></span></a>
 </div></header>
 <div class="wrap">
@@ -150,5 +151,6 @@
   <p class="nb-copy">© 2026 NutriRO · D.D. · Toate drepturile rezervate · Făcut în România</p>
 </div>
 <script>(function(){var d=document.querySelector('.nb-drop');if(!d)return;document.addEventListener('click',function(e){if(d.open&&(!d.contains(e.target)||e.target.closest('.nb-menu a')))d.open=false});document.addEventListener('keydown',function(e){if(e.key==='Escape')d.open=false})})();</script>
+<script>(function(){function n(){var k=0;try{var o=JSON.parse(localStorage.getItem('nutriro-lista')||'null');if(o)k=(o.r||[]).length+(o.x||[]).length}catch(e){}document.querySelectorAll('[data-lista-nr]').forEach(function(b){b.textContent=k;b.hidden=!k})}n();addEventListener('storage',n);addEventListener('nutriro-lista',n);addEventListener('pageshow',n)})();</script>
 </body>
 </html>

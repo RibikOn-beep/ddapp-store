@@ -24,8 +24,50 @@
       var tg = document.querySelector('[data-total-kg]');
       if (tg && gP) tg.textContent = (Math.round(gP * p / 100) / 10).toString().replace('.', ',') + ' kg';
     };
-    calc.querySelector('[data-minus]').addEventListener('click', function () { if (p > 1) { p--; afis(); } });
-    calc.querySelector('[data-plus]').addEventListener('click', function () { if (p < 60) { p++; afis(); } });
+    // lista de cumpărături (aprobat Dorel, 17 nov 2026): rețeta intră în listă cu porțiile alese mai sus.
+    // Lista stă în browser (localStorage „nutriro-lista”); pagina ei e retete/lista-de-cumparaturi.html (assets/lista.js).
+    var cos = document.querySelector('[data-lista-cos]'), arataCos = function () {};
+    if (cos && cos.getAttribute('data-id')) {
+      var CHEIE = 'nutriro-lista', idR = cos.getAttribute('data-id');
+      var btnL = cos.querySelector('[data-adauga-lista]'), stareL = cos.querySelector('[data-lista-stare]');
+      var citesteL = function () {
+        var o = null;
+        try { o = JSON.parse(localStorage.getItem(CHEIE) || 'null'); } catch (e) {}
+        o = o && typeof o === 'object' ? o : {};
+        return { v: 1, r: Array.isArray(o.r) ? o.r : [], x: o.x || [], s: o.s || [], b: o.b || [] };
+      };
+      var scrieL = function (o) {
+        try { localStorage.setItem(CHEIE, JSON.stringify(o)); } catch (e) {}
+        try { window.dispatchEvent(new Event('nutriro-lista')); } catch (e) {}
+        arataCos();
+      };
+      var gaseste = function (o) { return o.r.filter(function (e) { return e && e[0] === idR; })[0]; };
+      var portii = function (n) { return n === 1 ? '1 porție' : n + (n % 100 >= 20 || n % 100 === 0 ? ' de porții' : ' porții'); };
+      arataCos = function () {
+        var e = gaseste(citesteL());
+        btnL.classList.toggle('in', !!e && e[1] === p);
+        btnL.textContent = !e ? 'Adaugă în lista de cumpărături'
+          : e[1] === p ? '✓ În lista de cumpărături: ' + portii(p)
+          : 'Pune ' + portii(p) + ' în listă (acum: ' + e[1] + ')';
+        stareL.hidden = !e;
+      };
+      btnL.addEventListener('click', function () {
+        var o = citesteL(), e = gaseste(o);
+        if (e && e[1] === p) { location.href = 'lista-de-cumparaturi.html'; return; }
+        if (e) e[1] = p; else o.r.push([idR, p]);
+        scrieL(o);
+      });
+      stareL.querySelector('[data-scoate-lista]').addEventListener('click', function () {
+        var o = citesteL();
+        o.r = o.r.filter(function (e) { return !e || e[0] !== idR; });
+        scrieL(o);
+      });
+      window.addEventListener('storage', function (ev) { if (ev.key === CHEIE) arataCos(); });
+      window.addEventListener('pageshow', arataCos);
+      arataCos();
+    }
+    calc.querySelector('[data-minus]').addEventListener('click', function () { if (p > 1) { p--; afis(); arataCos(); } });
+    calc.querySelector('[data-plus]').addEventListener('click', function () { if (p < 60) { p++; afis(); arataCos(); } });
   }
 
   // tipărire
