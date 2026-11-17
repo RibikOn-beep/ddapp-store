@@ -204,7 +204,7 @@
       return o.r.length || o.x.length ? o : null;
     } catch (e) { return null; }
   }
-  function text() {
+  function text(cuLink) {
     var toate = produse(), linii = ['Lista de cumpărături'];
     var ret = st.r.filter(function (e) { return D.r[e[0]]; }).map(function (e) { return D.r[e[0]].t + ' (' + porti(e[1]) + ')'; });
     if (ret.length) linii.push('Pentru: ' + ret.join('; '));
@@ -216,7 +216,7 @@
     var acasa = toate.filter(function (r) { return r.ra === D.acasa && st.b.indexOf(r.n) < 0; })
       .map(function (r) { return r.n.charAt(0).toLowerCase() + r.n.slice(1); }).sort(function (a, b) { return a.localeCompare(b, 'ro'); });
     if (acasa.length) linii.push('', 'Verifică acasă: ' + acasa.join(', ') + '.');
-    linii.push('', 'Lista cu bife: ' + linkLista());
+    if (cuLink !== false) linii.push('', 'Lista cu bife: ' + linkLista());
     return linii.join('\n');
   }
   function mesaj(t) {
@@ -247,14 +247,77 @@
       navigator.share(date).catch(function (e) { if (e && e.name !== 'AbortError') rezerva(); });
     } else rezerva();
   }
+  // Pe calculator (cerere Dorel, 17 nov 2026): în locul meniului de partajare al Windows (care arată doar aplicațiile
+  // instalate: Outlook, OneNote…), un rând de butoane proprii. Messenger și Instagram nu primesc text de la un site,
+  // deci lista se copiază și se deschide pagina lor, unde omul alege persoana și lipește (Ctrl+V).
+  var peCalculator = window.matchMedia('(pointer: fine) and (min-width: 760px)').matches;
+  var canale = null, deTrimis = null;
+  function copiazaAcum(t) {
+    var ta = el('textarea');
+    ta.value = t;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+    if (!ok && navigator.clipboard && window.isSecureContext) { navigator.clipboard.writeText(t).catch(function () {}); ok = true; }
+    return ok;
+  }
+  function deschide(u) { window.open(u, '_blank', 'noopener'); }
+  function arataCanale(cum) {
+    deTrimis = cum;
+    if (!canale) {
+      canale = el('div', 'lc-canale');
+      canale.appendChild(el('p', 'lc-canale-t'));
+      var rand = el('div', 'lc-canale-b');
+      [['WhatsApp', function (d) { deschide('https://wa.me/?text=' + encodeURIComponent(d.tot)); }],
+       ['Telegram', function (d) { deschide('https://t.me/share/url?url=' + encodeURIComponent(d.link) + '&text=' + encodeURIComponent(d.fara)); }],
+       ['E-mail', function (d) { location.href = 'mailto:?subject=' + encodeURIComponent('Lista de cumpărături') + '&body=' + encodeURIComponent(d.tot); }],
+       ['Messenger', function (d) {
+         var ok = copiazaAcum(d.tot);
+         deschide('https://www.messenger.com/');
+         mesaj(ok ? 'Am copiat lista. În Messenger alege persoana și lipește cu Ctrl+V.' : 'Nu am putut copia. Folosește „Copiază textul”.');
+       }],
+       ['Instagram', function (d) {
+         var ok = copiazaAcum(d.tot);
+         deschide('https://www.instagram.com/direct/inbox/');
+         mesaj(ok ? 'Am copiat lista. În Instagram alege persoana și lipește cu Ctrl+V.' : 'Nu am putut copia. Folosește „Copiază textul”.');
+       }]].forEach(function (c) {
+        var b = el('button', 'lc-canal', c[0]);
+        b.type = 'button';
+        b.addEventListener('click', function () { c[1](deTrimis()); });
+        rand.appendChild(b);
+      });
+      canale.appendChild(rand);
+      $('.lc-actiuni').appendChild(canale);
+    }
+    canale.firstChild.textContent = cum.eticheta;
+    canale.hidden = false;
+  }
+  function continutText() {
+    var d = function () { return { tot: text(true), fara: text(false), link: linkLista() }; };
+    d.eticheta = 'Trimite lista prin:';
+    return d;
+  }
+  function continutLink() {
+    var d = function () {
+      var u = linkLista();
+      return { tot: 'Lista mea de cumpărături, cu bife: ' + u, fara: 'Lista mea de cumpărături, cu bife:', link: u };
+    };
+    d.eticheta = 'Trimite linkul listei prin:';
+    return d;
+  }
   $('[data-lc-text]').addEventListener('click', function () {
-    var t = text();
-    trimite({ title: 'Lista de cumpărături', text: t }, function () {
-      window.open('https://wa.me/?text=' + encodeURIComponent(t), '_blank', 'noopener');
-    });
+    if (peCalculator) { arataCanale(continutText()); return; }
+    var t = text(true);
+    trimite({ title: 'Lista de cumpărături', text: t }, function () { deschide('https://wa.me/?text=' + encodeURIComponent(t)); });
   });
-  $('[data-lc-copiaza]').addEventListener('click', function () { copiaza(text(), 'Am copiat lista. O lipești în WhatsApp, Keep sau Notițe.'); });
+  $('[data-lc-copiaza]').addEventListener('click', function () { copiaza(text(true), 'Am copiat lista. O lipești în WhatsApp, Keep sau Notițe.'); });
   $('[data-lc-link]').addEventListener('click', function () {
+    if (peCalculator) { arataCanale(continutLink()); return; }
     var u = linkLista();
     trimite({ title: 'Lista de cumpărături', text: 'Lista mea de cumpărături, cu bife:', url: u }, function () {
       copiaza(u, 'Am copiat linkul listei. Îl lipești unde vrei să-l trimiți.');
