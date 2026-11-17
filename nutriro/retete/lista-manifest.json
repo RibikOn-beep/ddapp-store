@@ -10,6 +10,9 @@
  "display": "standalone",
  "background_color": "#EEF2EC",
  "theme_color": "#0E3B2A",
+ "launch_handler": {
+  "client_mode": "navigate-existing"
+ },
  "icons": [
   {
    "src": "../assets/lista-192.png",

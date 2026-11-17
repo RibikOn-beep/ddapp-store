@@ -1,6 +1,6 @@
 /* Lista de cumpărături NutriRO: copia de pe telefon (generat de genereaza_retete.py, nu se scrie de mână). */
-var CACHE = 'nutriro-lista-2-9d8100a7a1';
-var FISIERE = ["lista-de-cumparaturi.html", "lista-manifest.json", "lista-date.json?v=9d8100a7a1", "../assets/lista.js?v=2", "../assets/lista.css?v=2", "../assets/bara.css?v=2", "../assets/lista-192.png", "../assets/logo-buton.png", "../../logo.png", "../../favicon.png"];
+var CACHE = 'nutriro-lista-3-9d8100a7a1';
+var FISIERE = ["lista-de-cumparaturi.html", "lista-manifest.json", "lista-date.json?v=9d8100a7a1", "../assets/lista.js?v=3", "../assets/lista.css?v=3", "../assets/bara.css?v=2", "../assets/lista-192.png", "../assets/logo-buton.png", "../../logo.png", "../../favicon.png"];
 self.addEventListener('install', function (e) {
   e.waitUntil(caches.open(CACHE).then(function (c) {
     return Promise.all(FISIERE.map(function (f) { return c.add(f).catch(function () {}); }));
@@ -29,7 +29,8 @@ self.addEventListener('fetch', function (e) {
     fetch(req).then(function (r) {
       if (r && (r.ok || r.type === 'opaque')) {
         var copie = r.clone();
-        caches.open(CACHE).then(function (c) { c.put(req, copie); });
+        // pagina listei se ține o singură dată, fără „?l=…” (altfel fiecare link primit ar lăsa o copie)
+        caches.open(CACHE).then(function (c) { c.put(req.mode === 'navigate' ? url.origin + url.pathname : req, copie); });
       }
       clearTimeout(ceas);
       if (!terminat) { terminat = true; gata(r); }

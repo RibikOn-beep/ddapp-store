@@ -191,10 +191,12 @@
     if (st.x.length) o.x = st.x;
     if (st.s.length) o.s = st.s;
     var b = btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-    return location.origin + location.pathname + '#l=' + b;
+    // FIX LISTA-QR-01 (17 nov 2026): lista stă după „?l=”, nu după „#l=”. Unele cititoare de cod QR de pe telefon
+    // taie partea de după „#”, iar pagina se deschidea goală. Linkurile vechi, cu „#l=”, se citesc în continuare.
+    return location.origin + location.pathname + '?l=' + b;
   }
   function citesteLink() {
-    var m = /[#&]l=([A-Za-z0-9_-]+)/.exec(location.hash);
+    var m = /[?&]l=([A-Za-z0-9_-]+)/.exec(location.search) || /[#&]l=([A-Za-z0-9_-]+)/.exec(location.hash);
     if (!m) return null;
     try {
       var b = m[1].replace(/-/g, '+').replace(/_/g, '/');
@@ -407,7 +409,8 @@
 
   // ── lista primită printr-un link ─────────────────────────────────────────────────────────
   function stergeLink() {
-    try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
+    var rest = location.search.replace(/^\?/, '').split('&').filter(function (p) { return p && p.indexOf('l=') !== 0; }).join('&');
+    try { history.replaceState(null, '', location.pathname + (rest ? '?' + rest : '')); } catch (e) {}
   }
   function aceeasi(a, b) { return JSON.stringify([a.r, a.x, a.s]) === JSON.stringify([b.r, b.x, b.s]); }
   function primeste() {
