@@ -186,25 +186,45 @@
   }
 
   // ── textul și linkul ─────────────────────────────────────────────────────────────────────
+  // FIX LISTA-QR-02 (17 nov 2026): linkul e scurt: „?c=” urmat de primele 6 litere ale fiecărei rețete și de porții
+  // („?c=say5Hd4.XBIZNn2”), plus „&x=” / „&s=” pentru produsele adăugate sau scoase. Linkul vechi, cu lista în
+  // base64 („?l=eyJ…”), era lung și unele cititoare de cod QR îl luau drept text („Document”), nu drept adresă,
+  // așa că nu-l deschideau. Linkurile vechi („?l=” și „#l=”) se citesc în continuare.
   function linkLista() {
-    var o = { r: st.r };
-    if (st.x.length) o.x = st.x;
-    if (st.s.length) o.s = st.s;
-    var b = btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-    // FIX LISTA-QR-01 (17 nov 2026): lista stă după „?l=”, nu după „#l=”. Unele cititoare de cod QR de pe telefon
-    // taie partea de după „#”, iar pagina se deschidea goală. Linkurile vechi, cu „#l=”, se citesc în continuare.
-    return location.origin + location.pathname + '?l=' + b;
+    var u = location.origin + location.pathname + '?c=' + st.r.map(function (e) { return e[0].slice(0, 6) + e[1]; }).join('.');
+    st.x.forEach(function (n) { u += '&x=' + encodeURIComponent(n); });
+    st.s.forEach(function (n) { u += '&s=' + encodeURIComponent(n); });
+    return u;
   }
   function citesteLink() {
-    var m = /[?&]l=([A-Za-z0-9_-]+)/.exec(location.search) || /[#&]l=([A-Za-z0-9_-]+)/.exec(location.hash);
-    if (!m) return null;
-    try {
-      var b = m[1].replace(/-/g, '+').replace(/_/g, '/');
-      while (b.length % 4) b += '=';
-      var o = curata(JSON.parse(decodeURIComponent(escape(atob(b)))));
-      o.b = [];
-      return o.r.length || o.x.length ? o : null;
-    } catch (e) { return null; }
+    var o;
+    var c = /[?&]c=([A-Za-z0-9.]*)/.exec(location.search);
+    if (c) {
+      var ids = Object.keys(D.r), r = [], x = [], s = [];
+      c[1].split('.').forEach(function (t) {
+        var k = /^([A-Za-z0-9]{6})(\d{1,2})$/.exec(t);
+        if (!k) return;
+        var id = ids.filter(function (i) { return i.indexOf(k[1]) === 0; })[0];
+        if (id) r.push([id, +k[2]]);
+      });
+      location.search.replace(/^\?/, '').split('&').forEach(function (p) {
+        var i = p.indexOf('='), cheie = p.slice(0, i), v;
+        if (cheie !== 'x' && cheie !== 's') return;
+        try { v = decodeURIComponent(p.slice(i + 1).replace(/\+/g, ' ')); } catch (e) { return; }
+        if (v) (cheie === 'x' ? x : s).push(v);
+      });
+      o = curata({ r: r, x: x, s: s });
+    } else {
+      var m = /[?&]l=([A-Za-z0-9_-]+)/.exec(location.search) || /[#&]l=([A-Za-z0-9_-]+)/.exec(location.hash);
+      if (!m) return null;
+      try {
+        var b = m[1].replace(/-/g, '+').replace(/_/g, '/');
+        while (b.length % 4) b += '=';
+        o = curata(JSON.parse(decodeURIComponent(escape(atob(b)))));
+      } catch (e) { return null; }
+    }
+    o.b = [];
+    return o.r.length || o.x.length ? o : null;
   }
   function text(cuLink) {
     var toate = produse(), linii = ['Lista de cumpărături'];
@@ -355,7 +375,7 @@
         var q = window.qrcode(0, 'L');
         q.addData(u);
         q.make();
-        $('[data-lc-qr-img]').innerHTML = q.createSvgTag({ cellSize: 4, margin: 2, scalable: true });
+        $('[data-lc-qr-img]').innerHTML = q.createSvgTag({ cellSize: 4, margin: 4, scalable: true });
         box.hidden = false;
       } catch (e) { box.hidden = true; }
     }
@@ -409,7 +429,7 @@
 
   // ── lista primită printr-un link ─────────────────────────────────────────────────────────
   function stergeLink() {
-    var rest = location.search.replace(/^\?/, '').split('&').filter(function (p) { return p && p.indexOf('l=') !== 0; }).join('&');
+    var rest = location.search.replace(/^\?/, '').split('&').filter(function (p) { return p && !/^[lcxs]=/.test(p); }).join('&');
     try { history.replaceState(null, '', location.pathname + (rest ? '?' + rest : '')); } catch (e) {}
   }
   function aceeasi(a, b) { return JSON.stringify([a.r, a.x, a.s]) === JSON.stringify([b.r, b.x, b.s]); }
