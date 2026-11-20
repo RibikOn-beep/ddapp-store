@@ -1,6 +1,6 @@
 /* Lista de cumpărături NutriRO: copia de pe telefon (generat de genereaza_retete.py, nu se scrie de mână). */
-var CACHE = 'nutriro-lista-4-4042a3217c';
-var FISIERE = ["lista-de-cumparaturi.html", "lista-manifest.json", "lista-date.json?v=4042a3217c", "../assets/lista.js?v=4", "../assets/lista.css?v=4", "../assets/bara.css?v=2", "../assets/lista-192.png", "../assets/logo-buton.png", "../../logo.png", "../../favicon.png"];
+var CACHE = 'nutriro-lista-4-694cdabb4a';
+var FISIERE = ["lista-de-cumparaturi.html", "lista-manifest.json", "lista-date.json?v=694cdabb4a", "../assets/lista.js?v=4", "../assets/lista.css?v=4", "../assets/bara.css?v=2", "../assets/lista-192.png", "../assets/logo-buton.png", "../../logo.png", "../../favicon.png"];
 self.addEventListener('install', function (e) {
   e.waitUntil(caches.open(CACHE).then(function (c) {
     return Promise.all(FISIERE.map(function (f) { return c.add(f).catch(function () {}); }));
