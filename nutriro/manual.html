@@ -722,6 +722,7 @@
 <script>(function(){function n(){var k=0;try{var o=JSON.parse(localStorage.getItem('nutriro-lista')||'null');if(o)k=(o.r||[]).length+(o.x||[]).length}catch(e){}document.querySelectorAll('[data-lista-nr]').forEach(function(b){b.textContent=k;b.hidden=!k})}n();addEventListener('storage',n);addEventListener('nutriro-lista',n);addEventListener('pageshow',n)})();</script>
 <!-- SUBSOL:END -->
 
+<script src="assets/cautare.js?v=1"></script>
 <script>
   (function () {
     var sectiuni = Array.prototype.slice.call(document.querySelectorAll('.sectiune'));
@@ -759,7 +760,10 @@
       sectiuni.forEach(function (s) { obs.observe(s); });
     }
 
-    // Căutare: ascunde întrebările care nu conțin textul (fără diacritice).
+    // Căutare: ascunde întrebările care nu se potrivesc.
+    // FIX CAUTARE-UNICA-01 (25 nov 2026): aceeași regulă ca în aplicație (assets/cautare.js): fiecare cuvânt
+    // tastat = începutul unui cuvânt din întrebare sau răspuns, în orice ordine; „Poate ai vrut:” la o greșeală.
+    var CAUT = window.NutriROCautare;
     var camp = document.getElementById('cauta');
     var rezultat = document.getElementById('cautaRezultat');
     var fara = function (t) { return t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); };
@@ -768,15 +772,18 @@
     camp.addEventListener('input', function () {
       var c = fara(camp.value.trim());
       var gasite = 0;
+      var r = c && CAUT ? CAUT.cautaInElemente(qas, camp.value, { nume: function (q) { return q.textContent; } }) : null;
+      var potrivite = r ? new Set(r.elemente) : null;
       qas.forEach(function (q) {
-        var ok = !c || q.dataset.text.indexOf(c) !== -1;
+        var ok = !c || (potrivite ? potrivite.has(q) : q.dataset.text.indexOf(c) !== -1);
         q.classList.toggle('ascuns', !ok);
         if (ok) gasite++;
       });
       sectiuni.forEach(function (s) {
         s.classList.toggle('ascuns', !!c && !s.querySelector('.qa:not(.ascuns)'));
       });
-      rezultat.textContent = !c ? '' : gasite === 0 ? 'Nimic găsit. Încearcă alt cuvânt sau scrie-ne la nutriro2026@gmail.com.' : gasite === 1 ? 'O întrebare găsită.' : gasite + ' întrebări găsite.';
+      var poate = r && r.sugestie ? 'Nu am găsit „' + camp.value.trim() + '”. Poate ai vrut: ' + (r.sugestieAfisata || r.sugestie) + '. ' : '';
+      rezultat.textContent = !c ? '' : poate + (gasite === 0 ? 'Nimic găsit. Încearcă alt cuvânt sau scrie-ne la nutriro2026@gmail.com.' : gasite === 1 ? 'O întrebare găsită.' : gasite + ' întrebări găsite.');
     });
   })();
 </script>

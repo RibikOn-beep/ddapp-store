@@ -161,6 +161,7 @@
 </div>
 <script>(function(){var d=document.querySelector('.nb-drop');if(!d)return;document.addEventListener('click',function(e){if(d.open&&(!d.contains(e.target)||e.target.closest('.nb-menu a')))d.open=false});document.addEventListener('keydown',function(e){if(e.key==='Escape')d.open=false})})();</script>
 <script>(function(){function n(){var k=0;try{var o=JSON.parse(localStorage.getItem('nutriro-lista')||'null');if(o)k=(o.r||[]).length+(o.x||[]).length}catch(e){}document.querySelectorAll('[data-lista-nr]').forEach(function(b){b.textContent=k;b.hidden=!k})}n();addEventListener('storage',n);addEventListener('nutriro-lista',n);addEventListener('pageshow',n)})();</script>
-<script src="../assets/reteta.js?v=11" defer></script>
+<script src="../assets/cautare.js?v=1" defer></script>
+<script src="../assets/reteta.js?v=12" defer></script>
 </body>
 </html>

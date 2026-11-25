@@ -101,6 +101,19 @@
   var PE_PAGINA = 20, pagina = 1;
   var randuri = Array.prototype.slice.call(lista.children);
   randuri.forEach(function (li) { li._n = fara(li.textContent); });
+  // FIX CAUTARE-UNICA-01 (25 nov 2026): aceeași căutare ca în aplicație și în NutriAdmin (assets/cautare.js,
+  // generat din CaloriiRO4/services/cautare.js): fiecare cuvânt tastat = începutul unui cuvânt din titlu,
+  // rezultatele în ordinea potrivirii, „Poate ai vrut:” la o greșeală. Fără cautare.js (pagină veche din
+  // cache), rămâne căutarea simplă de dinainte.
+  var CAUT = window.NutriROCautare;
+  var ordineInitiala = randuri.slice();
+  randuri.forEach(function (li) { var b = li.querySelector('.tx b'); li._titlu = b ? b.textContent : li.textContent; });
+  var infoOrdine = document.querySelector('.lp-info > span:last-child');
+  var textOrdine = infoOrdine ? infoOrdine.textContent : '';
+  var sugestieEl = document.createElement('p');
+  sugestieEl.className = 'gol';
+  sugestieEl.hidden = true;
+  lista.parentNode.insertBefore(sugestieEl, lista);
   var caut = document.querySelector('[data-caut]');
   if (caut && q) caut.value = q;
   var det = document.querySelector('.f-det');
@@ -108,13 +121,20 @@
   var nr = document.querySelector('[data-nr]'), gol = document.querySelector('[data-gol]'), pag = document.querySelector('[data-pagini]');
 
   function bifat(nume) { var el = document.querySelector('input[name="' + nume + '"]'); return el && el.checked; }
+  var dupaCautare = false;
   function potrivite() {
-    var t = fara(caut ? caut.value : '').trim();
+    var text = caut ? caut.value : '';
+    var t = fara(text).trim();
     var treapta = (document.querySelector('input[name="kcal"]:checked') || {}).value || 'toate';
     var feluri = Array.prototype.map.call(document.querySelectorAll('input[name="fel"]:checked'), function (x) { return x.value; });
-    return randuri.filter(function (li) {
+    var baza = randuri, r = null;
+    if (t && CAUT) { r = CAUT.cautaInElemente(randuri, text, { nume: function (li) { return li._titlu; } }); baza = r.elemente; }
+    dupaCautare = !!(t && CAUT);
+    sugestieEl.hidden = !(r && r.sugestie);
+    sugestieEl.textContent = r && r.sugestie ? 'Nu am găsit „' + text.trim() + '”. Poate ai vrut: ' + (r.sugestieAfisata || r.sugestie) : '';
+    return baza.filter(function (li) {
       var k = +li.getAttribute('data-kcal'), m = +li.getAttribute('data-min');
-      if (t && li._n.indexOf(t) < 0) return false;
+      if (t && !CAUT && li._n.indexOf(t) < 0) return false;
       if (treapta === 'sub200' && !(k < 200)) return false;
       if (treapta === 'medii' && !(k >= 200 && k <= 350)) return false;
       if (treapta === 'peste' && !(k > 350)) return false;
@@ -137,6 +157,9 @@
     var ok = potrivite(), total = Math.max(1, Math.ceil(ok.length / PE_PAGINA));
     if (pagina > total) pagina = total;
     var de = (pagina - 1) * PE_PAGINA, pana = de + PE_PAGINA;
+    // FIX CAUTARE-UNICA-01: cu text căutat, rândurile se așază în ordinea potrivirii; fără, înapoi pe calorii.
+    (dupaCautare ? ok : ordineInitiala).forEach(function (li) { lista.appendChild(li); });
+    if (infoOrdine) infoOrdine.textContent = dupaCautare ? 'Ordine: potrivirea cu căutarea' : textOrdine;
     randuri.forEach(function (li) { li.hidden = true; });
     ok.forEach(function (li, i) { li.hidden = i < de || i >= pana; });
     if (nr) nr.textContent = ok.length;
