@@ -264,7 +264,7 @@
   <div class="page-header">
     <div class="page-label">🔒 GDPR</div>
     <h1 class="page-title">Politică de Confidențialitate</h1>
-    <p class="page-meta">Versiune 1.1 · În vigoare din 1 octombrie 2026 ·<a href="mailto:nutriro2026@gmail.com" style="color:var(--green);text-decoration:none;">nutriro2026@gmail.com</a></p>
+    <p class="page-meta">Versiune 1.2 · În vigoare din 25 noiembrie 2026 ·<a href="mailto:nutriro2026@gmail.com" style="color:var(--green);text-decoration:none;">nutriro2026@gmail.com</a></p>
   </div>
 
   <div class="info-box">
@@ -306,8 +306,11 @@ Dacă ești părinte sau tutore și crezi că minorul tău și-a creat un cont, 
         <span class="acc-title">3. Date colectate</span>
         <span class="acc-icon">›</span>
       </button>
-      <div class="acc-body">Date furnizate de tine:
-• Email și parolă (stocată criptat prin Firebase Auth)
+      <div class="acc-body">Folosirea fără cont:
+• Poți folosi aplicația fără să-ți creezi un cont. În acest caz, datele tale (profilul, jurnalul și celelalte de mai jos) se păstrează sub un identificator anonim, fără nume și fără email, până când îți salvezi contul cu Google sau cu email. La salvare, datele rămân aceleași, legate de contul tău.
+
+Date furnizate de tine:
+• Email și parolă (stocată criptat prin Firebase Auth), doar dacă îți creezi sau îți salvezi contul
 • Profil: vârstă, sex, înălțime, greutate, obiectiv caloric, nivel activitate
 • Jurnal alimentar: alimente, cantități, calorii, macronutrienți
 • Hidratare, greutate istorică, activitate fizică
@@ -320,10 +323,12 @@ Dacă ești părinte sau tutore și crezi că minorul tău și-a creat un cont, 
 Date colectate automat:
 • Versiunea aplicației, tipul dispozitivului, sistemul de operare
 • Statistici de utilizare asociate contului tău prin ID (fără nume), folosite pentru îmbunătățirea aplicației
-• Rapoarte de erori tehnice (ID cont și email), ca să putem repara problemele
+• Rapoarte de erori tehnice, ca să putem repara problemele: ID-ul contului, emailul (dacă ai cont salvat), modelul telefonului și versiunea sistemului, memoria disponibilă, starea conexiunii și ecranele și acțiunile din aplicație din minutele dinaintea erorii. Nu conțin parole, mesele notate sau valorile tale de sănătate.
+• Termenii căutați care nu au găsit nimic în catalog, anonim (doar termenul, fără legătură cu contul), ca să completăm catalogul de alimente
 
 Date colectate cu consimțământ separat și explicit:
-• Pași zilnici prin Health Connect — accesat doar dacă acorzi permisiunea distinctă în aplicație. Poți retrage acest acord oricând din Setări → Health Connect.
+• Pași zilnici numărați de telefon (permisiunea „Activitate fizică”), citiți prin serviciile Google Play de pe telefon — doar dacă acorzi permisiunea în aplicație. Poți retrage acordul oricând din setările telefonului.
+• Pași de la un ceas sau o brățară, prin Health Connect — accesat doar dacă acorzi permisiunea distinctă în aplicație. Poți retrage acest acord oricând din Setări → Health Connect.
 
 Date despre abonamente (doar dacă cumperi Premium sau Antrenor):
 • Tipul abonamentului, datele de început, reînnoire și expirare și identificatorii tranzacției de la Google Play, legate de ID-ul contului tău. Datele cardului le prelucrează exclusiv Google Play; noi nu le vedem și nu le stocăm.
@@ -348,11 +353,12 @@ Nu colectăm: localizare GPS, contacte, date bancare sau biometrice.</div>
   <tr><td>Generarea meniurilor și rapoartelor</td><td>Executarea contractului</td></tr>
   <tr><td>Activarea și gestionarea abonamentelor Premium și Antrenor</td><td>Executarea contractului</td></tr>
   <tr><td>Analiză AI fotografii alimente</td><td>Consimțământ explicit (Art. 6(1)(a) GDPR)</td></tr>
-  <tr><td>Sincronizare pași Health Connect</td><td>Consimțământ explicit</td></tr>
+  <tr><td>Numărarea pașilor de către telefon și sincronizarea pașilor de la ceas sau brățară prin Health Connect</td><td>Consimțământ explicit</td></tr>
   <tr><td>Emailuri de sistem (verificare cont, resetare parolă)</td><td>Interes legitim (Art. 6(1)(f) GDPR)</td></tr>
   <tr><td>Anunțuri ocazionale despre aplicație, pe email (le poți opri oricând din Setări → Notificări)</td><td>Interes legitim</td></tr>
   <tr><td>Accesul antrenorului la profil și jurnal, mesajele lui către tine și notițele lui despre progresul tău, doar dacă te alături grupei lui</td><td>Consimțământ explicit</td></tr>
   <tr><td>Îmbunătățirea aplicației și repararea erorilor (statistici și rapoarte de erori asociate contului prin ID)</td><td>Interes legitim</td></tr>
+  <tr><td>Completarea catalogului de alimente (termenii căutați fără rezultat, anonim)</td><td>Interes legitim</td></tr>
   <tr><td>Respectarea obligațiilor legale</td><td>Obligație legală (Art. 6(1)(c) GDPR)</td></tr>
 </table></div>
     </div>
@@ -366,7 +372,7 @@ Nu colectăm: localizare GPS, contacte, date bancare sau biometrice.</div>
 
 Durată: Datele sunt păstrate pe durata existenței contului tău activ.
 
-Ștergere: La ștergerea contului, toate datele sunt eliminate ireversibil în termen de 30 de zile conform Art. 17 GDPR.
+Ștergere: La ștergerea contului, toate datele sunt eliminate ireversibil în termen de 30 de zile conform Art. 17 GDPR. Dacă folosești aplicația fără cont, le ștergi din Setări → „Șterge toate datele mele”: se șterg de pe telefon și din NutriRO.
 
 Măsuri de securitate:
 • Autentificare securizată prin Firebase Auth
@@ -387,7 +393,8 @@ Măsuri de securitate:
   <tr><td>Google Firebase / GCP</td><td>Stocare, autentificare</td><td>UE (eur3)</td></tr>
   <tr><td>Anthropic Claude API</td><td>Analiză AI alimente</td><td>SUA (tranzitoriu)</td></tr>
   <tr><td>Resend</td><td>Emailuri (sistem și anunțuri)</td><td>SUA</td></tr>
-  <tr><td>Google Health Connect</td><td>Sincronizare pași</td><td>Local</td></tr>
+  <tr><td>Google Play Services (Recording API)</td><td>Numărarea pașilor de către telefon</td><td>Local, pe telefon</td></tr>
+  <tr><td>Google Health Connect</td><td>Pași de la ceas sau brățară</td><td>Local, pe telefon</td></tr>
   <tr><td>Open Food Facts</td><td>Coduri de bare</td><td>Franța (UE)</td></tr>
   <tr><td>RevenueCat</td><td>Gestionarea abonamentelor (ID-ul contului, istoricul achizițiilor)</td><td>SUA</td></tr>
 </table>
@@ -450,7 +457,7 @@ Utilizăm identificatori de sesiune locali (AsyncStorage) exclusiv pentru menți
 
 Continuarea utilizării aplicației după această dată constituie acceptul modificărilor.
 
-Versiune: 1.1 · În vigoare din: 1 octombrie 2026</div>
+Versiune: 1.2 · În vigoare din: 25 noiembrie 2026</div>
     </div>
 
   </div>
