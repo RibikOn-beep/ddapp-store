@@ -16,7 +16,8 @@
 //  3. Ordinea, după primul cuvânt tastat, pe 5 trepte: numele exact → numele începe cu cuvântul
 //     întreg → numele începe cu literele tastate → un cuvânt din mijloc e exact cel tastat → un
 //     cuvânt din mijloc începe cu literele tastate. În fiecare treaptă: întâi produsele generice
-//     (fără cod de bare), apoi numele mai scurte, apoi alfabetic.
+//     (fără cod de bare, fără marcă și fără cantitate ambalată în nume — vezi esteGeneric), apoi
+//     numele mai scurte, apoi alfabetic.
 //  4. Singular/plural: la cuvintele de minimum 4 litere, ultima vocală poate lipsi
 //     („portocală” găsește „Portocale”); plus o listă mică de pluraluri neregulate (măr → mere).
 //     Potrivirile prin aceste variante vin DUPĂ potrivirile directe din aceeași treaptă.
@@ -101,6 +102,151 @@ function variante(cuvant) {
   return v;
 }
 
+// ── 2b. Cuvinte compuse ─────────────────────────────────────────────
+// FIX CAUTARE-GENERICE-01 (cerut de Dorel, 26 nov 2026): „extravirgin” și „extra virgin” sunt
+// același cuvânt. Ce observa userul: „ulei de măsline extravirgin” nu găsea genericul
+// „Ulei de măsline extra virgin”. În nume și în ce se tastează, perechea se scrie legat.
+// La tastare se leagă și când al doilea cuvânt e doar început („extra vi” → „extravi”).
+const COMPUSE = [["extra", "virgin"]];
+
+function unesteCompuseInNume(n) {
+  let s = " " + n + " ";
+  for (let k = 0; k < COMPUSE.length; k++) {
+    const a = " " + COMPUSE[k][0] + " " + COMPUSE[k][1] + " ";
+    const b = " " + COMPUSE[k][0] + COMPUSE[k][1] + " ";
+    while (s.indexOf(a) >= 0) s = s.replace(a, b);
+  }
+  return s.slice(1, -1);
+}
+
+function unesteCompuseInCuvinte(cuvinte) {
+  const out = [];
+  for (let i = 0; i < cuvinte.length; i++) {
+    const w = cuvinte[i], urm = cuvinte[i + 1];
+    let unit = false;
+    if (urm) {
+      for (let k = 0; k < COMPUSE.length; k++) {
+        if (w === COMPUSE[k][0] && COMPUSE[k][1].startsWith(urm)) { out.push(w + urm); i++; unit = true; break; }
+      }
+    }
+    if (!unit) out.push(w);
+  }
+  return out;
+}
+
+// ── 2c. Ce e „generic” ──────────────────────────────────────────────
+// FIX CAUTARE-GENERICE-01 (cerut de Dorel, 26 nov 2026: „la ingrediente să apară în față prima
+// dată alimentele fără cod de bare și fără marcă în denumire, deci și fără cantitate ambalată”).
+// Ce observa userul: la „ulei de măsline” veneau în față Monini, MEGA, Ol'eve, iar genericul
+// „Ulei de măsline extra virgin” ieșea din listă. Cauza: generic era tot ce n-avea cod de bare,
+// iar ~2.900 de produse de magazin din catalog n-au cod (au fost luate de pe site-urile
+// magazinelor). Acum un aliment e generic doar dacă: n-are cod de bare, n-are cantitate ambalată
+// în nume („500ml”, „1 l”, „3x25G”) și n-are marcă (din lista de mai jos sau „… - Marcă” la final).
+// Cantitățile descriptive nu contează: „(50-55g/buc)”, „(o porție=450g)”, „(100g - felie)”.
+// Lista de mărci: cele care apar în catalog (26 nov 2026). De completat cu Dorel când apare una nouă.
+const MARCI = [
+  // magazine și mărcile lor proprii
+  "auchan", "kaufland", "lidl", "carrefour", "penny", "profi", "mega", "mega image", "delhaize",
+  "world's market", "nature's promise", "pouce", "milbona", "alesto", "freshona", "vemondo",
+  "chef select", "crownfield", "snack day", "sondey", "solevita", "k classic", "metro chef", "cora", "selgros",
+  // mărci
+  "actimel", "activia", "activlab", "activus", "adventure menu", "agricola", "agrino", "aivia", "albalact",
+  "aldis", "alfredo seafood", "alimenta", "almette", "alnatura", "alpin", "alpro", "amazing grass", "amix",
+  "amylon", "andechser", "antrefrig", "ardealul", "arla", "aron rice", "auga", "balconi", "baltic club",
+  "balviten", "baneasa", "barebells", "barilla", "beastpink", "bellarom", "bfree", "bicaz", "bimbo",
+  "bio all green", "bod", "body & future", "bonduelle", "boromir", "born winner", "boujee", "bravito",
+  "brivais vilnis", "bucegi", "buldak", "buon pane", "bunica", "calvo", "campis", "capricii si delicii",
+  "caroli", "carpos", "casa buna", "casa taraneasca", "citterio", "cirio", "cocoa fusion", "cocoxim",
+  "colectar", "comtim", "copanex", "corso", "costa d'oro", "covalact", "cremosso", "cris tim", "critida sitia",
+  "dacia plant", "danette", "danone", "danonino", "darinne", "dayup", "de coltesti", "de nigris", "defish",
+  "delaco", "delicia", "delikat", "deplina", "deroni", "desiam", "dextro energy", "diamant", "diana",
+  "dobrogea", "don fabrizio", "dr oetker", "dulano", "edenia", "el tequito", "elion", "eridanous", "excellent",
+  "familia toneli", "filgud", "filiera", "fish market", "five continents", "fizico", "floarea de aur",
+  "food & glory", "fortzoso", "fox", "fragedo", "frinsa", "frufru", "fuego", "galeo", "gastronatura",
+  "gelatelli", "gerble", "golden garden", "golfera", "grania", "grewe", "gullon", "gurmand apetit",
+  "gusturi romanesti", "gustona", "gymbeam", "healthyco", "heinz", "hellmann's", "hochland", "home chef",
+  "home garden", "hulala", "ile de france", "incola", "inedit", "integra", "italiamo", "kaiser franz josef",
+  "kamis", "kania", "katinola", "kb", "kiddylicious", "kikkoman", "kinder", "king oscar", "knoppers", "knorr",
+  "kolios", "kravys", "krina", "la colline", "la molisana", "la provincia", "la strada", "laminut",
+  "laptaria cu caimac", "licco", "lidas", "lili gri", "lorenz", "lurpak", "madame gateau", "maggi",
+  "magnum", "maille", "mandra", "manuka health", "mare aperto", "margaritar", "marina blue", "marysol",
+  "martin's", "matache macelaru", "mautner markhof", "maxim's", "mcennedy", "meda", "meggle", "mega grill",
+  "michael artisan", "milka", "mirdatod", "mission", "mivolis", "mizo", "monini", "morliny", "mornflake",
+  "mowi", "muller", "mutti", "my sushi", "nairn's", "napolact", "naturli", "nestle", "nissin", "nixe",
+  "not guilty", "now foods", "nuii", "nutline", "nutramino", "nutrend", "nutrino lab", "nyb", "ol'eve",
+  "oliveris", "olmuhle solling", "olympia", "olympus", "optimum nutrition", "oreo", "orlandos", "panzani",
+  "pambac", "paula", "perutnina", "pescaria magic", "pescobar", "philadelphia", "pikok", "pilos", "pippo",
+  "piramida", "pirifan", "pirulo", "pizza mania", "plaisir", "policalita", "president", "primavika",
+  "puiul de craiesti", "puisor", "purasana", "purya", "radicstar", "raftul bunicii", "raraul", "raureni",
+  "rawz", "red farm", "reinert", "rigoni di asiago", "rio mare", "riso scotti", "roberto", "sanovita",
+  "sano vita", "saturo", "scandia", "schulstad", "sergiana", "shan'shi", "sissi", "siviero", "snack4u",
+  "solaris", "solomonescu", "sombazon", "sportness", "stay strong", "starbucks", "stragghisto",
+  "surasul soarelui", "szekely falat", "tabasco", "terra creta", "the bridge", "the protein works",
+  "topoloveni", "unisol", "vel pitar", "velika", "verdino", "vilgain", "vitasia", "wasa", "weider",
+  "wolfberry", "xender", "xucker", "yes plants", "yopro", "yuksel", "zanetti", "zein", "zott", "zuzu", "zwup",
+];
+
+let _marciPeCuvant = null; // primul cuvânt al mărcii → mărcile întregi (simplificate)
+function marciPeCuvant() {
+  if (_marciPeCuvant) return _marciPeCuvant;
+  const m = new Map();
+  for (let k = 0; k < MARCI.length; k++) {
+    const p = normalizeaza(MARCI[k]);
+    if (!p) continue;
+    const w0 = p.split(" ")[0];
+    if (!m.has(w0)) m.set(w0, []);
+    m.get(w0).push(" " + p + " ");
+  }
+  _marciPeCuvant = m;
+  return m;
+}
+
+const RE_MARCA_LA_FINAL = /\s[-–]\s+[A-ZĂÂÎȘȚ][^()\-–]*$/; // „Unt de nuci - GymBeam”, „Hochland – Cașcaval”
+function areMarca(original, n) {
+  if (RE_MARCA_LA_FINAL.test(original)) return true;
+  const m = marciPeCuvant();
+  const s = " " + n + " ";
+  const cuv = n.split(" ");
+  for (let i = 0; i < cuv.length; i++) {
+    const f = m.get(cuv[i]);
+    if (!f) continue;
+    for (let j = 0; j < f.length; j++) if (s.indexOf(f[j]) >= 0) return true;
+  }
+  return false;
+}
+
+const RE_CANTITATE = /(\d+(?:[.,]\d+)?)\s*(kg|g|gr|grame|ml|l|cl|dl)(?![a-zăâîșț])/gi;
+const RE_DESCRIPTIV = /porti|porți|felie|buc|≈|=|aprox|lingur|cana|cană/i;
+function areCantitateAmbalata(original) {
+  RE_CANTITATE.lastIndex = 0;
+  let m;
+  while ((m = RE_CANTITATE.exec(original))) {
+    const inainte = original.slice(0, m.index).replace(/\s+$/, "");
+    if (/[=≈~]$/.test(inainte)) continue;                               // „porție=450g”, „≈ 1g”
+    const dupa = original.slice(m.index + m[0].length).replace(/^\s+/, "");
+    if (dupa[0] === "/") continue;                                       // „55g/buc”
+    const desc = inainte.lastIndexOf("("), inch = inainte.lastIndexOf(")");
+    if (desc > inch) {                                                   // în paranteză descriptivă
+      const fin = original.indexOf(")", m.index);
+      if (RE_DESCRIPTIV.test(original.slice(desc, fin < 0 ? undefined : fin))) continue;
+    }
+    return true;
+  }
+  return false;
+}
+
+/**
+ * Alimentul e generic: fără cod de bare, fără cantitate ambalată și fără marcă în nume.
+ * @param {object} el - elementul din catalog (`n` sau `nume`, opțional `barcode`)
+ * @param {string} [numeSimplificat] - normalizeaza(nume), dacă e deja calculat
+ */
+function esteGeneric(el, numeSimplificat) {
+  if (!el || el.barcode) return false;
+  const original = String(el.n != null ? el.n : el.nume != null ? el.nume : "");
+  const n = numeSimplificat != null ? numeSimplificat : normalizeaza(original);
+  return !areCantitateAmbalata(original) && !areMarca(original, n);
+}
+
 // ── 3. Indexul ──────────────────────────────────────────────────────
 
 const _indexuri = new WeakMap(); // lista din catalog → index
@@ -122,19 +268,21 @@ function adaugaInIndex(idx, start, sfarsit, vazute) {
   for (let i = start; i < sfarsit; i++) {
     const el = lista[i];
     if (!el) continue;
-    const n = normalizeaza(el.n != null ? el.n : el.nume);
-    if (!n) continue;
+    const simplu = normalizeaza(el.n != null ? el.n : el.nume);
+    if (!simplu) continue;
+    const n = unesteCompuseInNume(simplu); // FIX CAUTARE-GENERICE-01
+    const gen = esteGeneric(el, simplu) ? 1 : 0; // FIX CAUTARE-GENERICE-01 (înainte: doar fără cod de bare)
     // Același nume simplificat de două ori: rămâne primul, cu o excepție — dacă primul e un produs
     // de magazin și al doilea e generic, rămâne cel generic.
     const existent = vazute.get(n);
     if (existent !== undefined) {
-      if (!idx.generic[existent] && !el.barcode) { idx.poz[existent] = i; idx.generic[existent] = 1; }
+      if (!idx.generic[existent] && gen) { idx.poz[existent] = i; idx.generic[existent] = 1; }
       continue;
     }
     vazute.set(n, idx.nume.length);
     idx.nume.push(" " + n);
     idx.poz.push(i);
-    idx.generic.push(el.barcode ? 0 : 1);
+    idx.generic.push(gen);
   }
 }
 
@@ -196,9 +344,10 @@ function construiesteIndexTreptat(lista, { bucata = 1500, pauza } = {}) {
 // ── 4. Căutarea ─────────────────────────────────────────────────────
 
 function pregatesteInterogare(text) {
-  const q = normalizeaza(text);
-  if (!q) return null;
-  const cuvinte = q.split(" ");
+  const simplu = normalizeaza(text);
+  if (!simplu) return null;
+  const cuvinte = unesteCompuseInCuvinte(simplu.split(" ")); // FIX CAUTARE-GENERICE-01
+  const q = cuvinte.join(" ");
   const var_ = cuvinte.map(variante);
   return {
     q,
@@ -246,6 +395,9 @@ function cheieOrdine(idx, k, interogare) {
     }
     if (!t) t = 5;
   }
+  // FIX CAUTARE-GENERICE-01: un produs de magazin cu numele exact („Ulei de Masline”, cu cod)
+  // nu mai trece înaintea genericelor („Ulei de măsline rafinat”); coboară în treapta 2.
+  if (t === 1 && !idx.generic[k]) t = 2;
   return ((t * 2 + (alt ? 1 : 0)) * 2 + (idx.generic[k] ? 0 : 1)) * 1000 + Math.min(nume.length, 999);
 }
 
@@ -343,7 +495,8 @@ function formaAfisata(corectat, rezultate) {
  * @param {string} text
  * @param {object} [opt]
  * @param {Function} [opt.nume] - numele de căutat al unui element (implicit e.n)
- * @param {Function} [opt.generic] - true dacă elementul e generic (implicit: fără e.barcode)
+ * @param {Function} [opt.generic] - false dacă elementul are cod de bare (implicit: fără e.barcode);
+ *   peste el se aplică și regula numelui din esteGeneric (marcă, cantitate ambalată)
  * @param {number} [opt.limita=Infinity]
  * @param {boolean} [opt.sugestii=true]
  * @returns {{ elemente: Array, total: number, sugestie: string|null, sugestieAfisata: string|null, gol: boolean }}
@@ -458,8 +611,59 @@ function corecteaza(surse, interogare) {
   return schimbat ? noi.join(" ") : null;
 }
 
+// ── 6. Candidați pentru un nume scris liber ─────────────────────────
+// FIX CAUTARE-GENERICE-01 (cerut de Dorel, 26 nov 2026: „aceeași căutare peste tot, inclusiv în
+// analizarea listei”). Pentru numele care nu sunt tastate în casetă, ci vin dintr-o listă lipită
+// („120 g piept de curcan gătit”) sau din rețete (unificarea din NutriAdmin): ACEEAȘI căutare,
+// cu două ajutoare, ambele vizibile în `cautat`:
+//  1. cuvintele de umplutură („o”, „mică”, „de”, „cu”) se scot înainte;
+//  2. dacă nu ies destui candidați pe toate cuvintele, se caută din nou fără ultimul cuvânt
+//     („piept curcan gătit” → „piept curcan”), până la primul. Potrivirile pe tot numele rămân
+//     primele, în ordinea căutării obișnuite.
+// Dacă nu iese nimic nici pe primul cuvânt: „Poate ai vrut:”, ca în casetă.
+const UMPLUTURA = new Set([
+  "o", "un", "de", "niste", "cateva", "mic", "mica", "mici", "mare", "mari", "mediu", "medie",
+  "sau", "si", "cu", "la", "in", "pentru", "din", "fara", "dupa", "peste", "intre", "prin", "pe",
+]);
+
+/**
+ * @param {object[]} lista - elemente cu `n` (și opțional `barcode`), ca în catalog
+ * @param {string} text - numele scris liber (fără cantitate)
+ * @param {object} [opt]
+ * @param {number} [opt.limita=15]
+ * @returns {{ elemente: object[], complet: string, cautat: string[], sugestie: string|null }}
+ *   `complet`: numele fără cuvintele de umplutură (ce s-a căutat întâi).
+ *   `cautat`: textele căutate care au adus candidați, în ordine (primul = tot numele, dacă a găsit).
+ */
+function candidatiPentruNume(lista, text, opt = {}) {
+  const limita = opt.limita == null ? 15 : opt.limita;
+  const cuvinte = normalizeaza(text).split(" ").filter((w) => w && !UMPLUTURA.has(w));
+  const elemente = [];
+  const vazute = new Set();
+  const cautat = [];
+  for (let k = cuvinte.length; k >= 1 && elemente.length < limita; k--) {
+    const t = cuvinte.slice(0, k).join(" ");
+    const r = cauta([{ lista }], t, { limita, sugestii: false });
+    let adaugate = 0;
+    for (let j = 0; j < r.rezultate.length && elemente.length < limita; j++) {
+      const el = r.rezultate[j].element;
+      if (vazute.has(el)) continue;
+      vazute.add(el); elemente.push(el); adaugate++;
+    }
+    if (adaugate) cautat.push(t);
+  }
+  let sugestie = null;
+  if (!elemente.length && cuvinte.length) {
+    const r = cauta([{ lista }], cuvinte.join(" "), { limita });
+    r.rezultate.forEach((x) => elemente.push(x.element));
+    sugestie = r.sugestie || null;
+    if (sugestie) cautat.push(sugestie);
+  }
+  return { elemente, complet: cuvinte.join(" "), cautat, sugestie };
+}
+
 // Doar pentru teste.
 const _intern = { treapta, distanta, pregatesteInterogare };
 
-window.NutriROCautare = { normalizeaza, variante, obtineIndex, indexGata, construiesteIndexTreptat, cauta, formaAfisata, cautaInElemente };
+window.NutriROCautare = { normalizeaza, variante, esteGeneric, obtineIndex, indexGata, construiesteIndexTreptat, cauta, formaAfisata, cautaInElemente, candidatiPentruNume };
 })();
