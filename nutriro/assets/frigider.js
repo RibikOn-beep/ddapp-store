@@ -2,7 +2,8 @@
    Omul alege din alimentele NutriRO ce are în frigider; rețetele de pe site apar în ordinea ingredientelor care îi
    mai lipsesc: întâi cele la care nu-i lipsește nimic, apoi cele cu 1, 2, 3… În fiecare grupă, întâi rețetele din
    care ai deja partea cea mai mare, la gramaj. O rețetă apare doar dacă ai măcar unul dintre ingredientele ei
-   principale (cele mai grele) și măcar un aliment din frigider.
+   principale (cele mai grele) și măcar un aliment din frigider. Ingredientele sub 3% din greutatea rețetei (condimente,
+   ulei, usturoi), afară de cele din numele ei, nu se numără ca lipsă: apar la „Mai trebuie puțin” (Dorel, 26 nov 2026).
    Datele (retete/frigider-date.json) se refac la fiecare „Pregătește site-ul” (_unelte/frigider.py).
    Frigiderul și cămara se țin doar în browser (localStorage „nutriro-frigider”): nimic nu pleacă nicăieri. */
 (function () {
@@ -74,17 +75,18 @@
 
   // ── potrivirea unei rețete ───────────────────────────────────
   function evalueaza(r, fr, cam) {
-    var total = 0, am = 0, ai = [], lipsa = [], din = [], princ = false, folosesteFrigider = false;
+    var total = 0, am = 0, ai = [], lipsa = [], din = [], putin = [], princ = false, folosesteFrigider = false;
     r[6].forEach(function (x) {
       var f = x[0], g = x[1];
       if (MEREU[f]) return;
       total += g;
-      if (areFam(fr, f)) { am += g; ai.push(x); folosesteFrigider = true; if (x[2]) princ = true; }
-      else if (areFam(cam, f)) { am += g; din.push(x); if (x[2]) princ = true; }
+      if (areFam(fr, f)) { am += g; ai.push(x); folosesteFrigider = true; if (x[2] === 1) princ = true; }
+      else if (areFam(cam, f)) { am += g; din.push(x); if (x[2] === 1) princ = true; }
+      else if (x[2] === 2) putin.push(x);  // sub 3% din rețetă și nu e în numele ei: nu se numără ca lipsă
       else lipsa.push(x);
     });
     if (!folosesteFrigider || !princ) return null;
-    return { r: r, proc: total ? am / total : 0, ai: ai, lipsa: lipsa, din: din };
+    return { r: r, proc: total ? am / total : 0, ai: ai, lipsa: lipsa, din: din, putin: putin };
   }
   function trecFiltrele(r) {
     if (filtre.post && r[5].indexOf('s') < 0) return false;
@@ -173,12 +175,14 @@
     }).join(' · ');
     var lipsa = e.lipsa.map(function (x) { return esc(mic(nume(x))); }).join(', ');
     var din = e.din.map(function (x) { return esc(mic(nume(x))); }).join(', ');
+    var putin = e.putin.map(function (x) { return esc(mic(nume(x))); }).join(', ');
     var p = Math.round(e.proc * 100);
     return '<li class="fr-card"><div class="fr-kc"><b>' + r[2] + '</b><span>kcal/porție</span></div><div class="fr-tx">' +
       '<h3><a href="' + esc(r[0]) + '.html">' + esc(r[1]) + '</a></h3>' +
       '<p class="fr-meta">' + esc(meta.join(' · ')) + '</p>' +
       '<p class="fr-ai"><b>Ai deja:</b> ' + ai + '</p>' +
       (lipsa ? '<p class="fr-lipsa"><b>Îți mai trebuie:</b> ' + lipsa + '</p>' : '') +
+      (putin ? '<p class="fr-din">Mai trebuie puțin: ' + putin + '</p>' : '') +
       (din ? '<p class="fr-din">Din cămară: ' + din + '</p>' : '') +
       '<div class="fr-bara" aria-hidden="true"><i style="width:' + p + '%"></i></div>' +
       '<span class="fr-proc">Ai ' + p + '% din rețetă, la gramaj</span></div></li>';
@@ -206,7 +210,7 @@
     var toate = potrivite(false), cuFiltre = potrivite(true), fr = familiiFrigider();
     var acum = toate.filter(function (e) { return !e.lipsa.length; }).length;
     var unul = toate.filter(function (e) { return e.lipsa.length === 1; }).length;
-    rez.innerHTML = '<p>' + (revenire ? 'Bine ai revenit. ' : '') + 'Cu ce ai, poți găti acum <b>' + nr(acum, 'rețetă', 'rețete') + '</b>.</p>' +
+    rez.innerHTML = '<p>' + (revenire ? 'Bine ai revenit. ' : '') + (acum ? 'Cu ce ai, poți găti acum <b>' + nr(acum, 'rețetă', 'rețete') + '</b>.' : 'Încă nu ai tot ce trebuie pentru o rețetă întreagă.') + '</p>' +
       '<p>' + (unul ? 'La încă ' + nr(unul, 'rețetă', 'rețete') + ' îți lipsește un singur ingredient. ' : '') +
       'Rețetele sunt în ordinea ingredientelor care îți lipsesc, de la cele mai puține.</p>';
     var html = '';
