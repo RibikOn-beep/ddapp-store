@@ -239,11 +239,18 @@ function areCantitateAmbalata(original) {
 
 /**
  * Alimentul e generic: fără cod de bare, fără cantitate ambalată și fără marcă în nume.
- * @param {object} el - elementul din catalog (`n` sau `nume`, opțional `barcode`)
+ * FIX GENERIC-CONFIRMAT-01 (cerut de Dorel, 27 nov 2026: „nu ștergem codul de bare… lasă codul
+ * acolo chiar dacă ștergem marca”): un aliment cu `genericConfirmat: true` e generic orice ar fi,
+ * deci păstrează codul de bare pentru scanarea în magazin. Bifa o pune Dorel în NutriAdmin
+ * (fereastra ingredientului sau „⭐ Fă generic”). Câștigă înaintea codului de bare și a regulii
+ * numelui (marcă, cantitate ambalată).
+ * @param {object} el - elementul din catalog (`n` sau `nume`, opțional `barcode`, `genericConfirmat`)
  * @param {string} [numeSimplificat] - normalizeaza(nume), dacă e deja calculat
  */
 function esteGeneric(el, numeSimplificat) {
-  if (!el || el.barcode) return false;
+  if (!el) return false;
+  if (el.genericConfirmat === true) return true; // FIX GENERIC-CONFIRMAT-01
+  if (el.barcode) return false;
   const original = String(el.n != null ? el.n : el.nume != null ? el.nume : "");
   const n = numeSimplificat != null ? numeSimplificat : normalizeaza(original);
   return !areCantitateAmbalata(original) && !areMarca(original, n);
@@ -580,6 +587,8 @@ function formaAfisata(corectat, rezultate) {
  * @param {Function} [opt.nume] - numele de căutat al unui element (implicit e.n)
  * @param {Function} [opt.generic] - false dacă elementul are cod de bare (implicit: fără e.barcode);
  *   peste el se aplică și regula numelui din esteGeneric (marcă, cantitate ambalată)
+ * @param {Function} [opt.confirmat] - true dacă elementul e „generic confirmat” (implicit:
+ *   e.genericConfirmat === true); câștigă înaintea lui opt.generic — FIX GENERIC-CONFIRMAT-01
  * @param {number} [opt.limita=Infinity]
  * @param {boolean} [opt.sugestii=true]
  * @returns {{ elemente: Array, total: number, sugestie: string|null, sugestieAfisata: string|null, gol: boolean }}
@@ -587,7 +596,10 @@ function formaAfisata(corectat, rezultate) {
 function cautaInElemente(elemente, text, opt = {}) {
   const numeDe = opt.nume || ((e) => (e && e.n != null ? e.n : ""));
   const genericDe = opt.generic || ((e) => !(e && e.barcode));
-  const lista = (elemente || []).map((e) => ({ n: numeDe(e), barcode: genericDe(e) ? undefined : 1, _e: e }));
+  const confirmatDe = opt.confirmat || ((e) => !!(e && e.genericConfirmat === true)); // FIX GENERIC-CONFIRMAT-01
+  const lista = (elemente || []).map((e) => ({
+    n: numeDe(e), barcode: genericDe(e) ? undefined : 1, genericConfirmat: confirmatDe(e) ? true : undefined, _e: e,
+  }));
   const r = cauta([{ lista }], text, { limita: opt.limita == null ? Infinity : opt.limita, sugestii: opt.sugestii });
   return {
     elemente: r.rezultate.map((x) => x.element._e),
@@ -716,7 +728,7 @@ const UMPLUTURA = new Set([
 ]);
 
 /**
- * @param {object[]} lista - elemente cu `n` (și opțional `barcode`), ca în catalog
+ * @param {object[]} lista - elemente cu `n` (și opțional `barcode`, `genericConfirmat`), ca în catalog
  * @param {string} text - numele scris liber (fără cantitate)
  * @param {object} [opt]
  * @param {number} [opt.limita=15]
